@@ -1,0 +1,78 @@
+html,
+body {
+
+height:100%;
+}
+
+img {
+    max-width: 100%;
+
+}
+.usuario {
+  background-color: blue;
+  vertical-align: middle;
+  width:40%;
+  margin-top:100px;
+  margin-left: 50px;
+  text-align:center;
+
+}
+.headerbox {
+    height: 200px;
+    width: 200%;
+    background-color:white;
+
+}
+
+
+#header-container{
+    padding-left: 140px;
+    padding-right: 140px;
+}
+
+
+
+.headerdiv {
+    height: 200px;
+    width:200%;
+    padding-top: 0px;
+    padding-bottom: 17px;
+    padding-left: 200px;
+    padding-right: 65px;
+}
+
+.headerleft {
+    height: 146px;
+    min-width:400px;
+    width: 50%;
+    float: left;
+    padding-right: 200px;
+    background-position: center ;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.header-right {
+    width: 40%;
+    height: 146px;
+    float: right;
+    border-left: 2px solid #c5c6c8;
+    padding-left: 50px;
+}
+
+.headerright1
+{
+    height: 40px;
+    width: 100%;
+    text-align: justify;
+    vertical-align: bottom;
+    padding-top: 7px;
+}
+
+.headerright1 > a {
+    width: 34px;
+    display: inline-block;
+    vertical-align: bottom;
+    zoom: 1;
+}
