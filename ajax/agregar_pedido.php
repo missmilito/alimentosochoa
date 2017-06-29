@@ -1,11 +1,10 @@
 <?php
-	/*-------------------------
-	Autor: Obed Alvarado
-	Web: obedalvarado.pw
-	Mail: info@obedalvarado.pw
-	---------------------------*/
+
+
 session_start();
+
 $session_id= session_id();
+
 if (isset($_POST['id'])){$id=$_POST['id'];}
 if (isset($_POST['cantidad'])){$cantidad=$_POST['cantidad'];}
 if (isset($_POST['precio_venta'])){$precio_venta=$_POST['precio_venta'];}
@@ -17,7 +16,7 @@ if (isset($_POST['precio_venta'])){$precio_venta=$_POST['precio_venta'];}
 if (!empty($id) and !empty($cantidad) and !empty($precio_venta))
 {
 
-$insert_tmp=mysqli_query($con, "INSERT INTO tmp (id_producto,cantidad_tmp,precio_tmp) VALUES ('$id','$cantidad','$precio_venta')");
+$insert_tmp=mysqli_query($con, "INSERT INTO tmp (id_producto,cantidad_tmp, precio_tmp, session_id) VALUES ('$id','$cantidad','$precio_venta', '$session_id')");
 
 }
 
@@ -40,7 +39,7 @@ $delete=mysqli_query($con, "DELETE FROM tmp WHERE id_tmp='".$id."'");
 </tr>
 <?php
 	$sumador_total=0;
-	$sql=mysqli_query($con, "select * from tblproducto, tmp where tblproducto.id=tmp.id_producto");
+	$sql=mysqli_query($con, "select * from tblproducto, tmp where tblproducto.id=tmp.id_producto and tmp.session_id='".$session_id."'");
 	while ($row=mysqli_fetch_array($sql))
 	{
 	$id_tmp=$row["id_tmp"];
@@ -68,7 +67,7 @@ $delete=mysqli_query($con, "DELETE FROM tmp WHERE id_tmp='".$id."'");
 
 ?>
 <tr>
-	<td colspan=4><span class="pull-right">TOTAL $</span></td>
+	<td colspan=4><span class="pull-right">TOTAL BsF</span></td>
 	<td><span class="pull-right"><?php echo number_format($sumador_total,2);?></span></td>
 	<td></td>
 </tr>

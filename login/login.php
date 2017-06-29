@@ -1,6 +1,7 @@
 <?php
 require_once ("../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
 require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
+
 session_start();
 
 if(!empty($_POST))
@@ -15,7 +16,9 @@ if(!empty($_POST))
 //var_dump($_SESSION);
 //die();
 if ($counter==1){
-   $sql2 =("SELECT nomcliente, emailcli, apellidocli FROM tblcliente  where id='$idcliente' ");
+  $_SESSION['idcliente']=$idcliente;
+  $_SESSION["autentificado"]= "SI";
+   $sql2 =("SELECT a.nomcliente, a.emailcli, a.apellidocli, b.nomEmp, b.diremp FROM tblcliente a, tblemprecli b where a.id='$idcliente' and b.idcliente='$idcliente'");
     $result2 =$con -> query($sql2);
      $valida=$result2->num_rows;
 
@@ -23,6 +26,9 @@ if ($counter==1){
          $datosUsu = $result2->fetch_row();
          $_SESSION['nombreusu'] = $datosUsu[0];
          $_SESSION['emailusu'] = $datosUsu[1];
+         $_SESSION['apeusu'] = $datosUsu[2];
+         $_SESSION['empusu'] = $datosUsu[3];
+         $_SESSION['empdir'] = $datosUsu[4];
          header("location: ../perfilusuario.php");
      }
       else {

@@ -1,8 +1,8 @@
-
 <?php
 
-session_start();
+include('security.php');
 ?>
+
 
 <!DOCTYPE html>
 
@@ -24,109 +24,10 @@ session_start();
 
   </head>
   <body>
-    <!--inicio navbar logged in -->
-    <div class="navbar navbar-default navbar-fixed-top"  role="navigation">
-      <!--boton toggle menu -->
-        <!--comienzo del navbar-->
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="#menu-toggle" class="navbar-brand" id="menu-toggle">Menú</a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-toggle navbar-left ">
-                    <span class="icon-bar"></span>
-                </ul>
-                <ul class="nav navbar-nav navbar-right ">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="https://github.com/fontenele/bootstrap-navbar-dropdowns" target="_blank">GitHub</a></li>
-                    <li>
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu 2 <b class="caret"></b></a>
 
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action [Menu 2.1]</a></li>
-                            <li><a href="#">Another action [Menu 2.1]</a></li>
-                            <li><a href="#">Something else here [Menu 2.1]</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link [Menu 2.1]</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">One more separated link [Menu 2.1]</a></li>
-                            <li>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown [Menu 2.1] <b class="caret"></b></a>
-
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Action [Menu 2.2]</a></li>
-                                    <li><a href="#">Another action [Menu 2.2]</a></li>
-                                    <li><a href="#">Something else here [Menu 2.2]</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link [Menu 2.2]</a></li>
-                                    <li class="divider"></li>
-                                    <li>
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown [Menu 2.2] <b class="caret"></b></a>
-
-                                        <ul class="dropdown-menu ">
-                                            <li>
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown [Menu 2.3] <b class="caret"></b></a>
-
-                                                <ul class="dropdown-menu">
-                                                    <li><a href="#">Action [Menu 2.4]</a></li>
-                                                    <li><a href="#">Another action [Menu 2.4]</a></li>
-                                                    <li><a href="#">Something else here [Menu 2.4]</a></li>
-                                                    <li class="divider"></li>
-                                                    <li><a href="#">Separated link [Menu 2.4]</a></li>
-                                                    <li class="divider"></li>
-                                                    <li><a href="#">One more separated link [Menu 2.4]</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div><!--/.nav-collapse -->
-        </div>
-    </div>
-        <!--fin navbar logged in -->
-  <div id="wrapper">
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Start Bootstrap
-                    </a>
-                </li>
-                <li>
-                    <a href="#">Dashboard</a>
-                </li>
-                <li>
-                    <a href="#">Shortcuts</a>
-                </li>
-                <li>
-                    <a href="#">Overview</a>
-                </li>
-                <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /#sidebar-wrapper -->
+    <!--Theme -->
+<div><?php include('theme/theme.php') ?></div>
+    <!--Theme-->
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
@@ -139,32 +40,24 @@ session_start();
                       <div class="container">
 
       <div class="row">
-      <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
-<p class=" text-info">May 05,2014,03:00 pm </p>
+      <div style="margin-top: 50px" class="col-md-5  toppad  pull-right col-md-offset-3 ">
+
+        <?php
+$hoy = date("d/m/Y");
+?>
+<td><p class="text-info">Maracay, <?= $hoy; ?></p></td>
       </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
 
 
           <div class="panel panel-info">
             <div class="panel-heading">
-              <h3 class="panel-title">Sheena Shrestha</h3>
+              <h3 class="panel-title">Perfil de usuario</h3>
             </div>
             <div class="panel-body">
               <div class="row">
-                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://babyinfoforyou.com/wp-content/uploads/2014/10/avatar-300x300.png" class="img-circle img-responsive"> </div>
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="images/userpic.jpg" class="img-circle img-responsive"> </div>
 
-                <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
-                  <dl>
-                    <dt>DEPARTMENT:</dt>
-                    <dd>Administrator</dd>
-                    <dt>HIRE DATE</dt>
-                    <dd>11/12/2013</dd>
-                    <dt>DATE OF BIRTH</dt>
-                       <dd>11/12/2013</dd>
-                    <dt>GENDER</dt>
-                    <dd>Male</dd>
-                  </dl>
-                </div>-->
                 <div class=" col-md-9 col-lg-9 ">
                   <table class="table table-user-information">
                     <tbody>
@@ -175,7 +68,7 @@ session_start();
                         			<div class="login">
 
                         			<div class="clear"> </div>
-                        				<h4><a href="logout.php"> Cerrar sesión</a></h4>
+
                         			</div>
 
 
@@ -183,29 +76,25 @@ session_start();
                         	</div>
                         </div>
                         <td>Nombre:</td>
-                        <td><?php echo $_SESSION['nombreusu'].' '.$_SESSION['emailusu']; ?></td>
+                        <td><?php echo $_SESSION['nombreusu'] ?></td>
                       </tr>
                       <tr>
                         <td>Email:</td>
                         <td><?php echo $_SESSION['emailusu']; ?></td>
                       </tr>
                       <tr>
-                        <td>Date of Birth</td>
-                        <td>01/24/1988</td>
+                        <td>Empresa:</td>
+                        <td><?php echo $_SESSION['empusu']; ?></td>
                       </tr>
 
                          <tr>
                              <tr>
-                        <td>Gender</td>
-                        <td>Female</td>
+                        <td>Dirección:</td>
+                        <td><?php echo $_SESSION['empdir']; ?></td>
                       </tr>
                         <tr>
                         <td>Home Address</td>
                         <td>Kathmandu,Nepal</td>
-                      </tr>
-                      <tr>
-                        <td>Email</td>
-                        <td><a href="mailto:info@support.com">info@support.com</a></td>
                       </tr>
                         <td>Phone Number</td>
                         <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)

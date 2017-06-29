@@ -6,135 +6,20 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 		<!-- css bootstrap -->
-		<link href="../../css/frontendcliente/nuevopedido/bootstrap.min.css" rel="stylesheet">
+		<link href="vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
 
-		<link href="../../css/frontendcliente/nuevopedido/styles.css" rel="stylesheet">
+		<link href="css/nuevopedido/styles.css" rel="stylesheet">
 
-		<!-- cdn bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 
 	</head>
 
 	<body>
-		<!--inicio navbar logged in -->
 
-				<div class="navbar navbar-default navbar-fixed-top   "  role="navigation">
-					<!--boton toggle menu -->
-					<ul class="nav navbar-nav navbar-left">
-						<li><a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Menú</a></li>
-					</ul>
-          <!--comienzo del navbar-->
-										<div class="container">
-
-				                <div class="navbar-header">
-
-				                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				                        <span class="sr-only">Toggle navigation</span>
-				                        <span class="icon-bar"></span>
-				                        <span class="icon-bar"></span>
-				                        <span class="icon-bar"></span>
-				                    </button>
-
-				                </div>
-				                <div class="collapse navbar-collapse">
-
-				                    <ul class="nav navbar-nav navbar-right ">
-				                        <li class="active"><a href="#">Home</a></li>
-				                        <li><a href="https://github.com/fontenele/bootstrap-navbar-dropdowns" target="_blank">GitHub</a></li>
-				                        <li>
-				                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Menu 2 <b class="caret"></b></a>
-
-				                            <ul class="dropdown-menu">
-				                                <li><a href="#">Action [Menu 2.1]</a></li>
-				                                <li><a href="#">Another action [Menu 2.1]</a></li>
-				                                <li><a href="#">Something else here [Menu 2.1]</a></li>
-				                                <li class="divider"></li>
-				                                <li><a href="#">Separated link [Menu 2.1]</a></li>
-				                                <li class="divider"></li>
-				                                <li><a href="#">One more separated link [Menu 2.1]</a></li>
-				                                <li>
-				                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown [Menu 2.1] <b class="caret"></b></a>
-
-				                                    <ul class="dropdown-menu">
-				                                        <li><a href="#">Action [Menu 2.2]</a></li>
-				                                        <li><a href="#">Another action [Menu 2.2]</a></li>
-				                                        <li><a href="#">Something else here [Menu 2.2]</a></li>
-				                                        <li class="divider"></li>
-				                                        <li><a href="#">Separated link [Menu 2.2]</a></li>
-				                                        <li class="divider"></li>
-				                                        <li>
-				                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown [Menu 2.2] <b class="caret"></b></a>
-
-				                                            <ul class="dropdown-menu ">
-				                                                <li>
-				                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown [Menu 2.3] <b class="caret"></b></a>
-
-				                                                    <ul class="dropdown-menu">
-				                                                        <li><a href="#">Action [Menu 2.4]</a></li>
-				                                                        <li><a href="#">Another action [Menu 2.4]</a></li>
-				                                                        <li><a href="#">Something else here [Menu 2.4]</a></li>
-				                                                        <li class="divider"></li>
-				                                                        <li><a href="#">Separated link [Menu 2.4]</a></li>
-				                                                        <li class="divider"></li>
-				                                                        <li><a href="#">One more separated link [Menu 2.4]</a></li>
-				                                                    </ul>
-				                                                </li>
-				                                            </ul>
-				                                        </li>
-				                                    </ul>
-				                                </li>
-				                            </ul>
-				                        </li>
-				                    </ul>
-				                </div><!--/.nav-collapse -->
-				            </div>
-				        </div>
-
-
-
-				<!--fin navbar logged in -->
-	</br>
-</br>
-
-  <div id="wrapper">
-
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Start Bootstrap
-                    </a>
-                </li>
-                <li>
-                    <a href="#">Dashboard</a>
-                </li>
-                <li>
-                    <a href="#">Shortcuts</a>
-                </li>
-                <li>
-                    <a href="#">Overview</a>
-                </li>
-                <li>
-                    <a href="#">Events</a>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                </li>
-                <li>
-                    <a href="#">Services</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <!-- /#sidebar-wrapper -->
-
+		<div><?php include('theme/theme.php') ?></div>
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <div class="container-fluid">
+            <div class="container" style="margin-top:50px" >
                 <div class="row">
                     <div class="col-lg-12">
 											<!--botón de menu toggle -->
@@ -146,21 +31,21 @@
 											<form class="form-horizontal" role="form" id="datos_pedido">
 												<div class="row">
 
-												  <div class="col-md-3">
+												  <!--<div class="col-md-3">
 												  <label for="proveedor" class="control-label">Selecciona el proveedor</label>
 													 <input class="proveedor form-control" name="proveedor" id="proveedor" value="xyz" required>
 												 </inputs>
-												  </div>
+											 </div>-->
 
-													<div class="col-md-3">
+													<!--<div class="col-md-3">
 														<label for="transporte" class="control-label">Transporte</label>
 														<input type="text" class="form-control input-sm" id="transporte" value="Terrestre" required>
-													</div>
+													</div>-->
 
-													<div class="col-md-2">
+													<!--<div class="col-md-2">
 														<label for="condiciones" class="control-label">Condiciones de pago</label>
 														<input type="text" class="form-control input-sm" id="condiciones" value="Contado" required>
-													</div>
+													</div>-->
 
 													<div class="col-md-4">
 														<label for="comentarios" class="control-label">Comentarios</label>
@@ -169,18 +54,14 @@
 
 												</div>
 
-
-
-
-
 											<hr>
 											<div class="col-md-12">
 												<div class="pull-right">
 													<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
 													 <span class="glyphicon glyphicon-plus"></span> Agregar productos
 													</button>
-													<button type="submit" class="btn btn-default">
-													  <span class="glyphicon glyphicon-print"></span> Imprimir
+													<button type="submit" class="btn btn-default " onclick="enviarpedido">
+													  <span class="glyphicon glyphicon-send "></span> Enviar pedido
 													</button>
 												</div>
 											</div>
@@ -225,6 +106,8 @@
 								<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 								<script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
 								<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+
+								<!--Gif de carga-->
 								<script>
 									$(document).ready(function(){
 										load(1);
@@ -235,10 +118,10 @@
 										var parametros={"action":"ajax","page":page,"q":q};
 										$("#loader").fadeIn('slow');
 										$.ajax({
-											url:'../../ajax/productos_pedido.php',
+											url:'ajax/productos_pedido.php',
 											data: parametros,
 											 beforeSend: function(objeto){
-											 $('#loader').html('<img src="./img/ajax-loader.gif"> Cargando...');
+											 $('#loader').html('<img src="./images/ajax-loader.gif"> Cargando...');
 										  },
 											success:function(data){
 												$(".outer_div").html(data).fadeIn('slow');
@@ -248,6 +131,8 @@
 										})
 									}
 								</script>
+
+								<!--Trayendo productos-->
 								<script>
 								function agregar (id)
 									{
@@ -265,7 +150,7 @@
 									var parametros={"id":id,"precio_venta":precio_venta,"cantidad":cantidad};
 									$.ajax({
 							        type: "POST",
-							        url: "../../ajax/agregar_pedido.php",
+							        url: "ajax/agregar_pedido.php",
 							        data: parametros,
 									 beforeSend: function(objeto){
 										$("#resultados").html("Mensaje: Cargando...");
@@ -281,7 +166,7 @@
 
 										$.ajax({
 							        type: "GET",
-							        url: "../../ajax/agregar_pedido.php",
+							        url: "ajax/agregar_pedido.php",
 							        data: "id="+id,
 									 beforeSend: function(objeto){
 										$("#resultados").html("Mensaje: Cargando...");
@@ -294,46 +179,27 @@
 									}
 
 									$("#datos_pedido").submit(function(){
-									  var proveedor = $("#proveedor").val();
-									  var transporte = $("#transporte").val();
-									  var condiciones = $("#condiciones").val();
-									  var comentarios = $("#comentarios").val();
-									  if (comentarios="ya")
+										var comentarios = $("#comentarios").val();
+										if (comentarios>0)
 									 {
-										VentanaCentrada('../../pdf/documentos/pedido_pdf.php?proveedor='+proveedor+'&transporte='+transporte+'&condiciones='+condiciones+'&comentarios='+comentarios,'Pedido','','1024','768','true');
+										 var parametros={"comentarios":comentarios};
+										 $.ajax({
+ 							        type: "POST",
+ 							        url: "ajax/enviarpedido.php",
+ 							        data: parametros,
+ 										});
 									 } else {
-										 alert("Selecciona el proveedor");
+										 alert("Escriba un comentario");
 										 return false;
 									 }
 
-								 	});
+									});
 
 								</script>
 
 
-							<script type="text/javascript">
-							$(document).ready(function() {
-							    $( ".proveedor" ).select2({
-							    ajax: {
-							        url: "../../ajax/load_proveedores.php",
-							        dataType: 'json',
-							        delay: 250,
-							        data: function (params) {
-							            return {
-							                q: params.term // search term
-							            };
-							        },
-							        processResults: function (data) {
-							            return {
-							                results: data
-							            };
-							        },
-							        cache: true
-							    },
-							    minimumInputLength: 2
-							});
-							});
-							</script>
+								</script>
+
 											<!-- nuevo pedido form-->
                     </div>
                 </div>
@@ -350,17 +216,17 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<!-- Latest compiled and minified JavaScript -->
 
-		<script type="text/javascript" src="../../js/VentanaCentrada.js"></script>
+
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
 
 		<!-- jQuery -->
-    <script src="../../js/frontendcliente/nuevopedido/jquery.js"></script>
+    <script src="js/nuevopedido/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../../js/frontendcliente/nuevopedido/bootstrap.min.js"></script>
+    <script src="vendor/bootstrap/bootstrap.min.js"></script>
 
 		<!-- Bootstrap Code JavaScript -->
-		<script src="../../js/frontendcliente/nuevopedido/scripts.js"></script>
+		<script src="js/nuevopedido/scripts.js"></script>
 
   </body>
   </html>
