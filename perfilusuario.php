@@ -16,21 +16,23 @@ include('security.php');
 
     <!-- BOOTSTRAP CORE CSS-->
 		<link href="vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <!-- CUSTOM BOOTSTRAP CSS-->
 		<link href="css/perfilusuario/styles.css" rel="stylesheet">
+    <link href="theme/style.css" rel="stylesheet">
 
 
   </head>
   <body>
 
-    <!--Theme -->
-<div><?php include('theme/theme.php') ?></div>
-    <!--Theme-->
+
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
+          <!--Theme -->
+      <div><?php include('theme/theme.php') ?></div>
+
+          <!--Theme-->
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
@@ -138,7 +140,8 @@ $hoy = date("d/m/Y");
 
   <!-- script references -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script>
+    <script src="vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="js/perfilusuario/scripts.js"></script>
+    <script src="theme/script.js"></script>
 
 </html>

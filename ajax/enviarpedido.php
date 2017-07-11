@@ -5,6 +5,7 @@
 
 		$session_id= session_id();
 		$idcliente = $_SESSION['idcliente'];
+
 		if (isset($_POST['comentarios'])){$comentarios=$_POST['comentarios'];}
 
 
@@ -16,11 +17,12 @@
 
 	date_default_timezone_set("America/Caracas");
 	$date=date("Y-m-d");
+	$convenio=date('Y-m-d', strtotime($date . " + ".$_POST['convenio']." day"));
 		$sql=mysqli_query($con, "select id from tblestadoped where EstadoPed='Pendiente'");
 		while ($row=mysqli_fetch_array($sql))
 		{
 		$idestado=$row["id"];
-		$insert_pedido=mysqli_query($con, "INSERT INTO tblpedido (id, fechaped, observped, idestadoped, idcliente) VALUES ('','$date','$comentarios','$idestado', '$idcliente')");
+		$insert_pedido=mysqli_query($con, "INSERT INTO tblpedido (id, fechaped, fechapag, observped, idestadoped, idcliente) VALUES ('','$date', '$convenio', '$comentarios','$idestado', '$idcliente')");
 		}
 
 			$sql2=mysqli_query($con, "SELECT MAX(id) AS id FROM tblpedido");

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -11,6 +12,7 @@
 		<link href="css/nuevopedido/styles.css" rel="stylesheet">
 
 
+		<link href="theme/style.css" rel="stylesheet">
 
 	</head>
 
@@ -46,7 +48,14 @@
 														<label for="condiciones" class="control-label">Condiciones de pago</label>
 														<input type="text" class="form-control input-sm" id="condiciones" value="Contado" required>
 													</div>-->
-
+													<div class="col-md-2">
+														<label for="contenido">Fecha del Credito </label>
+														<select name="convenio" id="convenio" class="form-control">
+															<option value="10"> 10 </option>
+															<option value="15"> 15 </option>
+															<option value="20"> 20 </option>
+														</select>
+													</div>
 													<div class="col-md-4">
 														<label for="comentarios" class="control-label">Comentarios</label>
 														<input type="text" class="form-control input-sm" id="comentarios" placeholder="Comentarios o instruciones especiales">
@@ -180,9 +189,11 @@
 
 									$("#datos_pedido").submit(function(){
 										var comentarios = $("#comentarios").val();
+										var convenio = $("#convenio").val();
 										if (comentarios>0)
 									 {
-										 var parametros={"comentarios":comentarios};
+										 var parametros={"comentarios":comentarios, "convenio":convenio};
+
 										 $.ajax({
  							        type: "POST",
  							        url: "ajax/enviarpedido.php",
@@ -216,7 +227,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<!-- Latest compiled and minified JavaScript -->
 
-
+		<script src="theme/script.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
 
 		<!-- jQuery -->

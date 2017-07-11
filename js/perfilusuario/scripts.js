@@ -13,11 +13,7 @@ $('body').scrollspy({ target: '#navbar' })
 
 });
 
-/* Menu toggle*/
-$("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-});
+
 
 /*nav bar with dropdwon */
 $(document).ready(function() {
@@ -66,8 +62,5 @@ $(document).ready(function() {
 
     $('[data-toggle="tooltip"]').tooltip();
 
-    $('button').click(function(e) {
-        e.preventDefault();
-        alert("This is a demo.\n :-)");
-    });
+
 });

@@ -1,4 +1,5 @@
-
+/*inicio de nuevo pedido*/
+/*fin de nuevo pedido */
 $(document).ready(function(){/* smooth scrolling for scroll to top */
 $('.scroll-top').click(function(){
   $('body,html').animate({scrollTop:0},800);
@@ -18,6 +19,7 @@ $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
 });
+
 
 /*nav bar with dropdwon */
 $(document).ready(function() {
