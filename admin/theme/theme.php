@@ -1,13 +1,11 @@
-<head>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-
-
-</head>
-<div class="navbar navbar-default navbar-fixed-top"  role="navigation">
+<?php include('security.php') ?>
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse"  role="navigation">
   <!--boton toggle menu -->
     <!--comienzo del navbar-->
     <div class="container">
         <div class="navbar-header">
+
+
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
@@ -15,21 +13,25 @@
                 <span class="icon-bar"></span>
             </button>
 
+  <a target="_blank" href="#menu-toggle" class="btn navbar-brand"  id="menu-toggle"><span class="glyphicon glyphicon-list-alt "></span></a>
         </div>
+
+
+
         <div class="collapse navbar-collapse">
-            <ul class="navbar-toggle navbar-left ">
-                <span class="icon-bar"></span>
-            </ul>
-            <ul class="nav navbar-nav navbar-right ">
+
+
+
+            <ul class="nav navbar-nav navbar-right  ">
 
                 <li>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user">Gerente</i><b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"><?php echo $_SESSION['puesto'] ?></i><b class="caret"></b></a>
 
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu navbar-inverse">
 
-                        <li><a href="logout.php">Cerrar sesión.</a></li>
+                        <li ><a   href="#">Perfil.</a></li>
                         <li class="divider"></li>
-                        <li><a href="#">Another action [Menu 2.1]</a></li>
+                        <li><a   href="../login/logout.php">Cerrar Sesión.</a></li>
 
 
 

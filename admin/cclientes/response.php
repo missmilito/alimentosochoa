@@ -55,30 +55,33 @@
         $start_from = ($page-1) * $rp;
 
 		$sql = $sqlRec = $sqlTot = $where = '';
-
+$sql2 = $sqlRec2 = $sqlTot2 = $where = '';
 		if( !empty($params['searchPhrase']) ) {
 			$where .=" WHERE ";
-			$where .=" ( nomcliente LIKE '".$params['searchPhrase']."%' ";
-			$where .=" OR apellidocli LIKE '".$params['searchPhrase']."%' ";
+			$where .=" ( a.nomcliente LIKE '".$params['searchPhrase']."%' ";
+			$where .=" OR a.apellidocli LIKE '".$params['searchPhrase']."%' ";
 
-			$where .=" OR emailcli LIKE '".$params['searchPhrase']."%' )";
+			$where .=" OR a.emailcli LIKE '".$params['searchPhrase']."%' )";
 	   }
 	   if( !empty($params['sort']) ) {
 			$where .=" ORDER By ".key($params['sort']) .' '.current($params['sort'])." ";
 		}
 	   // getting total number records without any search
-		$sql = "SELECT a.id, a.nomcliente, a.apellidocli, a.emailcli, b.statususer FROM tblcliente a, tblusuario b where b.id=a.id";
+		$sql = "SELECT a.id, a.nomcliente, a.apellidocli, a.telefcli, a.emailcli, c.nomstatus FROM tblcliente a, tblusuario b, tblstatus c where a.id=b.id and b.idstatus=c.id";
+$sql2 = "SELECT nomcliente from tblcliente";
 		$sqlTot .= $sql;
 		$sqlRec .= $sql;
+		$sqlTot2 .= $sql2;
+		$sqlRec2 .= $sql2;
 
 		//concatenate search sql if value exist
 		if(isset($where) && $where != '') {
 
-			$sqlTot .= $where;
-			$sqlRec .= $where;
+			$sqlTot2 .= $where;
+			$sqlRec2 .= $where;
 		}
 		if ($rp!=-1)
-		$sqlRec .= " LIMIT ". $start_from .",".$rp;
+		$sqlRec2 .= " LIMIT ". $start_from .",".$rp;
 
 
 		$qtot = mysqli_query($this->conn, $sqlTot) or die("error to fetch tot employees data");
@@ -97,7 +100,7 @@
 
 		return $json_data;
 	}
-	
+
 
 	function updateEmployee($params) {
 		$data = array();

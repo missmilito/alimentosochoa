@@ -3,6 +3,7 @@
 	//include connection file
 	include_once("connection.php");
 
+
 	$db = new dbObj();
 	$connString =  $db->getConnstring();
 
@@ -68,7 +69,8 @@
 			$where .=" ORDER By ".key($params['sort']) .' '.current($params['sort'])." ";
 		}
 	   // getting total number records without any search
-		$sql = "select a.id as idPedido, CONCAT(f.nomcliente, ' ', f.apellidocli) as cliente, a.fechaped, a.fechapag, b.cantidadProd, c.nomprod, b.ValorTotal, d.nomprov, datediff(a.fechapag, CURDATE()) dias, e.EstadoPed from tblpedido a, tbldetallepedido b, tblproducto c, tblproveedores d, tblestadoped e, tblcliente f where a.id = b.idPedido and b.idProducto = c.id and c.idproveedor = d.id and e.id = a.idestadoped and f.id = a.idcliente";
+		$sql = "select a.id as idPedido, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, DATE_FORMAT(a.fechaped, '%Y/%m/%d') as fechanew, a.fechapag, datediff(a.fechapag, CURDATE()) dias, c.EstadoPed from tblpedido a,  tblestadopag b, tblestadoped c, tblcliente d  where  c.id = a.idestadoped and d.id = a.idcliente and a.idestadopag = '1'";
+
 		$sqlTot .= $sql;
 		$sqlRec .= $sql;
 
@@ -102,7 +104,7 @@
 	function updateClients($params) {
 		$data = array();
 		//print_R($_POST);die;
-		$sql = "Update `tblpedido` set idestadoped = '" . $params["edit_name"] . "' WHERE id='".$_POST["edit_id"]."'";
+		$sql = "Update `tblpedido` set idestadopag = '" . $params["edit_name"] . "', fechapag = '" . $params["edit_fecha"] . "' WHERE id='".$_POST["edit_id"]."'";
 
 		echo $result = mysqli_query($this->conn, $sql) or die("error to update employee data");
 	}

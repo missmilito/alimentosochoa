@@ -43,7 +43,7 @@
 	function insertClients($params) {
 		$data = array();;
 		$sql = "INSERT INTO tblcliente (id, nomcliente, apellidocli, emailcli) VALUES('" . $params["id"] . "', '" . $params["name"] . "', '" . $params["apellido"] . "','" . $params["email"] . "');  ";
-
+		mysql_query ("SET NAMES 'utf8'");
 		echo $result = mysqli_query($this->conn, $sql) or die("error to insert client data");
 
 	}
@@ -53,37 +53,48 @@
 		$rp = isset($params['rowCount']) ? $params['rowCount'] : 10;
 
 		if (isset($params['current'])) { $page  = $params['current']; } else { $page=1; };
-        $start_from = ($page-1) * $rp;
+				$start_from = ($page-1) * $rp;
 
-		$sql = $sqlRec = $sqlTot = $where = '';
+		$sql = $sqlRec = $sqlTot = $where = "";
 
-		if( !empty($params['searchPhrase']) ) {
-			$where .=" WHERE ";
-			$where .=" ( id LIKE '".$params['searchPhrase']."%' ";
-			$where .=" OR nomcliente LIKE '".$params['searchPhrase']."%' ";
+		if( $params['searchPhrase'] !="" ) {
+			$where.="WHERE ";
+			$where .=" a.idproveedor = b.id and a.idsubcat = c.id  and a.status=d.id and (a.nomprod LIKE '".$params['searchPhrase']."%' ";
+			$where .=" OR a.preciounit LIKE '".$params['searchPhrase']."%' ";
+			$where .=" OR c.nomsub LIKE '".$params['searchPhrase']."%' ";
+			$where .=" OR d.nomstatus LIKE '".$params['searchPhrase']."%' )";
 
-			$where .=" OR apellidocli LIKE '".$params['searchPhrase']."%' )";
-			$where .=" OR emailcli LIKE '".$params['searchPhrase']."%' )";
-	   }
-	   if( !empty($params['sort']) ) {
+		 if( !empty($params['sort']) ) {
 			$where .=" ORDER By ".key($params['sort']) .' '.current($params['sort'])." ";
+
+			$sql = "select a.id, a.preciounit, a.descprod, a.nomprod, b.nomprov, c.nomsub, d.nomstatus from tblproducto a, tblproveedores b, tblsubcategoria c, tblstatus d ";
+
+			$sqlTot = $sql;
+			$sqlRec = $sql;
+		 }
+		 if(isset($where) && $where != '') {
+
+			 $sqlTot= "select a.id, a.preciounit, a.descprod, a.nomprod, b.nomprov, c.nomsub, d.nomstatus from tblproducto a, tblproveedores b, tblsubcategoria c, tblstatus d   $where";
+			 $sqlRec= "select a.id, a.preciounit, a.descprod, a.nomprod, b.nomprov, c.nomsub, d.nomstatus from tblproducto a, tblproveedores b, tblsubcategoria c, tblstatus d   $where";
+		 }
+		 if ($rp!=-1)
+		 $sqlRec .= " LIMIT ". $start_from .",".$rp;
+
+	 }
+		else {
+
+			$sql = "select a.id, a.preciounit, a.descprod, a.nomprod, b.nomprov, c.nomsub, d.nomstatus from tblproducto a, tblproveedores b, tblsubcategoria c, tblstatus d where a.idproveedor = b.id and a.idsubcat = c.id  and a.status=d.id";
+
+			$sqlTot .= $sql;
+			$sqlRec .= $sql;
+			//concatenate search sql if value exist
+			if ($rp!=-1)
+			$sqlRec .= " LIMIT ". $start_from .",".$rp;
 		}
-	   // getting total number records without any search
-		$sql = "select a.id, a.preciounit, a.descprod, a.nomprod, b.nomprov, c.nomsub from tblproducto a, tblproveedores b, tblsubcategoria c where a.idproveedor = b.id and a.idsubcat = c.id";
-		$sqlTot .= $sql;
-		$sqlRec .= $sql;
-  
+		 // getting total number records without any search
+		 //concatenate search sql if value exist
 
-		//concatenate search sql if value exist
-		if(isset($where) && $where != '') {
-
-			$sqlTot .= $where;
-			$sqlRec .= $where;
-		}
-		if ($rp!=-1)
-		$sqlRec .= " LIMIT ". $start_from .",".$rp;
-
-
+		 mysql_query ("SET NAMES 'utf8'");
 		$qtot = mysqli_query($this->conn, $sqlTot) or die("error to fetch tot employees data");
 		$queryRecords = mysqli_query($this->conn, $sqlRec) or die("error to fetch employees data");
 
