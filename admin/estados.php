@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <link rel="icon" href="../images/headermini.png" type="image/png" sizes="16x16">
+    <title>Consulta estados.</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-		<meta charset="utf-8">
-
     <!--tabla-->
     <link rel="stylesheet" href="dist/bootstrap.min.css" type="text/css" media="all">
     <link href="dist/jquery.bootgrid.css" rel="stylesheet" />
@@ -17,49 +16,58 @@
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.js">
     <link rel="stylesheet" href="vendor/jquery/jquery-3.2.1.min.js">
     <link rel="stylesheet" href="theme/styles.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-
+    <style media="screen">
+      ul.nav #menu:hover,  #menu:focus, #menu:active { color: black !important; };
+      usuario:default{color: white !important};
+    }
+    </style>
   </head>
   <body>
     <div><?php include('theme/theme.php') ?></div>
     <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
 
-       <!-- Sidebar -->
-       <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
 
-           <ul class="sidebar-nav">
+                <li class="sidebar-brand" >
+                    <a style="text-align: center">
+                        MODULOS
+                    </a>
+                </li>
 
-               <li class="sidebar-brand">
-                   <a href="#">
-                       Start Bootstrap
-                   </a>
+               <li class="dropdown">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-pencil 2x"> REGISTRO</i><span class="caret"></span></a>
+                 <ul class="dropdown-menu2 dropdown" >
+
+                   <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios<span class="caret"></span></a>
+                     <ul class="dropdown-menu" >
+                       <li><a href="#">Admin.</a></li>
+                       <li><a href="#">Clientes.</a></li>
+                     </ul>
+                   </li>
+                   <li><a href="#">Proveedores.</a></li>
+                   <li><a href="#">Categorias/SubCat.</a></li>
+                   <li><a href="#">Productos.</a></li>
+                   <li><a href="#">Pedido.</a></li>
+
+                 </ul>
                </li>
-               <li>
-                   <a href="#">Dashboard</a>
+               <li class="dropdown">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
+                 <ul class="dropdown-menu2 dropdown" >
+                   <li><a href="#">Clientes.</a></li>
+                   <li><a href="#">Pedidos.</a></li>
+                   <li><a href="#">Pagos.</a></li>
+                 </ul>
                </li>
-               <li>
-                   <a href="#">Shortcuts</a>
-               </li>
-               <li>
-                   <a href="#">Overview</a>
-               </li>
-               <li>
-                   <a href="#">Events</a>
-               </li>
-               <li>
-                   <a href="#">About</a>
-               </li>
-               <li>
-                   <a href="#">Services</a>
-               </li>
-               <li>
-                   <a href="#">Contact</a>
-               </li>
-           </ul>
-       </div>
-       <!-- /#sidebar-wrapper -->
+
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
         <div id="page-content-wrapper">
           <div class="container" style="margin-top:50px">
@@ -104,7 +112,7 @@
                     <!--contenido 2-->
                     <div class="container">
                           <div class="">
-                            <h1>Pagados</h1>
+                            <h1>Procesados.</h1>
                             <div class="col-lg-12">
                               <div id="message2" name="message2" class="alert alert-success" hidden>Pedido enviado a "Entregados" exitosamente.</div>
                           <div class="table-responsive col-sm-12">
@@ -129,7 +137,7 @@
                     <!--contenido 3-->
                     <div class="container">
                           <div class="">
-                            <h1>Pagados</h1>
+                            <h1>Entregados.</h1>
                             <div class="col-lg-12">
                           <div class="table-responsive col-sm-12">
                         <table id="entregados_grid" class="table table-condensed table-hover table-striped" width="60%" cellspacing="0" data-toggle="bootgrid">
@@ -195,7 +203,6 @@
                         <form method="post" id="frm_procesados">
 
                 <input type="hidden" value="edit" name="action" id="action">
-                <input type="hidden" value="edit2" name="action" id="action">
         				<input type="hidden" value="0" name="procesados_id" id="procesados_id">
 
                           <div class="form-group ">
@@ -278,6 +285,7 @@
   				  {
   					$('#pendientes_model').modal('hide');
   					$("#pendientes_grid").bootgrid('reload');
+            $("#procesados_grid").bootgrid('reload');
             $('#message').removeAttr("hidden");
 
   				  }
@@ -386,6 +394,7 @@
   				  {
   					$('#procesados_model').modal('hide');
   					$("#procesados_grid").bootgrid('reload');
+            $("#entregados_grid").bootgrid('reload');
             $('#message').removeAttr("hidden");
 
   				  }

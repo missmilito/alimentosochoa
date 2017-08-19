@@ -36,7 +36,6 @@ if ($counter==1){
    $sql2 =("SELECT a.nomcliente, a.emailcli, a.apellidocli, b.nomEmp, b.diremp, a.telefcli FROM tblcliente a, tblemprecli b where a.id='$idusuario' and b.idcliente='$idusuario'");
     $result2 =$con -> query($sql2);
      $valida=$result2->num_rows;
-
      if($valida !=0){
          $datosUsu = $result2->fetch_row();
          $_SESSION['nombreusu'] = $datosUsu[0];
@@ -111,7 +110,7 @@ if($idnivel==1 && $idstatus==1) {
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="login/jquery-1.11.1.min.js"></script>
 <script src="login/bootstrap.min.js"></script>
 <link rel="stylesheet" href="login/styles.css">
 <link rel="stylesheet" href="fonts/font-awesome/css/font-awesome.min.css">
@@ -140,22 +139,7 @@ body {
     clear: both;
     display: table;
 }
-[class*="col-"] {
-    float: left;
-    padding: 15px;
-}
-.col-1 {width: 8.33%;}
-.col-2 {width: 16.66%;}
-.col-3 {width: 25%;}
-.col-4 {width: 33.33%;}
-.col-5 {width: 41.66%;}
-.col-6 {width: 50%;}
-.col-7 {width: 58.33%;}
-.col-8 {width: 66.66%;}
-.col-9 {width: 75%;}
-.col-10 {width: 83.33%;}
-.col-11 {width: 91.66%;}
-.col-12 {width: 100%;}
+
 html {
     font-family: "Lucida Sans", sans-serif;
 }
@@ -172,6 +156,69 @@ html {
         margin-top: -208.5px; /* HALF OF THE HEIGHT */
         margin-left: -375px; /* HALF OF THE WIDTH */
     }
+
+    img {
+  width: 350px;
+      margin-left: 470px; /* HALF OF THE WIDTH */
+    }
+  .header {
+  width: 100%;
+  }
+
+  .botones {
+     background-color: #4040B3;
+     border: 0px;
+  }
+    .modaledit {
+       margin-top: 130px;
+
+     }
+  .modal-header{
+    background-color: #4040B3;
+  }
+  .modalinput{
+    margin-top: 30px;
+    margin-left: 170px;
+
+  }
+  #idusuario, #password {
+    width: 150px;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+    border-color: black;
+    text-size: 15px;
+    text-align: center;
+  }
+  input:focus{
+      outline: none;
+  }
+  #text-login-msg{
+    margin-left: 50px;
+      font-family:Oswald-Regular;
+      font-size: 20px;
+  }
+
+
+  #login {
+    margin-top:40px;
+    margin-left: 45px;
+    width: 150px;
+    height: 40px;
+    font-family: Oswald-Regular;
+    font-size: 20px;
+    color: #FFFFFF;
+    background-color: #4040B3;
+  }
+
+  .errorshow{
+    margin-top:40px;
+    margin-left: 30px;
+    font-family: Oswald-Regular;
+    font-size: 20px;
+    color: #F71515;
+    text-align: center;
+  }
 }
 .contenido {
   background: rgba(255, 255, 255, 0.4);
@@ -214,6 +261,7 @@ font-family:RobotoCondensed-Regular ;
 }
   .modaledit {
      margin-top: 150px;
+
 
    }
 .modal-header{
@@ -266,16 +314,16 @@ input:focus{
 </style>
 </head>
 <body>
-<div class="header col-12">
+<div class="header col-md-12 col-sm-12">
 
 <img src="images/headermini.png" alt="headermini.png">
 <hr>
 </div>
 
-<div class="contenido col-9 col-sm-12">
-  <div class="bienvenido"><p><b>BIENVENIDO,</p>
-  <p>INICIA SESIÓN A TU PERFIL DE CLIENTE.</b></p>
-  <p><div class="m">De no ser cliente de la empresa, te invitamos a visitar nuestro sitio web.</div></p>
+<div class=" contenido col-md-12 col-sm-12" style="text-align: center">
+  <div class="bienvenido"><p style="text-align: center"><b>BIENVENIDO,</p>
+  <p style="text-align: center">INICIA SESIÓN A TU PERFIL DE CLIENTE.</b></p>
+  <p><div class="m" style="text-align: center">De no ser cliente de la empresa, te invitamos a visitar nuestro sitio web.</div></p>
 </div>
 
 
@@ -304,12 +352,12 @@ input:focus{
                       <!-- Begin # Login Form -->
   <div class="modal-body">
 <div id="div-login-msg">
-              <span id="text-login-msg">Escriba su Cédula de Identidad y su Contraseña.</span>
+              <span  id="text-login-msg">Escriba su Cédula de Identidad y su Contraseña.</span>
           </div>
 
           <form id="login-form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
             <div class="modalinput">
-            <i class="fa fa-user-circle-o fa-4x" id="iconuser" aria-hidden="true"></i><input id="idusuario" name="idusuario" type="text" placeholder:"Ingrese su Cédula de Identidad">
+            <i class="fa fa-user-circle-o fa-4x" id="iconuser" aria-hidden="true"></i><input type="number" title="Ingrese aquí su cédula de identidad" id="idusuario" name="idusuario" type="text" placeholder:"Ingrese su Cédula de Identidad">
             <br />
             <i class="fa fa-key fa-4x" aria-hidden="true"></i><input id="password"name="password" type="password">
             <br />
@@ -323,11 +371,10 @@ input:focus{
 
 
 
-<div class="checkbox">
-    <label>
-      <input type="checkbox"> Remember me
+<div class="modal-footer">
+
+      <a href="recuperar/searchemail.html"  style="font-size: 12px; font-weight: bold; ">¿Has olvdado tu contraseña? Por favor, haz clic aquí.</a>
         </label>
-        </div>
   </div>
 
               <!--MODAL DE INICIO DE SESION-->

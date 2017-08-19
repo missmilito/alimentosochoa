@@ -38,8 +38,10 @@
 		echo json_encode($this->data);
 	}
 	function insertProveedores($params) {
-		$data = array();;
-		$sql = "INSERT INTO tblproveedores (`id`, `nomprov`, `direcprov`, `telefprov`, `emailprov`) VALUES('" . $params["id"] . "', '" . $params["name"] . "', '" . $params["apellido"] . "','" . $params["email"] . "');  ";
+
+		$data = array();
+		$telef= $params['codtelef'].$params['telef'];
+		$sql = "INSERT INTO tblproveedores (`id`, `nomprov`, `direcprov`, `telefprov`, `emailprov`) VALUES('" .$params['idrif']. "', '" .$params['nomprov']. "', '" .$params['direc']. "', '".$telef."', '".$params['email']."');  ";
 
 		echo $result = mysqli_query($this->conn, $sql) or die("error to insert client data");
 
@@ -58,7 +60,6 @@
 			$where .=" WHERE ";
 			$where .=" ( id LIKE '".$params['searchPhrase']."%' ";
 			$where .=" OR nomprov LIKE '".$params['searchPhrase']."%' ";
-
 			$where .=" OR direcprov LIKE '".$params['searchPhrase']."%' )";
 			$where .=" OR telefprov LIKE '".$params['searchPhrase']."%' )";
 	   }
@@ -66,16 +67,14 @@
 			$where .=" ORDER By ".key($params['sort']) .' '.current($params['sort'])." ";
 		}
 	   // getting total number records without any search
-		$sql = "SELECT * FROM tblproveedores";
-		$sqlTot .= $sql;
-		$sqlRec .= $sql;
-
-
+		$sql = "SELECT nomprov, direcprov, telefprov, id, emailprov FROM tblproveedores";
+		$sqlTot = $sql;
+		$sqlRec = $sql;
 		//concatenate search sql if value exist
 		if(isset($where) && $where != '') {
 
-			$sqlTot .= $where;
-			$sqlRec .= $where;
+			$sqlTot = "select * tblproveedores $where";
+			$sqlRec = "select * tblproveedores $where";
 		}
 		if ($rp!=-1)
 		$sqlRec .= " LIMIT ". $start_from .",".$rp;

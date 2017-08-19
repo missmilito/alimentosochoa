@@ -21,40 +21,36 @@
 		<div><?php include('theme/theme.php') ?></div>
 		<div id="wrapper">
 
-	     <!-- Sidebar -->
-	     <div id="sidebar-wrapper">
+		  <!-- Sidebar -->
+		  <div id="sidebar-wrapper">
 
-	         <ul class="sidebar-nav">
+		      <ul class="sidebar-nav">
 
-	             <li class="sidebar-brand">
-	                 <a href="#">
-	                     Start Bootstrap
-	                 </a>
-	             </li>
-	             <li>
-	                 <a href="#">Dashboard</a>
-	             </li>
-	             <li>
-	                 <a href="#">Shortcuts</a>
-	             </li>
-	             <li>
-	                 <a href="#">Overview</a>
-	             </li>
-	             <li>
-	                 <a href="#">Events</a>
-	             </li>
-	             <li>
-	                 <a href="#">About</a>
-	             </li>
-	             <li>
-	                 <a href="#">Services</a>
-	             </li>
-	             <li>
-	                 <a href="#">Contact</a>
-	             </li>
-	         </ul>
-	     </div>
-	     <!-- /#sidebar-wrapper -->
+		          <li class="sidebar-brand" >
+		              <a style="text-align: center">
+		                  MODULOS
+		              </a>
+		          </li>
+
+		         <li class="dropdown">
+		           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-pencil 2x"> REGISTRO</i><span class="caret"></span></a>
+		           <ul class="dropdown-menu2 dropdown" >
+		             <li><a href="#">Nuevo Pedido.</a></li>
+		           </ul>
+		         </li>
+		         <li class="dropdown">
+		           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
+		           <ul class="dropdown-menu2 dropdown" >
+								 <li><a href="#">Estado Actual.</a></li>
+		             <li><a href="#">Pedidos.</a></li>
+		             <li><a href="pagos.php">Pagos.</a></li>
+		           </ul>
+		         </li>
+
+		      </ul>
+		  </div>
+		  <!-- /#sidebar-wrapper -->
+
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container" style="margin-top:50px" >
@@ -105,9 +101,11 @@
 													<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
 													 <span class="glyphicon glyphicon-plus"></span> Agregar productos
 													</button>
-													<button type="submit" class="btn btn-default " onclick="enviarpedido">
-													  <span class="glyphicon glyphicon-send "></span> Enviar pedido
+
+													<button id="botonenviar"  type="submit" class="btn btn-default hidden " onclick="enviarpedido" >
+														<span class="glyphicon glyphicon-send "></span> Enviar pedido
 													</button>
+												</form>
 												</div>
 											</div>
 										</form>
@@ -202,6 +200,7 @@
 									  },
 							        success: function(datos){
 									$("#resultados").html(datos);
+									$("#botonenviar").removeClass('hidden');
 									}
 										});
 									}
@@ -234,7 +233,9 @@
  							        type: "POST",
  							        url: "ajax/enviarpedido.php",
  							        data: parametros,
+
  										});
+										window.open("arch/pdfcliente.php");
 									 } else {
 										 alert("Escriba un comentario");
 										 return false;
@@ -260,7 +261,7 @@
 
 
 		<!-- llamado de js -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="vendor/jquery/jquery-1.11.3.min.js"></script>
 		<!-- Latest compiled and minified JavaScript -->
 
 		<script type="text/javascript">
@@ -270,7 +271,7 @@
 	  });
 
 	  </script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+		<script src="vendor/jquery/select2.min.js"></script>
 
 		<!-- jQuery -->
     <script src="js/nuevopedido/jquery.js"></script>

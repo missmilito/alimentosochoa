@@ -23,10 +23,11 @@
 		$idestado=$row["id"];
 		$insert_pedido=mysqli_query($con, "INSERT INTO tblpedido (id, fechaped, fechapag, observped, idestadoped, idcliente, idestadopag) VALUES ('','$date', '$convenio', '$comentarios','$idestado', '$idcliente', '1')");
 		}
-			$sql2=mysqli_query($con, "SELECT MAX(id) AS id FROM tblpedido");
+			$sql2=mysqli_query($con, "SELECT MAX(id) AS id FROM tblpedido where idcliente='$idcliente'");
 			while ($row=mysqli_fetch_array($sql2))
 				{
 				$idpedido=$row["id"];
+				$_SESSION['idpedido']=$idpedido;
 				$sql5=mysqli_query($con, "INSERT into tbltimestat values ('', '$idpedido', NOW(), '', '')");
 			}
 				$sql3=mysqli_query($con, "select * from tblproducto, tmp where tblproducto.id=tmp.id_producto and tmp.session_id='".$session_id."'");
@@ -43,7 +44,7 @@
 					$precio_total=$precio_venta_r*$cantidad;
 
 					$sql4=mysqli_query($con, "INSERT into tbldetallepedido VALUES ('', '$idproducto', '$cantidad', '$precio_total', '$idpedido' )");
-
+header('Location: ../arch/pdfcliente.php');
 				}
 
 

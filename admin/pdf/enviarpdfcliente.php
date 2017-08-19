@@ -5,7 +5,7 @@
           	<fieldset>
           		<legend><span>Alta, baja y modificación de Clientes</span></legend>
 
-          		<form class="form" action="pdf/pdfcliente.php" method="POST" enctype="multipart/form-data"
+          		<form class="form" action="pdfcliente.php" method="POST" enctype="multipart/form-data"
                       action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
           				<tr><td colspan="6">Dar de alta un nuevo Cliente: </td></tr>
@@ -20,6 +20,6 @@
           			echo "</form>"
           		?>
           	</fieldset>
-          
+
 
           </div>

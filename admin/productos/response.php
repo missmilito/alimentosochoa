@@ -42,7 +42,7 @@
 	}
 	function insertClients($params) {
 		$data = array();;
-		$sql = "INSERT INTO tblcliente (id, nomcliente, apellidocli, emailcli) VALUES('" . $params["id"] . "', '" . $params["name"] . "', '" . $params["apellido"] . "','" . $params["email"] . "');  ";
+		$sql = "INSERT INTO tblproducto (id, nomprod, descprod, preciounit, idsubcat, idproveedor, status) VALUES('', '" . $params["nombre"] . "', '" . $params["descprod"] . "', '" . $params["precio"] . "', '" . $params["subcat"] . "', '" . $params["proveedor"] . "', '1');  ";
 		mysql_query ("SET NAMES 'utf8'");
 		echo $result = mysqli_query($this->conn, $sql) or die("error to insert client data");
 
@@ -62,6 +62,8 @@
 			$where .=" a.idproveedor = b.id and a.idsubcat = c.id  and a.status=d.id and (a.nomprod LIKE '".$params['searchPhrase']."%' ";
 			$where .=" OR a.preciounit LIKE '".$params['searchPhrase']."%' ";
 			$where .=" OR c.nomsub LIKE '".$params['searchPhrase']."%' ";
+			$where .=" OR a.descprod LIKE '".$params['searchPhrase']."%' ";
+			$where .=" OR b.nomprov LIKE '".$params['searchPhrase']."%' ";
 			$where .=" OR d.nomstatus LIKE '".$params['searchPhrase']."%' )";
 
 		 if( !empty($params['sort']) ) {
@@ -114,7 +116,7 @@
 	function updateClients($params) {
 		$data = array();
 		//print_R($_POST);die;
-		$sql = "Update `tblpedido` set idestadoped = '" . $params["edit_name"] . "' WHERE id='".$_POST["edit_id"]."'";
+		$sql = "Update tblproducto set nomprod='".$params["edit_nombre"]."', descprod='".$params["edit_desc"]."', preciounit='".$params["edit_precio"]."', status='".$params["edit_status"]."', idsubcat='".$params["edit_subcat"]."', idproveedor='".$params["edit_proveedor"]."' WHERE id='".$_POST['edit_id']."' ";
 
 		echo $result = mysqli_query($this->conn, $sql) or die("error to update employee data");
 	}

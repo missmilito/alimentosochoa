@@ -1,8 +1,10 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Simple Bootgrid example with add,edit and delete using PHP,MySQL and AJAX</title>
+  <link rel="icon" href="../images/headermini.png" type="image/png" sizes="16x16">
+<title>Consulta de clientes.</title>
 <!--tabla-->
     <link rel="stylesheet" href="dist/bootstrap.min.css" type="text/css" media="all">
     <link href="dist/jquery.bootgrid.css" rel="stylesheet" />
@@ -15,6 +17,12 @@
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.js">
     <link rel="stylesheet" href="vendor/jquery/jquery-3.2.1.min.js">
     <link rel="stylesheet" href="theme/styles.css">
+
+    <style media="screen">
+      ul.nav #menu:hover,  #menu:focus, #menu:active { color: black !important; };
+      usuario:default{color: white !important};
+    }
+    </style>
   </head>
 
 <body>
@@ -71,13 +79,14 @@
              <div class="row">
          <div class="col-lg-12">
      <div class="">
-
      </div>
-
            <div class="well clearfix">
              <div class="pull-right"><a href="regcliente.php"><button type="button" class="btn btn-xs btn-primary">
              <span class="glyphicon glyphicon-plus"></span>Nuevo cliente.</button></a></div></div>
-
+             <?php if (!empty($_GET['edit'])){
+              ?>
+              <div id="message" name="message" class="alert alert-success">El cliente de CI:<?php echo $_SESSION['idedit'];?> ha sido editado exitosamente.</div>
+             <?php } ?>
 
              <div class="table-responsive col-md-12 col-sm-8">
              <table id="employee_grid" class="table table-condensed table-hover table-striped" width="60%" cellspacing="0" data-toggle="bootgrid">
@@ -96,7 +105,38 @@
              </div>
      </div>
 
+     <div id="add_model" class="modal fade">
+         <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-header">
+                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                     <h4 class="modal-title">Add Employee</h4>
+                 </div>
+                 <div class="modal-body">
+                     <form method="post" id="frm_add">
+             <input type="hidden" value="add" name="action" id="action">
+                       <div class="form-group">
+                         <label for="nomcliente" class="control-label">Name:</label>
+                         <input type="text" class="form-control" id="name" name="name"/>
+                       </div>
+                       <div class="form-group">
+                         <label for="apellidocli" class="control-label">Salary:</label>
+                         <input type="text" class="form-control" id="salary" name="salary"/>
+                       </div>
+               <div class="form-group">
+                         <label for="s" class="control-label">Age:</label>
+                         <input type="text" class="form-control" id="age" name="age"/>
+                       </div>
 
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                     <button type="button" id="btn_add" class="btn btn-primary">Save</button>
+                 </div>
+           </form>
+             </div>
+         </div>
+     </div>s
      <div id="edit_model" class="modal fade">
      <div class="modal-dialog">
      <div class="modal-content">
@@ -105,9 +145,9 @@
              <h4 class="modal-title">Edit Employee</h4>
          </div>
          <div class="modal-body">
-             <form method="post" id="frm_edit">
+             <form  action="editcliente.php" method="POST" id="frm_edit">
      <input type="hidden" value="edit" name="action" id="action">
-     <input type="hidden" value="0" name="edit_id" id="edit_id">
+     <input type="hidden" name="edit_id" id="edit_id">
                <div class="form-group">
                  <label for="nomcliente" class="control-label">Name:</label>
                  <input type="text" class="form-control" id="edit_name" name="edit_name"/>
@@ -124,7 +164,7 @@
          </div>
          <div class="modal-footer">
              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-             <button type="button" id="btn_edit" class="btn btn-primary">Save</button>
+             <button type="submit" id="btn_edit" class="btn btn-primary">Save</button>
          </div>
      </form>
      </div>
@@ -182,6 +222,8 @@ console.log(g_id);
                                 $('#edit_name').val(ele.siblings(':nth-of-type(2)').html());
                                 $('#edit_salary').val(ele.siblings(':nth-of-type(3)').html());
                                 $('#edit_age').val(ele.siblings(':nth-of-type(4)').html());
+
+
 					} else {
 					 alert('Now row selected! First select row, then click edit button');
 					}
@@ -216,6 +258,21 @@ function ajaxAction(action) {
 				  }
 				});
 			}
+
+      function ajaxAction(action) {
+      				data = $("#frm_edit").serializeArray();
+      				$.ajax({
+      				  type: "POST",
+      				  url: "prueba.php",
+      				  data: data,
+      				  dataType: "json",
+      				  success: function(response)
+      				  {
+      					$('#edit_model').modal('hide');
+      					$("#employee_grid").bootgrid('reload');
+      				  }
+      				});
+      			}
 
 			$( "#command-add" ).click(function() {
 			  $('#add_model').modal('show');

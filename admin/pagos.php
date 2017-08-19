@@ -12,10 +12,14 @@
     <script src="dist/bootstrap.min.js"></script>
     <script src="dist/jquery.bootgrid.min.js"></script>
 <!--datetimepicker-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css">-->
+  <link rel="stylesheet" href="vendor/calendario/bootstrap-datetimepicker.min.css">
+<!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">-->
+<link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+<!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>-->
+<script type="text/javascript" src="vendor/calendario/moment-with-locales.min.js"></script>
+<!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>-->
+<script type="text/javascript" src="vendor/calendario/bootstrap-datetimepicker.min.js"></script>
     <!--sidebar-->
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.js">

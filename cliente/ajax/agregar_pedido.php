@@ -29,6 +29,7 @@ $delete=mysqli_query($con, "DELETE FROM tmp WHERE id_tmp='".$id."'");
 }
 
 ?>
+
 <table class="table">
 <tr>
 	<th>CANT.</th>

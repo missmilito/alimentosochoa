@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-
+<link rel="icon" href="../images/headermini.png" type="image/png" sizes="16x16">
+<title>Registro de empleados.</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -19,7 +20,12 @@
     <link rel="stylesheet" href="vendor/jquery/jquery-3.2.1.min.js">
     <link rel="stylesheet" href="theme/styles.css">
 
+    <style media="screen">
+      ul.nav #menu:hover,  #menu:focus, #menu:active { color: black !important; };
+      usuario:default{color: white !important};
 
+    }
+    </style>
 
   </head>
   <body>
@@ -85,7 +91,9 @@
         			<thead>
         				<tr>
                             <th data-column-id="id" data-identifier="true">ID</th>
-                            <th data-column-id="puesto">Puesto</th>
+                            <th data-column-id="puesto">Puesto/Cargo</th>
+                            <th data-column-id="nomnivel">Nivel Usu.</th>
+                            <th data-column-id="nomstatus">Status</th>
 
 
         					<th data-column-id="commands" data-formatter="commands" data-sortable="false">Commands</th>
@@ -99,31 +107,55 @@
 
         <div id="add_model" class="modal fade">
             <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
+                <div class="modal-content col-lg-12">
+                    <div class="modal-header col-lg-12">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Agregar Proveedor.</h4>
+                        <h4 class="modal-title">Agregar empleado.</h4>
                     </div>
                     <div class="modal-body">
-                        <form method="post" id="frm_add">
+                        <form method="post" name="frm_add" id="frm_add">
         				<input type="hidden" value="add" name="action" id="action">
-                          <div class="form-group col-lg-12">
-                            <label for="nomproducto" class="control-label">Name:</label>
-                            <input type="text" class="form-control" id="name" name="name"/>
+                          <div class="form-group col-lg-8">
+                            <label for="idadmin" class="control-label">ID/Cédula:</label>
+                            <input type="number" class="form-control" id="idadmin" name="idadmin" required/>
                           </div>
-                          <div class="form-group">
-                            <label for="descprod" class="control-label">Salary:</label>
-                            <input type="text" class="form-control" id="descprod" name="descprod"/>
+                          <div class="form-group col-lg-8">
+                            <label for="puesto" class="control-label">Puesto/Cargo:</label>
+                            <input type="text" class="form-control" id="puesto" name="puesto" required/>
                           </div>
-        				  <div class="form-group">
-                            <label for="s" class="control-label">Age:</label>
-                            <input type="text" class="form-control" id="age" name="age"/>
+                          <div class="form-group col-lg-8">
+                            <label for="descprod" class="control-label">Contraseña:</label>
+                            <input type="text" class="form-control" id="passadmin" name="passadmin" readonly="readonly" required/>
+                          </div>
+                          <div class="col-md-4" style="margin-top: 8px;">
+                            <br>
+                             <input type="button" onClick="FX_passGenerator('frm_add','passadmin')" value="Generar contraseña">
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="subcategoria" class="control-label">Nivel:</label>
+                            <select id="nivel" name="nivel" class="form-control">
+
+                                <?php
+                                $conexion=mysql_connect("localhost","root","") or
+                                die("Problemas en la conexion");
+                                mysql_select_db("bd_distribuidora",$conexion) or
+                                die("Problemas en la selección de la base de datos");
+                                mysql_query ("SET NAMES 'utf8'");
+                                $clavebuscadah=mysql_query("select * from tblnivelusuario where id IN ('1','3')",$conexion) or
+                                die("Problemas en el select:".mysql_error());
+                                while($row = mysql_fetch_array($clavebuscadah))
+                                {
+                                echo'<option value="'.$row['id'].'">'.$row['nomnivel'].'</option>';
+                                }
+                                ?>
+                            </select>
                           </div>
 
+
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" id="btn_add" class="btn btn-primary">Save</button>
+                    <div class="modal-footer col-lg-12 col-md-12 col-sm-12">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar.</button>
+                        <button type="button" id="btn_add" class="btn btn-primary">Guardar.</button>
                     </div>
         			</form>
                 </div>
@@ -131,35 +163,63 @@
         </div>
         <div id="edit_model" class="modal fade">
             <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
+                <div class="modal-content col-md-12">
+                    <div class="modal-header col-md-12">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Edit Employee</h4>
+                        <h4 class="modal-title">Edit Admin.</h4>
                     </div>
                     <div class="modal-body">
                         <form method="post" id="frm_edit">
         				<input type="hidden" value="edit" name="action" id="action">
-        				<input type="hidden" value="0" name="edit_id" id="edit_id">
-                          <div class="form-group">
-                            <label for="nomprov" class="control-label">Nombre:</label>
-                            <input type="text" class="form-control" id="edit_nomprov" name="edit_nomprov"/>
+                        <div class="form-group col-md-6">
+                            <label for="id" class="control-label">ID/CI:</label>
+                				     <input type="text" class="form-control" readonly="readonly" name="edit_id" id="edit_id">
                           </div>
-                          <div class="form-group">
-                            <label for="telefprov" class="control-label">Teléfono:</label>
-                            <input type="text" class="form-control" id="edit_telefprov" name="edit_telefprov"/>
+                          <div class="form-group col-md-4">
+                            <label for="puesto" class="control-label">Puesto/Cargo:</label>
+                            <input type="text" class="form-control" id="edit_puesto" name="edit_puesto"/>
                           </div>
-                          <div class="form-group">
-                            <label for="emailprov" class="control-label">E-mail:</label>
-                            <input type="text" class="form-control" id="edit_emailprov" name="edit_emailprov"/>
-                          </div>
-                          <div class="form-group">
-                            <label for="direcprov" class="control-label">Dirección:</label>
-                            <input type="text" class="form-control" id="edit_direcprov" name="edit_direcprov"/>
-                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="nivel" class="control-label">Nivel:</label>
+                            <select id="niveladm" name="niveladm" class="form-control">
 
+                                <?php
+                                $conexion=mysql_connect("localhost","root","") or
+                                die("Problemas en la conexion");
+                                mysql_select_db("bd_distribuidora",$conexion) or
+                                die("Problemas en la selección de la base de datos");
+                                mysql_query ("SET NAMES 'utf8'");
+                                $clavebuscadah=mysql_query("select * from tblnivelusuario where id IN ('1','3')",$conexion) or
+                                die("Problemas en el select:".mysql_error());
+                                while($row = mysql_fetch_array($clavebuscadah))
+                                {
+                                echo'<option value="'.$row['id'].'">'.$row['nomnivel'].'</option>';
+                                }
+                                ?>
+                            </select>
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label for="subcategoria" class="control-label">Status:</label>
+                            <select id="statusadm" name="statusadm" class="form-control">
+
+                                <?php
+                                $conexion=mysql_connect("localhost","root","") or
+                                die("Problemas en la conexion");
+                                mysql_select_db("bd_distribuidora",$conexion) or
+                                die("Problemas en la selección de la base de datos");
+                                mysql_query ("SET NAMES 'utf8'");
+                                $clavebuscadah=mysql_query("select * from tblstatus",$conexion) or
+                                die("Problemas en el select:".mysql_error());
+                                while($row = mysql_fetch_array($clavebuscadah))
+                                {
+                                echo'<option value="'.$row['id'].'">'.$row['nomstatus'].'</option>';
+                                }
+                                ?>
+                            </select>
+                          </div>
 
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer col-md-12">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar.</button>
                         <button type="button" id="btn_edit" class="btn btn-primary">Guardar.</button>
                     </div>
@@ -212,10 +272,8 @@
 
                                   // collect the data
                                   $('#edit_id').val(ele.siblings(':first').html()); // in case we're changing the key
-                                  $('#edit_nomprov').val(ele.siblings(':nth-of-type(2)').html());
-                                  $('#edit_telefprov').val(ele.siblings(':nth-of-type(3)').html());
-                                  $('#edit_emailprov').val(ele.siblings(':nth-of-type(4)').html());
-                                  $('#edit_direcprov').val(ele.siblings(':nth-of-type(5)').html());
+                                  $('#edit_puesto').val(ele.siblings(':nth-of-type(2)').html());
+
 
   					} else {
   					 alert('Now row selected! First select row, then click edit button');
@@ -238,6 +296,20 @@
   				  }
   				});
   			}
+        function ajaxAction(action) {
+        				data = $("#frm_"+action).serializeArray();
+        				$.ajax({
+        				  type: "POST",
+        				  url: "regadmin/response2.php",
+        				  data: data,
+        				  dataType: "json",
+        				  success: function(response)
+        				  {
+        					$('#'+action+'_model').modal('hide');
+        					$("#employee_grid").bootgrid('reload');
+        				  }
+        				});
+        			}
 
   			$( "#command-add" ).click(function() {
   			  $('#add_model').modal('show');
@@ -256,5 +328,27 @@
          $("#wrapper").toggleClass("toggled");
      });
 
+  </script>
+
+  <script type="text/javascript">
+  function FX_passGenerator(form,element) {
+  var thePass = "";
+  var randomchar = "";
+  var numberofdigits = Math.floor((Math.random() * 7) + 6);
+  for (var count=1; count<=numberofdigits; count++) {
+    var chargroup = Math.floor((Math.random() * 3) + 1);
+    if (chargroup==1) {
+      randomchar = Math.floor((Math.random() * 26) + 65);
+    }
+    if (chargroup==2) {
+      randomchar = Math.floor((Math.random() * 10) + 48);
+    }
+    if (chargroup==3) {
+      randomchar = Math.floor((Math.random() * 26) + 97);
+    }
+    thePass+=String.fromCharCode(randomchar);
+  }
+  eval('document.'+form+'.'+element+'.value = thePass');
+  }
   </script>
 </html>

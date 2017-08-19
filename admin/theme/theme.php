@@ -1,5 +1,5 @@
 <?php include('security.php') ?>
-<div class="navbar navbar-default navbar-fixed-top navbar-inverse"  role="navigation">
+<div class="navbar navbar-default navbar-fixed-top " style="background-color: #333;" role="navigation">
   <!--boton toggle menu -->
     <!--comienzo del navbar-->
     <div class="container">
@@ -13,7 +13,7 @@
                 <span class="icon-bar"></span>
             </button>
 
-  <a target="_blank" href="#menu-toggle" class="btn navbar-brand"  id="menu-toggle"><span class="glyphicon glyphicon-list-alt "></span></a>
+  <a target="_blank" href="#menu-toggle" style="color:white" class="btn navbar-brand"  id="menu-toggle"><span class="glyphicon glyphicon-list-alt "></span></a>
         </div>
 
 
@@ -25,13 +25,13 @@
             <ul class="nav navbar-nav navbar-right  ">
 
                 <li>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"><?php echo $_SESSION['puesto'] ?></i><b class="caret"></b></a>
+                    <a id="menu" href="#" style="color:white" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"><?php echo $_SESSION['puesto'] ?></i><b class="caret"></b></a>
 
-                    <ul class="dropdown-menu navbar-inverse">
+                    <ul id="menu"  class="dropdown-menu navbar-inverse">
 
-                        <li ><a   href="#">Perfil.</a></li>
+                        <li ><a id="menu" style="color:white"  href="perfilusuario.php">Perfil.</a></li>
                         <li class="divider"></li>
-                        <li><a   href="../login/logout.php">Cerrar Sesión.</a></li>
+                        <li><a id="menu"  style="color:white" href="../login/logout.php">Cerrar Sesión.</a></li>
 
 
 

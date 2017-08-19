@@ -104,7 +104,7 @@
 	function updatePendientes($params) {
 		$data = array();
 		//print_R($_POST);die;
-		$sql = "Update `tbltimestat` set dateresp = NOW() WHERE idpedido='".$_POST["pendientes_id"]."'";
+		$sql = "Update `tbltimestat` set dateresp = NOW(), promedio = SEC_TO_TIME((TIMESTAMPDIFF(MINUTE , datepedido, dateresp ))*60) WHERE idpedido='".$_POST["pendientes_id"]."'";
 
 		echo $result = mysqli_query($this->conn, $sql) or die("error to update employee data");
 	}

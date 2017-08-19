@@ -1,6 +1,6 @@
 <?php
-require_once ("config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
-require_once ("config/conexion.php");//Contiene funcion que conecta a la base de datos
+require_once ("../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
+require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
 
 session_start();
 
@@ -22,6 +22,8 @@ $rif = utf8_decode($_POST['rifemp']);
 $nomempresa = utf8_decode($_POST['nomemp']);
 $diremp = utf8_decode($_POST['diremp']);
 $emailemp = utf8_decode($_POST['emailemp']);
+$tlfemp = utf8_decode($_POST['tlfemp']);
+
 
 
 $consulta="SELECT * FROM tblusuario WHERE id = '$reg_id'";
@@ -29,18 +31,19 @@ $resultado = $con -> query($consulta);
 $rows = $resultado -> num_rows;
 if($rows > 0){
   $row=$resultado -> fetch_assoc();
-echo "<span style='font-weight:bold;color:red;'>La cédula que usted ha proporcionado ha sido previamente registrada en nuestra base de datos.</span>";
+
+header('Location: ../regcliente.php?error=error');
 }
 else {
-$insert_value=mysqli_query($con, "INSERT INTO tblusuario (id, idtipousuario, password) VALUES ('$reg_id','$reg_idnivel', '$password')");
-$insert_tblcliente=mysqli_query($con, "INSERT INTO tblcliente (id, nomcliente, apellidocli, emailcli) VALUES ('$idcliente','$nombrecli', '$apellido', '$emailcli')");
-$insert_tblempresa=mysqli_query($con, "INSERT INTO tblemprecli (id, nomEmp, diremp, emailemp, idcliente) VALUES ('$rif','$nomempresa', '$diremp', '$emailemp', '$idcliente')");
-$insert_tlfcli= mysqli_query($con, "INSERT INTO tbltelefcli (id, TelefonoCli, idCliente) VALUES ('', '$tlfcli', '$idcliente') ");
+$insert_value=mysqli_query($con, "INSERT INTO tblusuario (id,  password, idnivel, idstatus) VALUES ('$reg_id','$password', '2', '1')");
+$insert_tblcliente=mysqli_query($con, "INSERT INTO tblcliente (id, nomcliente, apellidocli, emailcli, telefcli) VALUES ('$idcliente','$nombrecli', '$apellido', '$emailcli', '$tlfcli')");
+$insert_tblempresa=mysqli_query($con, "INSERT INTO tblemprecli (id, nomEmp, diremp, emailemp, idcliente, telefemp) VALUES ('$rif','$nomempresa', '$diremp', '$emailemp', '$idcliente', '$tlfemp')");
+$_SESSION['nombreinst']=$nombrecli;
+$_SESSION['apellidoinst']=$apellido;
+$_SESSION['passwordinst']=$reg_password;
+header('Location: ../enviar_email.php');
 
-header('Location: Success.php');
 }
-
-
 
 
 ?>

@@ -79,7 +79,7 @@
                 <div class="col-lg-12">
 
         			<div class="well clear-fix pull-right"><button type="button" class="btn btn-xs btn-primary btnadd" id="command-add" data-row-id="0">
-        			<div class="nuevop"><span class="glyphicon glyphicon-plus "></span>Nuevo Producto</div></button></div>
+        			<div class="nuevop"><span class="glyphicon glyphicon-plus "></span>Nuevo Proveedor.</div></button></div>
 
         			<div class="table-responsive col-sm-12">
         		<table id="employee_grid" class="table table-condensed table-hover table-striped" width="60%" cellspacing="0" data-toggle="bootgrid">
@@ -102,7 +102,7 @@
 
         <div id="add_model" class="modal fade">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content" style="height: 450px;">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">Agregar Proveedor.</h4>
@@ -110,23 +110,44 @@
                     <div class="modal-body">
                         <form method="post" id="frm_add">
         				<input type="hidden" value="add" name="action" id="action">
-                          <div class="form-group col-lg-12">
-                            <label for="nomproducto" class="control-label">Name:</label>
-                            <input type="text" class="form-control" id="name" name="name"/>
+                          <div class="form-group col-md-6">
+                            <label for="rif" class="control-label">ID/RIF:</label>
+                            <input type="text" class="form-control" id="idrif" name="idrif"/>
                           </div>
-                          <div class="form-group">
-                            <label for="descprod" class="control-label">Salary:</label>
-                            <input type="text" class="form-control" id="descprod" name="descprod"/>
+                          <div class="form-group col-md-6">
+                            <label for="descprod" class="control-label">Nombre:</label>
+                            <input type="text" class="form-control" id="nomprov" name="nomprov"/>
                           </div>
-        				  <div class="form-group">
-                            <label for="s" class="control-label">Age:</label>
-                            <input type="text" class="form-control" id="age" name="age"/>
+        				          <div class="form-group col-md-12">
+                            <label for="direc" class="control-label">Dirección:</label>
+                            <input type="text" class="form-control" id="direc" name="direc"/>
                           </div>
-
+                          <div class="form-group col-md-12">
+                            <div class="col-md-12">
+                              <label for="telefono" class="control-label">Teléfono:</label>
+                            </div>
+                            <div class="col-md-6">
+                            <select class="form-control" id="codtelef" name="codtelef">
+                              <option value="0243">0243</option>
+                              <option value="0416">0416</option>
+                              <option value="0426">0426</option>
+                              <option value="0414">0414</option>
+                              <option value="0424">0424</option>
+                              <option value="0412">0412</option>
+                            </select>
+                          </div>
+                            <div class="col-md-6">
+                            <input type="text" class="form-control " id="telef" name="telef"/>
+                          </div>
+                            </div>
+                          <div class="form-group col-md-8">
+                          <label for="email" class="control-label">Email:</label>
+                            <input type="text" class="form-control" id="email" name="email"/>
+                          </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" id="btn_add" class="btn btn-primary">Save</button>
+                    <div class="modal-footer col-md-12">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar.</button>
+                        <button type="button" id="btn_add" class="btn btn-primary">Guardar.</button>
                     </div>
         			</form>
                 </div>
@@ -143,11 +164,11 @@
                         <form method="post" id="frm_edit">
         				<input type="hidden" value="edit" name="action" id="action">
         				<input type="hidden" value="0" name="edit_id" id="edit_id">
-                          <div class="form-group">
+                          <div class="form-group col-md-6">
                             <label for="nomprov" class="control-label">Nombre:</label>
                             <input type="text" class="form-control" id="edit_nomprov" name="edit_nomprov"/>
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-md-6">
                             <label for="telefprov" class="control-label">Teléfono:</label>
                             <input type="text" class="form-control" id="edit_telefprov" name="edit_telefprov"/>
                           </div>

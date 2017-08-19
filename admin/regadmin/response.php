@@ -39,7 +39,7 @@
 	}
 	function insertAdmin($params) {
 		$data = array();;
-		$sql = "INSERT INTO tblproveedores (`id`, `nomprov`, `direcprov`, `telefprov`, `emailprov`) VALUES('" . $params["id"] . "', '" . $params["name"] . "', '" . $params["apellido"] . "','" . $params["email"] . "');  ";
+		$sql = "INSERT INTO tbladmin (`id`, `puesto`) VALUES('" . $params["idadmin"] . "', '" . $params["puesto"] . "');  ";
 
 		echo $result = mysqli_query($this->conn, $sql) or die("error to insert client data");
 
@@ -66,7 +66,7 @@
 			$where .=" ORDER By ".key($params['sort']) .' '.current($params['sort'])." ";
 		}
 	   // getting total number records without any search
-		$sql = "SELECT * FROM tbladmin";
+		$sql = "SELECT  a.id, a.puesto, b.idnivel, b.idstatus, c.nomstatus, d.nomnivel FROM tbladmin a, tblusuario b, tblstatus c, tblnivelusuario d where a.id=b.id and b.idnivel = d.id and b.idstatus=c.id";
 		$sqlTot .= $sql;
 		$sqlRec .= $sql;
 
@@ -97,10 +97,10 @@
 
 		return $json_data;
 	}
-	function updateProveedores($params) {
+	function updateAdmin($params) {
 		$data = array();
 		//print_R($_POST);die;
-		$sql = "Update tblproveedores set nomprov = '" . $params["edit_nomprov"] . "', emailprov= '" . $params["edit_emailprov"] . "', direcprov='" . $params["edit_direcprov"] . "',  telefprov= '". $params["edit_telefprov"] ."' WHERE id='".$_POST["edit_id"]."'";
+		$sql = "Update tbladmin set id  puesto= '" . $params["edit_puesto"] . "' WHERE id='".$_POST["edit_id"]."'";
 
 		echo $result = mysqli_query($this->conn, $sql) or die("error to update employee data");
 	}

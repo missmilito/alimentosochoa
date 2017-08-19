@@ -40,7 +40,7 @@
 		echo json_encode($this->data);
 	}
 	function insertEmployee($params) {
-		$data = array();;
+		$data = array();
 		$sql = "INSERT INTO `tblcliente` (apellidocli, emailcli, nomcli) VALUES('" . $params["name"] . "', '" . $params["salary"] . "','" . $params["age"] . "');  ";
 
 		echo $result = mysqli_query($this->conn, $sql) or die("error to insert employee data");

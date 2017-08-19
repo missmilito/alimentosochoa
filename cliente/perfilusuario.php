@@ -25,43 +25,39 @@
 <div><?php include('theme/theme.php') ?></div>
 <div id="wrapper">
 
-   <!-- Sidebar -->
-   <div id="sidebar-wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
 
-       <ul class="sidebar-nav">
+      <ul class="sidebar-nav">
 
-           <li class="sidebar-brand">
-               <a href="#">
-                   Start Bootstrap
-               </a>
-           </li>
-           <li>
-               <a href="#">Dashboard</a>
-           </li>
-           <li>
-               <a href="#">Shortcuts</a>
-           </li>
-           <li>
-               <a href="#">Overview</a>
-           </li>
-           <li>
-               <a href="#">Events</a>
-           </li>
-           <li>
-               <a href="#">About</a>
-           </li>
-           <li>
-               <a href="#">Services</a>
-           </li>
-           <li>
-               <a href="#">Contact</a>
-           </li>
-       </ul>
-   </div>
-   <!-- /#sidebar-wrapper -->
+          <li class="sidebar-brand" >
+              <a style="text-align: center">
+                  MODULOS
+              </a>
+          </li>
+
+         <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-pencil 2x"> REGISTRO</i><span class="caret"></span></a>
+           <ul class="dropdown-menu2 dropdown" >
+             <li><a href="#">Nuevo Pedido.</a></li>
+           </ul>
+         </li>
+         <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
+           <ul class="dropdown-menu2 dropdown" >
+             <li><a href="#">Estado Actual.</a></li>
+             <li><a href="#">Pedidos.</a></li>
+             <li><a href="pagos.php">Pagos.</a></li>
+           </ul>
+         </li>
+
+      </ul>
+  </div>
+  <!-- /#sidebar-wrapper -->
+
         <!-- Page Content -->
-        <div id="page-content-wrapper" style="margin-top:70px">
-            <div class="container-fluid">
+        <div id="page-content-wrapper" style="margin-top:90px">
+            <div class="container">
 
                 <div class="col-lg-12">
                 <div class="container">

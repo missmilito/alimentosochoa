@@ -113,19 +113,20 @@
                     <div class="modal-body">
                         <form method="post" id="frm_add">
         				<input type="hidden" value="add" name="action" id="action">
-                          <div class="form-group col-lg-12">
+                          <div class="form-group col-md-6">
                             <label for="nomproducto" class="control-label">Nombre:</label>
                             <input type="text" class="form-control" id="nombre" name="nombre"/>
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-md-4">
+                           <label for="precio" class="control-label">Precio:</label>
+                           <input type="text" class="form-control" id="precio" name="precio"/>
+                         </div>
+                          <div class="form-group col-md-12">
                             <label for="descprod" class="control-label">Descripción:</label>
                             <input type="text" class="form-control" id="descprod" name="descprod"/>
                           </div>
-        				           <div class="form-group">
-                            <label for="precio" class="control-label">Precio:</label>
-                            <input type="text" class="form-control" id="precio" name="precio"/>
-                          </div>
-                          <div class="form-group">
+
+                          <div class="form-group col-md-6">
                             <label for="subcategoria" class="control-label">SubCategoria:</label>
                             <select id="subcat" name="subcat" class="form-control">
 
@@ -144,10 +145,10 @@
                                 ?>
                             </select>
                           </div>
-                          <div class="form-group">
+                          <div class="form-group col-md-6">
                             <label for="proveedor" class="control-label">Proveedor:</label>
                             <select id="proveedor" name="proveedor" class="form-control">
-                                <option>Seleccione una Opción...</option>
+
                                 <?php
                                 $conexion=mysql_connect("localhost","root","") or
                                 die("Problemas en la conexion");
@@ -165,7 +166,7 @@
                           </div>
 
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer col-md-12">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <button type="button" id="btn_add" class="btn btn-primary">Save</button>
                     </div>
@@ -183,14 +184,73 @@
                     <div class="modal-body">
                         <form method="post" id="frm_edit">
         				<input type="hidden" value="edit" name="action" id="action">
-        				<input type="hidden" value="0" name="edit_id" id="edit_id">
-                          <div class="form-group">
-                            <select id="edit_name" name="edit_name" class="form-control">
-                              <option value="1"> Pendiente </option>
-                              <option value="2"> Procesado </option>
-                              <option value="3"> Entregado </option>
-                            </select>
-                          </div>
+        				<input type="hidden"  name="edit_id" id="edit_id">
+                <div class="form-group">
+                  <label for="nomproducto" class="control-label">Nombre:</label>
+                  <input type="text" class="form-control" id="edit_nombre" name="edit_nombre"/>
+                </div>
+                <div class="form-group">
+                  <label for="descprod" class="control-label">Descripción:</label>
+                  <input type="text" class="form-control" id="edit_desc" name="edit_desc"/>
+                </div>
+                 <div class="form-group">
+                  <label for="precio" class="control-label">Precio:</label>
+                  <input type="text" class="form-control" id="edit_precio" name="edit_precio"/>
+                </div>
+                <div class="form-group">
+                  <label for="subcategoria" class="control-label">SubCategoria:</label>
+                  <select id="edit_subcat" name="edit_subcat" class="form-control">
+                      <?php
+                      $conexion=mysql_connect("localhost","root","") or
+                      die("Problemas en la conexion");
+                      mysql_select_db("bd_distribuidora",$conexion) or
+                      die("Problemas en la selección de la base de datos");
+                      mysql_query ("SET NAMES 'utf8'");
+                      $clavebuscadah=mysql_query("select id, nomsub from tblsubcategoria",$conexion) or
+                      die("Problemas en el select:".mysql_error());
+                      while($row = mysql_fetch_array($clavebuscadah))
+                      {
+                      echo'<option value="'.$row['id'].'">'.$row['nomsub'].'</option>';
+                      }
+                      ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="proveedor" class="control-label">Proveedor:</label>
+                  <select id="edit_proveedor" name="edit_proveedor" class="form-control">
+                      <?php
+                      $conexion=mysql_connect("localhost","root","") or
+                      die("Problemas en la conexion");
+                      mysql_select_db("bd_distribuidora",$conexion) or
+                      die("Problemas en la selección de la base de datos");
+                      mysql_query ("SET NAMES 'utf8'");
+                      $clavebuscadah=mysql_query("select id, nomprov from tblproveedores",$conexion) or
+                      die("Problemas en el select:".mysql_error());
+                      while($row = mysql_fetch_array($clavebuscadah))
+                      {
+                      echo'<option value="'.$row['id'].'">'.$row['nomprov'].'</option>';
+                      }
+                      ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="Status" class="control-label">Estados:</label>
+                  <select id="edit_status" name="edit_status" class="form-control">
+                      <?php
+                      $conexion=mysql_connect("localhost","root","") or
+                      die("Problemas en la conexion");
+                      mysql_select_db("bd_distribuidora",$conexion) or
+                      die("Problemas en la selección de la base de datos");
+                      mysql_query ("SET NAMES 'utf8'");
+                      $clavebuscadah=mysql_query("select id, nomstatus from tblstatus",$conexion) or
+                      die("Problemas en el select:".mysql_error());
+                      while($row = mysql_fetch_array($clavebuscadah))
+                      {
+                      echo'<option value="'.$row['id'].'">'.$row['nomstatus'].'</option>';
+                      }
+                      ?>
+                  </select>
+                </div>
 
 
                     </div>
@@ -247,7 +307,12 @@
 
                                   // collect the data
                                   $('#edit_id').val(ele.siblings(':first').html()); // in case we're changing the key
-                                  $('#edit_name').val(ele.siblings(':nth-of-type(9)').html());
+                                  $('#edit_nombre').val(ele.siblings(':nth-of-type(2)').html());
+                                  $('#edit_desc').val(ele.siblings(':nth-of-type(3)').html());
+                                  $('#edit_precio').val(ele.siblings(':nth-of-type(4)').html());
+                                  $('#edit_status').val(ele.siblings(':nth-of-type(7)').html());
+
+
 
   					} else {
   					 alert('Now row selected! First select row, then click edit button');
