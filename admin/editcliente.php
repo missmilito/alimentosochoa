@@ -3,12 +3,9 @@ require_once ("config/db.php");//Contiene las variables de configuracion para co
 require_once ("config/conexion.php");//Contiene funcion que conecta a la base de datos
 
 session_start();
-
 if(!empty($_POST))
 {
-	$reg_id = mysqli_real_escape_string($con, $_POST['edit_id']);
-	$reg_idnivel = mysqli_real_escape_string($con, $_POST['edit_salary']);
-	$reg_password = mysqli_real_escape_string($con, $_POST['edit_age']);
+
 $sql="SELECT a.nomcliente, a.emailcli, a.apellidocli, b.nomEmp, b.diremp, a.telefcli, b.id, b.emailemp, b.idcliente, b.telefemp FROM tblcliente a, tblemprecli b where a.id='$reg_id' and b.idcliente='$reg_id'" ;
 $result=$con -> query($sql);
 $counter=mysqli_num_rows($result);
@@ -24,8 +21,8 @@ $emailemp=$datos[7];
 $idcliente=$datos[8];
 $telefemp=$datos[9];
 
-
 }
+
 else{
 	header('Location:cclientes.php');
 }

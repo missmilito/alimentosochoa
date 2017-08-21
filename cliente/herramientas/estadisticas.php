@@ -10,9 +10,7 @@ include('includes/phpproductos.php');
   <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
   <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.js">
   <link rel="stylesheet" href="../vendor/jquery/jquery-3.2.1.min.js">
-  <link rel="stylesheet" href="../theme/styles2.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+  <link rel="stylesheet" href="../theme/styles.css">
   <link rel="stylesheet" href="../dist/bootstrap.min.css" type="text/css" media="all">
   <link href="../dist/jquery.bootgrid.css" rel="stylesheet" />
   <script src="../dist/jquery-1.11.1.min.js"></script>
@@ -86,27 +84,12 @@ include('includes/phpproductos.php');
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->
-    <div id="page-content-wrapper" style="margin-top:90px">
-        <div class="container">
-    <div class="row">
-    <div class="container col-lg-12" style="text-align: center">
-
-      <div class="container col-md-4 col-sm-4" style=" width: 500px; height: 300px;">
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-             <h3 class="panel-title">
-                <span class="glyphicon glyphicon-bookmark"></span> 10 + pedidos.</h3>
-          </div>
-                  <div class="panel-body">
-                       <div class=" row container" style="text-align=center">
-                        <div id="piechart_3d" style="width: 450px; height: 400px">
-                        </div>
-
-                      </div>
-                 </div>
-              </div>
-          </div>
-          <div class="col-md-8 col-sm-4" style=" width: 600px; height: 300px;">
+  <div id="page-content-wrapper">
+    <div class="container" style="margin-top:70px" >
+      <div class="row">
+        <div class="col-lg-12">
+   <div class="container col-md-6" style=" width: 500px; height: 300px;">
+     <hr>
      <div class="panel panel-primary">
                      <div class="panel-heading">
                          <h3 class="panel-title">
@@ -115,17 +98,32 @@ include('includes/phpproductos.php');
                 <div class="panel-body">
                     <div class=" row container" style="text-align=center">
 
-<div id="GraficoGoogleChart-ejemplo-1" style="width: 600px; height: 400px">
+<div id="GraficoGoogleChart-ejemplo-1" style="width: 450px; height: 400px; padding: 1px; margin: 0px">
 </div>
                     </div>
                 </div>
       </div>
 </div>
 
-
-
+<hr>
+<div class="container col-md-6" style=" width: 500px; height: 300px;">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+       <h3 class="panel-title">
+          <span class="glyphicon glyphicon-bookmark"></span> 10 + pedidos.</h3>
     </div>
-  </div>
+            <div class="panel-body">
+                 <div class=" row container" style="text-align=center">
+                  <div id="piechart_3d" style="width: 450px; height: 400px; padding: 1px; margin: 0px">
+                  </div>
+
+                </div>
+           </div>
+        </div>
+    </div>
+      </div>
+    </div>
+</div>
 </div>
 </div>
 </body>

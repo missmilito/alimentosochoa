@@ -132,10 +132,22 @@
                                  <div class=" col-md-12 col-sm-12">
                                      <div class="row">
 
-                                         <div class="col-sm-6 form-group">
-                                             <label>RIF</label>
-                                             <input type="text" name="rifemp" placeholder="De no poseer, ingrese ci del dueño" class="form-control" required>
-                                         </div>
+                                       <div class="col-sm-6 form-group">
+                                             <label>RIF de la empresa</label>
+                                         <div class="input-group">
+                                     <div class="input-group-addon">
+                                       <select class="" name="letrarif" id="letrarif">
+                                         <option value="V">V</option>
+                                         <option value="E">E</option>
+                                         <option value="J">J</option>
+                                         <option value="P">P</option>
+                                         <option value="G">G</option>
+                                       </select>
+                                     </div>
+                                     <input class="form-control" type="text" name="rifemp" placeholder="De no poseer, ingrese ci del dueño" class="form-control" required>
+                                   </div>
+
+                                       </div>
 
                                          <div class="col-sm-6 form-group">
                                              <label>Nombre de la empresa</label>

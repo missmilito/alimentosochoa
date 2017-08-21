@@ -7,11 +7,12 @@
 session_start();
 
   $mysqli = conectar();
-$_SESSION['idpedido'];
+
   // SI PULSAMOS GENERAR PDF
   if (isset($_SESSION['idusuario'])) {
+
  $idcliente = mysqli_real_escape_string($mysqli, $_SESSION['idusuario']);
-$idpedido =  mysqli_real_escape_string($mysqli, $_SESSION['idpedido']);
+$idpedido = utf8_decode($_POST['idreporte']);
 
         $cabecera = "<span><img src='../images/headermini.png'/><b>Informe PDF</b></span>";
         $pie = "<span>Descripción pie</span>";
@@ -30,7 +31,7 @@ $idpedido =  mysqli_real_escape_string($mysqli, $_SESSION['idpedido']);
 
 
         $mpdf->WriteHTML($contenido,5);
-        $sql = "SELECT c.nomprod as nomprod, b.cantidadProd as cant, b.ValorTotal as valor, b.idPedido as idpedido, a.fechaped FROM tblpedido a, tbldetallepedido b, tblproducto c where b.idProducto=c.id and a.id=(select MAX(id) from tblpedido where idcliente='$idcliente') and b.idPedido = a.id and a.idcliente='$idcliente'";
+        $sql = "SELECT c.nomprod as nomprod, b.cantidadProd as cant, b.ValorTotal as valor, b.idPedido as idpedido, a.fechaped FROM tblpedido a, tbldetallepedido b, tblproducto c where b.idProducto=c.id and a.id='$idpedido' and b.idPedido = a.id and a.idcliente='$idcliente'";
         $resultado = $mysqli -> query($sql);
 
 

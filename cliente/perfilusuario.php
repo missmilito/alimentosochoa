@@ -7,6 +7,10 @@
 		<meta charset="utf-8">
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="dist/bootstrap.min.css" type="text/css" media="all">
+
+    <script src="dist/jquery-1.11.1.min.js"></script>
+    <script src="dist/bootstrap.min.js"></script>
 
     <!-- BOOTSTRAP CORE CSS-->
 		<link href="vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +23,11 @@
     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
     <script src="js/perfilusuario/scripts.js"></script>
     <script src="theme/scripts.js"></script>
-    <link rel="stylesheet" href="theme/styles.css">
+    <link rel="stylesheet" href="theme/styles2.css">
+    <style media="screen">
+    .row-centered {text-align:center;}
+.col-centered { display:inline-block; float:none; margin-right:-4px;}
+    </style>
   </head>
   <body>
 <div><?php include('theme/theme.php') ?></div>
@@ -39,16 +47,18 @@
          <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-pencil 2x"> REGISTRO</i><span class="caret"></span></a>
            <ul class="dropdown-menu2 dropdown" >
-             <li><a href="#">Nuevo Pedido.</a></li>
+             <li><a href="nuevopedido.php">Nuevo Pedido.</a></li>
            </ul>
          </li>
          <li class="dropdown">
            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
            <ul class="dropdown-menu2 dropdown" >
-             <li><a href="#">Estado Actual.</a></li>
-             <li><a href="#">Pedidos.</a></li>
+             <li><a href="todospedidos.php">Pedidos.</a></li>
              <li><a href="pagos.php">Pagos.</a></li>
            </ul>
+         </li>
+         <li class="dropdown">
+           <a href="herramientas.php" class="dropdown-toggle" ><i class="glyphicon glyphicon-cog 2x"> HERRAMIENTAS</i></a>
          </li>
 
       </ul>
@@ -58,7 +68,20 @@
         <!-- Page Content -->
         <div id="page-content-wrapper" style="margin-top:90px">
             <div class="container">
-
+              <div class="col-lg-12">
+                <?php if (!empty($_GET['edit'])){
+                 ?>
+                 <div class="row row-centered">
+                 <div class="col-xs-12 col-sm-12 col-md-8 col-centered">
+                 <div id="message" name="message" class="alert alert-success">Información editada correctamente.</div>
+               </div>
+             </div>
+               <?php } ?>
+               <div class="col-lg-12">
+                 <?php if (!empty($_GET['psw'])){
+                  ?>
+                  <div id="message" name="message" class="alert alert-success">Contraseña cambiada exitosamente.</div>
+                <?php } ?>
                 <div class="col-lg-12">
                 <div class="container">
       <div class="row">
@@ -73,7 +96,7 @@
 
 
           <div class="panel panel-info">
-            <div class="panel-heading">
+            <div class="panel-heading" style="background-color: #4260A4; color: #FFFFFF">
               <h3 class="panel-title">Perfil de usuario</h3>
             </div>
             <div class="panel-body">
@@ -125,10 +148,14 @@
               </div>
             </div>
                  <div class="panel-footer" style="height: 60px">
-
                         <span class="pull-right">
-                            <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a  href="editinfo.php" style="font-size: 15px; background-color:#B03848" type="button" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-edit " style="color: #FFFFFF;"><span  style="color: #FFFFFF; font-family: arial"> Editar información. </span></i></a>
                         </span>
+                        <div id="command-add">
+                        <span class="pull-right">
+                            <a href="changepassword.php" style="font-size: 15px; background-color:#C67333" type="button" class="btn btn-sm btn-default"><i class="glyphicon glyphicon-edit " style="color: #FFFFFF;"><span  style="color: #FFFFFF; font-family: arial"> Cambiar contraseña. </span></i></a>
+                          </span>
+                      </div>
                     </div>
 
           </div>
@@ -140,11 +167,13 @@
                     </div>
                 </div>
             </div>
+
+            <!-- /#wrapper -->
+
         </div>
         <!-- /#page-content-wrapper -->
 
 
-    <!-- /#wrapper -->
 
 
   </body>
@@ -152,6 +181,7 @@
   <!-- script references -->
 
 <script type="text/javascript">
+
 $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
@@ -173,5 +203,13 @@ $(document).ready(function() {
     });
 });
 
+</script>
+
+<script type="text/javascript">
+
+$( "#command-add" ).click(function() {
+  $('#add_model').modal('show');
+
+});
 </script>
 </html>

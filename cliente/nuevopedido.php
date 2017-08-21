@@ -5,15 +5,16 @@
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+		<link rel="stylesheet" href="dist/bootstrap.min.css" type="text/css" media="all">
+		<script src="dist/jquery-1.11.1.min.js"></script>
+		<script src="dist/bootstrap.min.js"></script>
 		<!-- css bootstrap -->
 		<link href="vendor/bootstrap.min.css" rel="stylesheet">
-
 		<link href="css/nuevopedido/styles.css" rel="stylesheet">
+		<link href="theme/styles2.css" rel="stylesheet">
+		<style media="screen">
 
-
-		<link href="theme/style.css" rel="stylesheet">
-
+		</style>
 	</head>
 
 	<body>
@@ -41,12 +42,13 @@
 		         <li class="dropdown">
 		           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
 		           <ul class="dropdown-menu2 dropdown" >
-								 <li><a href="#">Estado Actual.</a></li>
-		             <li><a href="#">Pedidos.</a></li>
+		             <li><a href="todospedidos.php">Pedidos.</a></li>
 		             <li><a href="pagos.php">Pagos.</a></li>
 		           </ul>
 		         </li>
-
+						 <li class="dropdown">
+						 	<a href="herramientas.php" class="dropdown-toggle" ><i class="glyphicon glyphicon-cog 2x"> HERRAMIENTAS</i></a>
+						 </li>
 		      </ul>
 		  </div>
 		  <!-- /#sidebar-wrapper -->

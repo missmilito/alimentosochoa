@@ -43,6 +43,7 @@
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    background-color: #30559A;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -69,6 +70,7 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    background-color: #30559A;
 }
 
 .sidebar-nav li {
@@ -79,7 +81,7 @@
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #999999;
+    color: #FFFFFF;
 }
 
 .sidebar-nav li a:hover {
@@ -100,7 +102,7 @@
 }
 
 .sidebar-nav > .sidebar-brand a {
-    color: #999999;
+    color: #FFFFFF;
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
@@ -154,4 +156,17 @@
 .icon-size
 {
     font-size: 87px;
+}
+
+
+ul.nav #menu:hover,  #menu:focus, #menu:active {
+  background-color: #2298BC;
+  color:#FFFFFF !important; }
+
+usuario:default{color: white !important}
+
+.navbar
+{
+background-color: #395DA1;
+color: #FFFFFF;
 }

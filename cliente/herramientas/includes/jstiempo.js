@@ -3,7 +3,7 @@ google.load("visualization", "1", {packages:["corechart"]});
  function dibujarGrafico() {
    // Tabla de datos: valores y etiquetas de la gráfica
    var data = google.visualization.arrayToDataTable([
-     ['Pedido', 'Tiempo'],
+     ['Pedido', 'Tiempo de respuesta'],
      <?php $result = mysql_query($SQLDatos);
       while($row = mysql_fetch_row($result)){?>
         [ '<?php echo $row[1]; ?>', [<?php  echo $row[0]; ?>]],
@@ -11,7 +11,7 @@ google.load("visualization", "1", {packages:["corechart"]});
    ]);
      var options = {
        title: 'Tiempo de respuesta entre pendiente - procesado',
-       width: 500,
+       width: 450,
        height: 400,
      }
      // Dibujar el gráfico
