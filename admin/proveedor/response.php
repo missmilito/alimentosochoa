@@ -73,8 +73,8 @@
 		//concatenate search sql if value exist
 		if(isset($where) && $where != '') {
 
-			$sqlTot = "select * tblproveedores $where";
-			$sqlRec = "select * tblproveedores $where";
+			$sqlTot = "$sql $where";
+			$sqlRec = "$sql $where";
 		}
 		if ($rp!=-1)
 		$sqlRec .= " LIMIT ". $start_from .",".$rp;

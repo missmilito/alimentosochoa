@@ -12,7 +12,7 @@ google.load("visualization", "1", {packages:["corechart"]});
      var options = {
        title: 'Tiempo de respuesta entre pendiente - procesado',
        width: 500,
-       height: 400,
+       height: 350,
      }
      // Dibujar el gráfico
      new google.visualization.ColumnChart(

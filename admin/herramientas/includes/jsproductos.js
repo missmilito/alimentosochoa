@@ -11,7 +11,7 @@
         ]);
 
         var options = {
-          title: 'My Daily Activities',
+          title: 'Cantidad de ventas por producto.',
           is3D: true,
           width: 450,
           height: 400,

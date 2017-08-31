@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.js">
     <link rel="stylesheet" href="vendor/jquery/jquery-3.2.1.min.js">
-    <link rel="stylesheet" href="theme/styles.css">
+    <link rel="stylesheet" href="theme/styles2.css">
 
     <style media="screen">
       ul.nav #menu:hover,  #menu:focus, #menu:active { color: black !important; };
@@ -50,26 +50,28 @@
                  <li class="dropdown">
                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios<span class="caret"></span></a>
                    <ul class="dropdown-menu" >
-                     <li><a href="#">Admin.</a></li>
-                     <li><a href="#">Clientes.</a></li>
+                     <li><a style="color: black" href="regadmin.php">Admin.</a></li>
+                     <li><a style="color: black" class="usuarios" href="regcliente.php">Clientes.</a></li>
                    </ul>
                  </li>
-                 <li><a href="#">Proveedores.</a></li>
-                 <li><a href="#">Categorias/SubCat.</a></li>
-                 <li><a href="#">Productos.</a></li>
-                 <li><a href="#">Pedido.</a></li>
+                 <li><a href="proveedores.php">Proveedores.</a></li>
+                 <li><a href="catsubcat.php">Categorias/SubCat.</a></li>
+                 <li><a href="productos.php">Productos.</a></li>
+                 <li><a href="nuevopedido.php">Pedido.</a></li>
 
                </ul>
              </li>
              <li class="dropdown">
                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
                <ul class="dropdown-menu2 dropdown" >
-                 <li><a href="#">Clientes.</a></li>
-                 <li><a href="#">Pedidos.</a></li>
-                 <li><a href="#">Pagos.</a></li>
+                 <li><a href="cclientes.php">Clientes.</a></li>
+                 <li><a href="estados.php">Pedidos.</a></li>
+                 <li><a href="pagos.php">Pagos.</a></li>
                </ul>
              </li>
-
+             <li class="dropdown">
+               <a href="herramientas.php" class="dropdown-toggle" ><i class="glyphicon glyphicon-cog 2x"> HERRAMIENTAS</i></a>
+             </li>
           </ul>
       </div>
       <!-- /#sidebar-wrapper -->
@@ -296,20 +298,7 @@
   				  }
   				});
   			}
-        function ajaxAction(action) {
-        				data = $("#frm_"+action).serializeArray();
-        				$.ajax({
-        				  type: "POST",
-        				  url: "regadmin/response2.php",
-        				  data: data,
-        				  dataType: "json",
-        				  success: function(response)
-        				  {
-        					$('#'+action+'_model').modal('hide');
-        					$("#employee_grid").bootgrid('reload');
-        				  }
-        				});
-        			}
+
 
   			$( "#command-add" ).click(function() {
   			  $('#add_model').modal('show');
@@ -328,6 +317,34 @@
          $("#wrapper").toggleClass("toggled");
      });
 
+  </script>
+  <script type="text/javascript">
+    $( document ).ready(function() {
+  function ajaxAction(action) {
+          data = $("#frm_"+action).serializeArray();
+          $.ajax({
+            type: "POST",
+            url: "regadmin/response2.php",
+            data: data,
+            dataType: "json",
+            success: function(response)
+            {
+            $('#'+action+'_model').modal('hide');
+            $("#employee_grid").bootgrid('reload');
+            }
+          });
+        }
+        $( "#command-add" ).click(function() {
+          $('#add_model').modal('show');
+        });
+        $( "#btn_add" ).click(function() {
+          ajaxAction('add');
+        });
+        $( "#btn_edit" ).click(function() {
+          ajaxAction('edit');
+        });
+
+      });
   </script>
 
   <script type="text/javascript">

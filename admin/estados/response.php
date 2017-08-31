@@ -57,15 +57,15 @@
 	   if( !empty($params['sort']) ) {
 			$where .=" ORDER By ".key($params['sort']) .' '.current($params['sort'])." ";
 
-			$sql = "select a.id as idPedido, a.fechaped, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, b.EstadoPed from tblpedido a, tblestadoped b, tblcliente d ";
+			$sql = "select a.num, a.id as idPedido, a.fechaped, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, b.EstadoPed from tblpedido a, tblestadoped b, tblcliente d ";
 
 			$sqlTot = $sql;
 			$sqlRec = $sql;
 		 }
 		 if(isset($where) && $where != '') {
 
-			 $sqlTot= "select a.id as idPedido, a.fechaped, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, b.EstadoPed from tblpedido a, tblestadoped b, tblcliente d  $where";
-			 $sqlRec= "select a.id as idPedido, a.fechaped, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, b.EstadoPed from tblpedido a, tblestadoped b, tblcliente d  $where";
+			 $sqlTot= "select a.num, a.id as idPedido, a.fechaped, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, b.EstadoPed from tblpedido a, tblestadoped b, tblcliente d  $where";
+			 $sqlRec= "select a.num, a.id as idPedido, a.fechaped, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, b.EstadoPed from tblpedido a, tblestadoped b, tblcliente d  $where";
 		 }
 		 if ($rp!=-1)
 		 $sqlRec .= " LIMIT ". $start_from .",".$rp;
@@ -73,7 +73,7 @@
 	 }
 		else {
 
-			$sql = "select a.id as idPedido, a.fechaped, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, b.EstadoPed from tblpedido a, tblestadoped b, tblcliente d  where  b.id='1' and b.id=a.idestadoped and d.id = a.idcliente";
+			$sql = "select a.num, a.id as idPedido, a.fechaped, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, b.EstadoPed from tblpedido a, tblestadoped b, tblcliente d  where  b.id='1' and b.id=a.idestadoped and d.id = a.idcliente group by a.id";
 
 			$sqlTot .= $sql;
 			$sqlRec .= $sql;

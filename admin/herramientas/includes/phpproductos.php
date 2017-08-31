@@ -1,11 +1,21 @@
 <?php // Conectamos base de datos
+if(isset($_POST['fecha1'])){$fecha1= utf8_decode($_POST['fecha1']);
+}
+if(isset($_POST['fecha2'])){$fecha2 = utf8_decode($_POST['fecha2']);}
+
+
 $conexion = mysql_connect('localhost', 'root', '')
 or die('No se pudo conectar: ' . mysql_error());
 mysql_select_db('bd_distribuidora') or die('No se pudo seleccionar la base de datos');
 
 //preparamos la consulta
-$sqlprod = "select b.nomprod as nom, a.idproducto, count(a.idproducto) as cantidad from tbldetallepedido a, tblproducto b where a.idproducto= b.id group by idproducto order by (cantidad) desc limit 0,10";
+if(isset($fecha1)){
+$sqlprod = "select b.nomprod as nom, a.idproducto, count(a.idproducto) as cantidad from tbldetallepedido a, tblproducto b, tblpedido c where a.idproducto= b.id and a.idPedido = c.id and c.fechaped BETWEEN '$fecha1' and '$fecha2' group by idproducto order by (cantidad) desc limit 0,10";
+}
+else{
+  $sqlprod = "select b.nomprod as nom, a.idproducto, count(a.idproducto) as cantidad from tbldetallepedido a, tblproducto b where a.idproducto= b.id group by idproducto order by (cantidad) desc limit 0,10";
 
+}
 //ejecutamos la consulta
 $resultado = mysql_query($sqlprod);
 

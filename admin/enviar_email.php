@@ -3,18 +3,14 @@
 include_once('class.phpmailer.php');
 include_once('class.smtp.php');
 session_start();
-$password = utf8_decode($_POST['password']);
-//INFORMACION DEL CLIENTE
-$idcliente = utf8_decode($_POST['idcliente']);
-$nombrecli = utf8_decode($_POST['nombre']);
-$apellido = utf8_decode($_POST['apellido']);
+
 
 //Recibir todos los parámetros del formulario
-$para = "tornasolvibes@gmail.com";
-$asunto = "probando";
+$para = $_SESSION['emailinst'];
+$asunto = "Registro exitoso.";
 $mensaje = '<html>
 <head>
-<title>Envio de Sugerencias</title>
+<title>Notificación:</title>
 <style type="text/css">
 
 #apDiv2 {
@@ -46,7 +42,7 @@ $mensaje = '<html>
     <tr>
       <td><table width="100%" border="0">
         <tr>
-          <td style="text-align: center"><img src="../images/headermini.png"></td>
+          <td style="text-align: center"><img src="images/headermini.png"></td>
         </tr>
         <tr>
           <td><p>&nbsp;</p>
@@ -100,9 +96,9 @@ $mail->SMTPAuth = true;
 $mail->SMTPSecure = "ssl";
 $mail->Host = "smtp.gmail.com";
 $mail->Port = 465;
-$mail->FromName = "AREA 10";
+$mail->FromName = "Distribuidora Alimentos Ochoa F.P.";
 //Nuestra cuenta
-$mail->Username ='nahilinochoa@gmail.com';
+$mail->Username ='distalimentosochoa@gmail.com';
 $mail->Password = 'milito-10'; //Su password
 
 //Agregar destinatario

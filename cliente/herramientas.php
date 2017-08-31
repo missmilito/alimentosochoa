@@ -7,6 +7,7 @@ require_once ("../config/conexion.php");//Contiene funcion que conecta a la base
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="icon" href="../images/headermini.png" type="image/png" sizes="16x16">
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
@@ -71,24 +72,24 @@ require_once ("../config/conexion.php");//Contiene funcion que conecta a la base
               <div class="row">
                 <div class="container col-md-6" style=" width: 500px; ">
                   <hr>
-                  <div class="panel panel-primary">
-                                  <div class="panel-heading">
+                  <div class="panel panel-primary" style="border-color: #327576">
+                                  <div class="panel-heading" style="background-color: #327576;">
                                       <h3 class="panel-title">
                                           <span class="glyphicon glyphicon-bookmark"></span>Último pedido.</h3>
                                   </div>
                              <div class="panel-body">
                                  <div class=" row container" style="text-align=center">
                                    <div class="container" style="font-size:15px" >
-                                   <table class="table table-user-information">
-                                     <tbody>
+                                   <table class="table table-user-information" >
+                                     <tbody >
                                          <?php
                                          $usucliente=$_SESSION['idusuario'];
                                            $sqlselect=mysqli_query($con, "SELECT c.nomprod as nomprod, b.fechaped as fechaped, a.valortotal as valorunit, a.idproducto as idprod, a.idpedido as idped,a.cantidadProd as cantidad from tbldetallepedido a, tblpedido b, tblproducto c where b.idcliente='$usucliente' and a.idproducto = c.id and a.idpedido=( SELECT max(id) FROM tblpedido) group by a.idProducto ");
                                            $row=mysqli_fetch_array($sqlselect);
                                            {
-                                     echo '<tr>Nº de pedido: '.$row['idped'].'</tr>';
-                                     echo '<br>';
-                                    echo  '<tr>Fecha: '.$row['fechaped'].' </tr>';
+                                     echo '<tr ><p style="font-size: 15px; font-family: Courier New; font-weight: bold">Nº de pedido: '.$row['idped'].'</p></tr>';
+
+                                    echo  '<tr ><p style="font-size: 15px; font-family: Courier New; font-weight: bold">Fecha: '.$row['fechaped'].'</p></tr>';
                                    } ?>
 
                                    </tbody>
@@ -144,8 +145,8 @@ require_once ("../config/conexion.php");//Contiene funcion que conecta a la base
 
              <hr>
              <div class="container col-md-6" style="width: 350px;">
-               <div class="panel panel-primary">
-                 <div class="panel-heading" style="background-color: #8CC246">
+               <div class="panel panel-primary" style="border-color: #507b96">
+                 <div class="panel-heading" style="background-color: #507b96">
                     <h3 class="panel-title">
                        <span class="glyphicon glyphicon-bookmark"></span> Status de último pedido.</h3>
                  </div>

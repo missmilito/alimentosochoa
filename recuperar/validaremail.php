@@ -1,32 +1,34 @@
 <?php
 include_once('class.phpmailer.php');
 include_once('class.smtp.php');
+session_start();
 
-$email = 'nahilinochoa@gmail.com';
+$email = $_POST['email'];
 	$respuesta = new stdClass();
 
 	if( $email != "" ){
-   		$conexion = new mysqli('localhost', 'root', '', 'pass');
+   		$conexion = new mysqli('localhost', 'root', '', 'bd_distribuidora');
 
-   		$sql = " SELECT * FROM users WHERE email = 'nahilinochoa@gmail.com' ";
+   		$sql = " SELECT * FROM tblcliente WHERE emailcli = '$email' ";
    		$resultado = $conexion->query($sql);
 
    		if($resultado->num_rows > 0){
       		$usuario = $resultado->fetch_assoc();
 					$idusuario= $usuario['id'];
-					$username= $usuario['username'];
+					$_SESSION['intentar']= $usuario['id'];
+					$username= $usuario['nomcliente'];
 
 					$cadena = $idusuario.$username.rand(1,9999999).date('Y-m-d');
 					$token = sha1($cadena);
 
-					$conexion = new mysqli('localhost', 'root', '', 'pass');
+					$conexion = new mysqli('localhost', 'root', '', 'bd_distribuidora');
 
 					$sql = "INSERT INTO tblreseteopass (idusuario, username, token, creado) VALUES($idusuario,'$username','$token',NOW()) ON DUPLICATE KEY UPDATE
 token='$token', creado = NOW();";
 
 					$resultado= $conexion->query($sql);
 
-						$enlace = $_SERVER["SERVER_NAME"].'/pass/restablecer.php?idusuario='.sha1($idusuario).'&token='.$token;
+						$enlace = $_SERVER["SERVER_NAME"].'/alimentosochoa/recuperar/restablecer.php?idusuario='.sha1($idusuario).'&token='.$token;
 
       		if($enlace !=""){
 
@@ -44,7 +46,7 @@ token='$token', creado = NOW();";
 								</body>
 								</html>';
 
-								$para = "tornasolvibes@gmail.com";
+								$para = $email;
 								$asunto = "probando";
 
 								$archivo = "";
@@ -58,7 +60,7 @@ token='$token', creado = NOW();";
 								$mail->Port = 465;
 								$mail->FromName = "AREA 10";
 								//Nuestra cuenta
-								$mail->Username ='nahilinochoa@gmail.com';
+								$mail->Username ='distalimentosochoa@gmail.com';
 								$mail->Password = 'milito-10'; //Su password
 
 								//Agregar destinatario

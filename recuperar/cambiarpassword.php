@@ -1,11 +1,11 @@
 <?php
-
+session_start();
 $password1 = $_POST['password1'];
 $password2 = $_POST['password2'];
-$idusuario = $_POST['idusuario'];
+$idusuario = $_SESSION['intentar'];
 $token = $_POST['token'];
 
-if( $password1 != "" && $password2 != "" && $idusuario != "" && $token != "" ){
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -22,50 +22,37 @@ if( $password1 != "" && $password2 != "" && $idusuario != "" && $token != "" ){
       <div class="col-md-2"></div>
       <div class="col-md-8">
 <?php
-
-
-	$conexion = new mysqli('localhost', 'root', '', 'pass');
-	$sql = " SELECT * FROM tblreseteopass WHERE token = '$token' ";
+if( $password1 != "" && $password2 != "" && $idusuario != "" && $token != "" ){
+$conexion = new mysqli('localhost', 'root', '', 'bd_distribuidora');
+	$sql = " SELECT * FROM tblcliente WHERE id = '$idusuario' ";
 
 	$resultado = $conexion->query($sql);
 	if( $resultado->num_rows > 0 ){
 		$usuario = $resultado->fetch_assoc();
-		if( sha1( $usuario['idusuario'] === $idusuario ) ){
+
 			if( $password1 === $password2 ){
-				$sql = "UPDATE users SET password = '".sha1($password1)."' WHERE id = ".$usuario['idusuario'];
+				$sql = "UPDATE tblusuario SET password = '".sha1($password1)."' WHERE id = '".$idusuario."'";
 				$resultado = $conexion->query($sql);
 				if($resultado){
 					$sql = "DELETE FROM tblreseteopass WHERE token = '$token';";
 					$resultado = $conexion->query( $sql );
-				?>
-					<p> La contraseña se actualizó con exito. </p>
-				<?php
-				}
-				else{
-				?>
-					<p> Ocurrió un error al actualizar la contraseña, intentalo más tarde </p>
-				<?php
-				}
-			}
-			else{
-			?>
-			<p> Las contraseñas no coinciden </p>
-			<?php
-			}
 
-		}
-		else{
+					echo"<p> La contraseña se actualizó con exito. </p>";
+				}
+        }
+			else{
+			echo"<p> Las contraseñas no coinciden </p>";
+			}
+}
+else{
+	header('Location:../index.php');
+}
+
+}
+else{
+	header('Location:../index.php');
+}
 ?>
-<p> El token no es válido </p>
-<?php
-		}
-	}
-	else{
-?>
-<p> El token no es válido </p>
-<?php
-	}
-	?>
 	</div>
 <div class="col-md-2"></div>
 	</div> <!-- /container -->
@@ -73,9 +60,3 @@ if( $password1 != "" && $password2 != "" && $idusuario != "" && $token != "" ){
     <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
-<?php
-}
-else{
-	header('Location:login.php');
-}
-?>

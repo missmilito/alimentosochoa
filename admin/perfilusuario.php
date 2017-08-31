@@ -19,46 +19,56 @@
     <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
     <script src="js/perfilusuario/scripts.js"></script>
     <script src="theme/scripts.js"></script>
-    <link rel="stylesheet" href="theme/styles.css">
+    <link rel="stylesheet" href="theme/styles2.css">
   </head>
   <body>
 <div><?php include('theme/theme.php') ?></div>
 <div id="wrapper">
 
-   <!-- Sidebar -->
-   <div id="sidebar-wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
 
-       <ul class="sidebar-nav">
+      <ul class="sidebar-nav">
 
-           <li class="sidebar-brand">
-               <a href="#">
-                   Start Bootstrap
-               </a>
-           </li>
-           <li>
-               <a href="#">Dashboard</a>
-           </li>
-           <li>
-               <a href="#">Shortcuts</a>
-           </li>
-           <li>
-               <a href="#">Overview</a>
-           </li>
-           <li>
-               <a href="#">Events</a>
-           </li>
-           <li>
-               <a href="#">About</a>
-           </li>
-           <li>
-               <a href="#">Services</a>
-           </li>
-           <li>
-               <a href="#">Contact</a>
-           </li>
-       </ul>
-   </div>
-   <!-- /#sidebar-wrapper -->
+          <li class="sidebar-brand" >
+              <a style="text-align: center">
+                  MODULOS
+              </a>
+          </li>
+
+         <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-pencil 2x"> REGISTRO</i><span class="caret"></span></a>
+           <ul class="dropdown-menu2 dropdown" >
+
+             <li class="dropdown">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios<span class="caret"></span></a>
+               <ul class="dropdown-menu" >
+                 <li><a style="color: black" href="regadmin.php">Admin.</a></li>
+                 <li><a style="color: black"  href="regcliente.php">Clientes.</a></li>
+               </ul>
+             </li>
+             <li><a href="proveedores.php">Proveedores.</a></li>
+             <li><a href="catsubcat.php">Categorias/SubCat.</a></li>
+             <li><a href="productos.php">Productos.</a></li>
+             <li><a href="nuevopedido.php">Pedido.</a></li>
+
+           </ul>
+         </li>
+         <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
+           <ul class="dropdown-menu2 dropdown" >
+             <li><a href="cclientes.php">Clientes.</a></li>
+             <li><a href="estados.php">Pedidos.</a></li>
+             <li><a href="pagos.php">Pagos.</a></li>
+           </ul>
+         </li>
+         <li class="dropdown">
+           <a href="herramientas.php" class="dropdown-toggle" ><i class="glyphicon glyphicon-cog 2x"> HERRAMIENTAS</i></a>
+         </li>
+        </ul>
+      </ul>
+  </div>
+  <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
         <div id="page-content-wrapper" style="margin-top:70px">
             <div class="container-fluid">

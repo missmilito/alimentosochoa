@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.js">
     <link rel="stylesheet" href="vendor/jquery/jquery-3.2.1.min.js">
-    <link rel="stylesheet" href="theme/styles.css">
+    <link rel="stylesheet" href="theme/styles2.css">
     <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <style media="screen">
@@ -27,46 +27,51 @@
   <body>
     <div><?php include('theme/theme.php') ?></div>
     <div id="wrapper">
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
 
-            <ul class="sidebar-nav">
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">
 
-                <li class="sidebar-brand" >
-                    <a style="text-align: center">
-                        MODULOS
-                    </a>
-                </li>
+          <ul class="sidebar-nav">
 
-               <li class="dropdown">
-                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-pencil 2x"> REGISTRO</i><span class="caret"></span></a>
-                 <ul class="dropdown-menu2 dropdown" >
+              <li class="sidebar-brand" >
+                  <a style="text-align: center">
+                      MODULOS
+                  </a>
+              </li>
 
-                   <li class="dropdown">
-                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios<span class="caret"></span></a>
-                     <ul class="dropdown-menu" >
-                       <li><a href="#">Admin.</a></li>
-                       <li><a href="#">Clientes.</a></li>
-                     </ul>
-                   </li>
-                   <li><a href="#">Proveedores.</a></li>
-                   <li><a href="#">Categorias/SubCat.</a></li>
-                   <li><a href="#">Productos.</a></li>
-                   <li><a href="#">Pedido.</a></li>
+             <li class="dropdown">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-pencil 2x"> REGISTRO</i><span class="caret"></span></a>
+               <ul class="dropdown-menu2 dropdown" >
 
-                 </ul>
-               </li>
-               <li class="dropdown">
-                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
-                 <ul class="dropdown-menu2 dropdown" >
-                   <li><a href="#">Clientes.</a></li>
-                   <li><a href="#">Pedidos.</a></li>
-                   <li><a href="#">Pagos.</a></li>
-                 </ul>
-               </li>
+                 <li class="dropdown">
+                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios<span class="caret"></span></a>
+                   <ul class="dropdown-menu" >
+                     <li><a style="color: black" href="regadmin.php">Admin.</a></li>
+                     <li><a style="color: black" class="usuarios" href="regcliente.php">Clientes.</a></li>
+                   </ul>
+                 </li>
+                 <li><a href="proveedores.php">Proveedores.</a></li>
+                 <li><a href="catsubcat.php">Categorias/SubCat.</a></li>
+                 <li><a href="productos.php">Productos.</a></li>
+                 <li><a href="nuevopedido.php">Pedido.</a></li>
 
+               </ul>
+             </li>
+             <li class="dropdown">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
+               <ul class="dropdown-menu2 dropdown" >
+                 <li><a href="cclientes.php">Clientes.</a></li>
+                 <li><a href="estados.php">Pedidos.</a></li>
+                 <li><a href="pagos.php">Pagos.</a></li>
+               </ul>
+             </li>
+             <li class="dropdown">
+               <a href="estadisticas.php" class="dropdown-toggle" ><i class="glyphicon glyphicon-cog 2x"> HERRAMIENTAS</i></a>
+             </li>
             </ul>
-        </div>
+          </ul>
+      </div>
+      <!-- /#sidebar-wrapper -->
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
         <div id="page-content-wrapper">
@@ -94,7 +99,8 @@
                         <table id="pendientes_grid" class="table table-condensed table-hover table-striped" width="60%" cellspacing="0" data-toggle="bootgrid">
                           <thead>
                             <tr>
-                                        <th data-column-id="idPedido" data-identifier="true">Nº</th>
+                                        <th data-column-id="num" data-identifier="true" data-visible="false">Nº</th>
+                                        <th data-column-id="idPedido" data-identifier="true">Código</th>
                                         <th data-column-id="cliente">Cliente</th>
                                         <th data-column-id="fechaped">Fecha</th>
                                         <th data-column-id="EstadoPed">Estado</th>
@@ -119,7 +125,8 @@
                         <table id="procesados_grid" class="table table-condensed table-hover table-striped" width="60%" cellspacing="0" data-toggle="bootgrid">
                           <thead>
                             <tr>
-                              <th data-column-id="idPedido" data-identifier="true">Nº</th>
+                              <th data-column-id="num" data-identifier="true" data-visible="false">Nº</th>
+                              <th data-column-id="idPedido">Código</th>
                               <th data-column-id="cliente">Cliente</th>
                               <th data-column-id="fechaped">Fecha</th>
                               <th data-column-id="EstadoPed">Estado</th>
@@ -143,7 +150,8 @@
                         <table id="entregados_grid" class="table table-condensed table-hover table-striped" width="60%" cellspacing="0" data-toggle="bootgrid">
                           <thead>
                             <tr>
-                              <th data-column-id="idPedido" data-identifier="true">Nº</th>
+                              <th data-column-id="num" data-identifier="true" data-visible="false">Nº</th>
+                              <th data-column-id="idPedido">Código</th>
                               <th data-column-id="cliente">Cliente</th>
                               <th data-column-id="fechaped">Fecha</th>
                               <th data-column-id="EstadoPed">Estado</th>
@@ -175,7 +183,7 @@
                     <div class="modal-body">
                         <form method="post" id="frm_pendientes">
         				<input type="hidden" value="edit" name="action" id="action">
-        				<input type="hidden" value="0" name="pendientes_id" id="pendientes_id">
+        				<input type="hidden" name="pendientes_id" id="pendientes_id">
 
                           <div class="form-group ">
                             <p>Cambiar estado a: Procesado</p>
@@ -239,12 +247,16 @@
   				id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
   			};
   		},
+      labels: {
+
+              loading: "No existen pedidos pendientes actualmente"
+          },
 
   		url: "estados/response.php",
   		formatters: {
   		        "commands": function(column, row)
   		        {
-  		            return "<button type=\"button\" data-toggle=\"tooltip\" title=\"Cambiar estado.\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.idPedido + "\"><span class=\"glyphicon glyphicon-edit\"></span></button> ";
+  		            return "<button type=\"button\" data-toggle=\"tooltip\" title=\"Cambiar estado.\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.num + "\"><span class=\"glyphicon glyphicon-edit\"></span></button> ";
   		        }
   		    }
      }).on("loaded.rs.jquery.bootgrid", function()
@@ -348,12 +360,15 @@
   				id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
   			};
   		},
+      labels: {
 
+              loading: "No existen pedidos procesados actualmente"
+          },
   		url: "estados/response2.php",
   		formatters: {
   		        "commands": function(column, row)
   		        {
-  		            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.idPedido + "\"><span class=\"glyphicon glyphicon-edit\"></span></button> ";
+  		            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.num + "\"><span class=\"glyphicon glyphicon-edit\"></span></button> ";
   		        }
   		    }
      }).on("loaded.rs.jquery.bootgrid", function()
@@ -364,7 +379,7 @@
           //alert("You pressed edit on row: " + $(this).data("row-id"));
   			var ele =$(this).parent();
   			var g_id = $(this).parent().siblings(':first').html();
-              var g_name = $(this).parent().siblings(':nth-of-type(2)').html();
+              var g_name = $(this).parent().siblings(':first').html();
   console.log(g_id);
                       console.log(g_name);
 
@@ -373,7 +388,7 @@
   					if($(this).data("row-id") >0) {
 
                                   // collect the data
-                                  $('#procesados_id').val(ele.siblings(':first').html()); // in case we're changing the key
+                                  $('#procesados_id').val(ele.siblings(':nth-of-type(2)').html()); // in case we're changing the key
 
 
   					} else {

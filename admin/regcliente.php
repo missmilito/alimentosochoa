@@ -16,52 +16,56 @@
 <script src="dist/jquery-1.11.1.min.js"></script>
 <script src="dist/bootstrap.min.js"></script>
     <link rel="stylesheet" href="vendor/jquery/jquery-3.2.1.min.js">
-    <link rel="stylesheet" href="theme/styles.css">
+    <link rel="stylesheet" href="theme/styles2.css">
   </head>
 
 <body>
   <div><?php include('theme/theme.php') ?></div>
   <div id="wrapper">
-      <!-- Sidebar -->
-      <div id="sidebar-wrapper">
 
-          <ul class="sidebar-nav">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
 
-              <li class="sidebar-brand" >
-                  <a style="text-align: center">
-                      MODULOS
-                  </a>
-              </li>
+        <ul class="sidebar-nav">
 
-             <li class="dropdown">
-               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-pencil 2x"> REGISTRO</i><span class="caret"></span></a>
-               <ul class="dropdown-menu2 dropdown" >
+            <li class="sidebar-brand" >
+                <a style="text-align: center">
+                    MODULOS
+                </a>
+            </li>
 
-                 <li class="dropdown">
-                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios<span class="caret"></span></a>
-                   <ul class="dropdown-menu" >
-                     <li><a href="#">Admin.</a></li>
-                     <li><a href="#">Clientes.</a></li>
-                   </ul>
-                 </li>
-                 <li><a href="#">Proveedores.</a></li>
-                 <li><a href="#">Categorias/SubCat.</a></li>
-                 <li><a href="#">Productos.</a></li>
-                 <li><a href="#">Pedido.</a></li>
+           <li class="dropdown">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-pencil 2x"> REGISTRO</i><span class="caret"></span></a>
+             <ul class="dropdown-menu2 dropdown" >
 
-               </ul>
-             </li>
-             <li class="dropdown">
-               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
-               <ul class="dropdown-menu2 dropdown" >
-                 <li><a href="#">Clientes.</a></li>
-                 <li><a href="#">Pedidos.</a></li>
-                 <li><a href="#">Pagos.</a></li>
-               </ul>
-             </li>
+               <li class="dropdown">
+                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios<span class="caret"></span></a>
+                 <ul class="dropdown-menu" >
+                   <li><a style="color: black" href="regadmin.php">Admin.</a></li>
+                   <li><a style="color: black" class="usuarios" href="regcliente.php">Clientes.</a></li>
+                 </ul>
+               </li>
+               <li><a href="proveedores.php">Proveedores.</a></li>
+               <li><a href="catsubcat.php">Categorias/SubCat.</a></li>
+               <li><a href="productos.php">Productos.</a></li>
+               <li><a href="nuevopedido.php">Pedido.</a></li>
 
-          </ul>
-      </div>
+             </ul>
+           </li>
+           <li class="dropdown">
+             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
+             <ul class="dropdown-menu2 dropdown" >
+               <li><a href="cclientes.php">Clientes.</a></li>
+               <li><a href="estados.php">Pedidos.</a></li>
+               <li><a href="pagos.php">Pagos.</a></li>
+             </ul>
+           </li>
+           <li class="dropdown">
+             <a href="herramientas.php" class="dropdown-toggle" ><i class="glyphicon glyphicon-cog 2x"> HERRAMIENTAS</i></a>
+           </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
       <!-- /#sidebar-wrapper -->
       <div id="page-content-wrapper " style="">
                <div class="container-fluid" style="margin-top:50px;" >
@@ -76,14 +80,17 @@
                          <?php } ?>
                          <hr>
                          <h1 class="well container col-md-12 col-sm-12" style="text-align: center;">Información del usuario</h1>
+
                          <div class=" well container col-md-12 col-sm-12 col-xs-12" style="">
                            <div class="row centered" >
-                                 <div class="col-md-4 " id="div_idcliente">
-                                     <label>ID / Cédula de identidad</label>
-                                     <input type="number" name="idcliente" id="idcliente" placeholder="Este será el id del usuario" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onblur="" class="form-control" pattern="[0-9]{6,10}" required nowhitespace minlength="7" maxlength="8"; >
+                             <div class="col-sm-4 form-group" id="div_idcliente">
+                                   <label>Cédula de Identidad</label>
+                           <input type="number" name="idcliente" id="idcliente" placeholder="Este será el id del usuario" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onblur="" class="form-control" pattern="[0-9]{6,10}" required nowhitespace minlength="7" maxlength="8"; >
 
-                                     <span id="span_idcliente" style="display: none;">Campo no puede estar vacio</span>
-                                 </div>
+                         </div>
+                         <span id="span_idcliente" style="display: none;">Campo no puede estar vacio</span>
+                             </div>
+
                                  <div class="col-md-4 form-group">
                                      <label>Contraseña</label>
                                      <input readonly="readonly" name="password" placeholder="Ingrese la contraseña del usuario" class="form-control" required>
@@ -115,12 +122,23 @@
                                          <label>Email/Correo</label>
                                          <input type="email" id="email" name="emailcliente" placeholder="Ingrese e-mail personal" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
                                      </div>
+                                     <div class="col-sm-4 form-group" id="div_telefcli">
+                                           <label>Teléfono</label>
+                                       <div class="input-group">
+                                   <div class="input-group-addon">
+                                     <select class="" name="codtelef" id="codtelef">
+                                       <option value="0416">0416</option>
+                                       <option value="0426">0426</option>
+                                       <option value="0414">0414</option>
+                                       <option value="0424">0424</option>
+                                       <option value="0412">0412</option>
+                                       <option value="0243">0243</option>
+                                      </select>
+                                   </div>
+                                   <input type="number" id="telefono" name="telefonocliente" placeholder="Ingrese su número teléfonico" class="form-control" pattern="[0-9]{6,10}" required nowhitespace minlength="7" maxlength="8"; >
 
-                                         <div class="col-md-4 form-group">
-                                             <label>Teléfono</label>
-                                             <input type="number" id="telefono" name="telefonocliente" placeholder="Ingrese su número teléfonico" class="form-control" required>
-                                         </div>
-
+                                  </div>
+                                     </div>
                                  </div>
                              </div>
                          </div>
@@ -156,11 +174,24 @@
 
                                      </div>
                                      <div class="row">
-
-                                         <div class="col-sm-4 form-group">
+                                       <div class="col-sm-4 form-group" id="div_telefemp">
                                              <label>Teléfono</label>
-                                             <input type="number" name="tlfemp" placeholder="Ingrese su número teléfonico" class="form-control" pattern="[0-9]{1,10}" required>
-                                         </div>
+                                         <div class="input-group">
+                                      <div class="input-group-addon">
+                                       <select class="" name="codtelef2" id="codtelef2">
+                                         <option value="0416">0416</option>
+                                         <option value="0426">0426</option>
+                                         <option value="0414">0414</option>
+                                         <option value="0424">0424</option>
+                                         <option value="0412">0412</option>
+                                         <option value="0243">0243</option>
+                                        </select>
+                                      </div>
+                                      <input type="number" name="tlfemp" placeholder="Ingrese su número teléfonico" class="form-control" pattern="[0-9]{6,10}" required nowhitespace minlength="7" maxlength="8">
+
+                                      </div>
+                                       </div>
+
                                          <div class="col-sm-8 form-group">
                                              <label>Email/Correo</label>
                                              <input type="text" name="emailemp" placeholder="Ingrese e-mail personal" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>

@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.js">
     <link rel="stylesheet" href="vendor/jquery/jquery-3.2.1.min.js">
-    <link rel="stylesheet" href="theme/styles.css">
+    <link rel="stylesheet" href="theme/styles2.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -52,28 +52,32 @@
                  <li class="dropdown">
                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios<span class="caret"></span></a>
                    <ul class="dropdown-menu" >
-                     <li><a href="#">Admin.</a></li>
-                     <li><a href="#">Clientes.</a></li>
+                     <li><a style="color: black" href="regadmin.php">Admin.</a></li>
+                     <li><a style="color: black"  href="regcliente.php">Clientes.</a></li>
                    </ul>
                  </li>
-                 <li><a href="#">Proveedores.</a></li>
-                 <li><a href="#">Categorias/SubCat.</a></li>
-                 <li><a href="#">Productos.</a></li>
-                 <li><a href="#">Pedido.</a></li>
+                 <li><a href="proveedores.php">Proveedores.</a></li>
+                 <li><a href="catsubcat.php">Categorias/SubCat.</a></li>
+                 <li><a href="productos.php">Productos.</a></li>
+                 <li><a href="nuevopedido.php">Pedido.</a></li>
 
                </ul>
              </li>
              <li class="dropdown">
                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
                <ul class="dropdown-menu2 dropdown" >
-                 <li><a href="#">Clientes.</a></li>
-                 <li><a href="#">Pedidos.</a></li>
+                 <li><a href="cclientes.php">Clientes.</a></li>
+                 <li><a href="estados.php">Pedidos.</a></li>
                  <li><a href="pagos.php">Pagos.</a></li>
                </ul>
              </li>
-
+             <li class="dropdown">
+               <a href="estadisticas.php" class="dropdown-toggle" ><i class="glyphicon glyphicon-cog 2x"> HERRAMIENTAS</i></a>
+             </li>
+            </ul>
           </ul>
       </div>
+      <!-- /#sidebar-wrapper -->
       <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
         <div id="page-content-wrapper">
@@ -127,11 +131,11 @@
                         <table id="pagados_grid" class="table table-condensed table-hover table-striped" width="60%" cellspacing="0" data-toggle="bootgrid">
                           <thead>
                             <tr>
-                                        <th data-column-id="id" data-identifier="true">Nº</th>
-                                        <th data-column-id="idcli">Cliente</th>
-                                        <th data-column-id="fechacredito">Producto</th>
-                                        <th data-column-id="fechapagado">Cantidad</th>
-                                        <th data-column-id="dias">Total del pedido</th>
+                                        <th data-column-id="idp" data-identifier="true">Nº</th>
+                                        <th data-column-id="nomcliente">Cliente</th>
+                                        <th data-column-id="fechacredito">Fecha de credito</th>
+                                        <th data-column-id="fechapagado">Fecha de pagados</th>
+                                        <th data-column-id="dias">Días entre ambos</th>
                             </tr>
                           </thead>
                         </table>
@@ -141,18 +145,7 @@
                         </div>
                         <!-- cierre de segundo contenido-->
                   </div>
-                  <div class="tab-pane" id="yellow">
-                      <h1>Yellow</h1>
-                      <p>yellow yellow yellow yellow yellow</p>
-                  </div>
-                  <div class="tab-pane" id="green">
-                      <h1>Green</h1>
-                      <p>green green green green green</p>
-                  </div>
-                  <div class="tab-pane" id="blue">
-                      <h1>Blue</h1>
-                      <p>blue blue blue blue blue</p>
-                  </div>
+
               </div>
           </div>
 </div>
@@ -197,28 +190,30 @@
             </div>
         </div>
         <div id="edit_model" class="modal fade" >
-            <div class="modal-dialog"  style="width: 350px;">
+            <div class="modal-dialog"  style="width: 320px; margin-top: 50px;" >
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">Editar estado</h4>
                     </div>
                     <div class="modal-body">
+                      <div style="text-align: center; font-size: 15px; font-weight: bold;" class="well">Cambiar a "Pagados".</div>
                         <form method="post" id="frm_edit">
         				<input type="hidden" value="edit" name="action" id="action">
-        				<input type="hidden" value="0" name="edit_id" id="edit_id">
-                <input id="dateped" name="dateped" type='text' >
+                <!--de donde toma la fecha del pedido-->  <input type="hidden" id="dateped" name="dateped" type='text'>
+                <input type="hidden" name="edit_id" id="edit_id" >
 
+                <br>
+                <div class="form-group " style="font-weight: bold; font-size: 20px;">
+                <label class="control-label" for="">Nº del pedido:</label>
+        				<input type="text" name="edit_id2" id="edit_id2" readonly style="border: 0px; border-color: white">
+              </div>
 
                 <div class="form-group">
-                  <div class="container">
-                <div class="row">
-
-                </div>
-                <br />
                   <div class="row">
-                      <div class='col-sm-3'>
+                      <div class='col-sm-12'>
                           <div class="form-group">
+                            <div class="" style="font-weight: bold; font-size: 15px;">Seleccionar fecha de pago:</div>
                               <div class='input-group date' id='datetimepicker1'>
                                   <input id="edit_fecha" name="edit_fecha" type='text' class="form-control" />
                                   <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
@@ -226,21 +221,14 @@
                               </div>
                           </div>
                       </div>
-                  </div>
+
               </div>
         </div>
-                          <div class="form-group">
-                            <select id="edit_name" name="edit_name" class="form-control">
-                              <option selected>Pendiente.</option>
-                              <option value="2"> Pagado. </option>
-                              </select>
-                          </div>
-
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" id="btn_edit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" id="btn_edit" class="btn btn-primary">Aceptar.</button>
                     </div>
         			</form>
                 </div>
@@ -291,7 +279,8 @@
   					if($(this).data("row-id") >0) {
 
                                   // collect the data
-                                  $('#edit_id').val(ele.siblings(':first').html()); // in case we're changing the key
+                                  $('#edit_id').val(ele.siblings(':first').html());
+                                  $('#edit_id2').val(ele.siblings(':first').html()); // in case we're changing the key
                                   $('#edit_name').val(ele.siblings(':nth-of-type(6)').html());
                                   $('#edit_fecha').val(ele.siblings(':nth-of-type(4)').html());
                                   $('#dateped').val(ele.siblings(':nth-of-type(3)').html());
@@ -299,11 +288,14 @@
 
 
 
+
                                   $(function () {
 
                                   var bindDatePicker = function() {
+
                                   $(".date").datetimepicker({
                                      format:'YYYY-MM-DD',
+                                     language: 'es',
                                      minDate: fechapp.value,
                                        changeMonth: true,
                                        changeYear: true,
@@ -395,6 +387,7 @@
   				});
   			}
 
+
   			$( "#command-add" ).click(function() {
   			  $('#add_model').modal('show');
   			});
@@ -404,8 +397,12 @@
   			$( "#btn_edit" ).click(function() {
   			  ajaxAction('edit');
   			});
-  });
 
+
+
+
+  });
+  //Tabla Time stat para estadisticas //
 
      $("#menu-toggle").click(function(e) {
          e.preventDefault();
@@ -429,13 +426,70 @@
       url: "pedidos/response2.php",
 
      });
+
+     function ajaxAction(action) {
+             data = $("#frm_"+action).serializeArray();
+             $.ajax({
+               type: "POST",
+               url: "pedidos/logpagos.php",
+               data: data,
+               dataType: "json",
+               success: function(response)
+               {
+
+               }
+             });
+           }
+
+
+           $( "#command-add" ).click(function() {
+             $('#add_model').modal('show');
+           });
+           $( "#btn_add" ).click(function() {
+             ajaxAction('add');
+           });
+           $( "#btn_edit" ).click(function() {
+             ajaxAction('edit');
+           });
+
+
+   });
+
+
+  </script>
+  <script type="text/javascript">
+  $( document ).ready(function() {
+
+
+     function ajaxAction(action) {
+             data = $("#frm_"+action).serializeArray();
+             $.ajax({
+               type: "POST",
+               url: "pedidos/pagosauditoria.php",
+               data: data,
+               dataType: "json",
+               success: function(response)
+               {
+
+               }
+             });
+           }
+
+
+           $( "#command-add" ).click(function() {
+             $('#add_model').modal('show');
+           });
+           $( "#btn_add" ).click(function() {
+             ajaxAction('add');
+           });
+           $( "#btn_edit" ).click(function() {
+             ajaxAction('edit');
+           });
+
+
    });
 
 
   </script>
 
-  <script type="text/javascript">
-
-
-  </script>
 </html>

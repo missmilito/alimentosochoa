@@ -53,36 +53,45 @@
 		$rp = isset($params['rowCount']) ? $params['rowCount'] : 10;
 
 		if (isset($params['current'])) { $page  = $params['current']; } else { $page=1; };
-        $start_from = ($page-1) * $rp;
+				$start_from = ($page-1) * $rp;
 
-		$sql = $sqlRec = $sqlTot = $where = '';
+		$sql = $sqlRec = $sqlTot = $where = "";
 
-		if( !empty($params['searchPhrase']) ) {
-			$where .=" WHERE ";
-			$where .=" ( id LIKE '".$params['searchPhrase']."%' ";
-			$where .=" OR nomcliente LIKE '".$params['searchPhrase']."%' ";
-
-			$where .=" OR apellidocli LIKE '".$params['searchPhrase']."%' )";
-			$where .=" OR emailcli LIKE '".$params['searchPhrase']."%' )";
-	   }
-	   if( !empty($params['sort']) ) {
+		if( $params['searchPhrase'] !="" ) {
+			$where.="WHERE ";
+			$where .=" c.id = a.idestadoped and d.id = a.idcliente and a.idestadopag = '1' and (d.nomcliente LIKE '".$params['searchPhrase']."%' ";
+			$where .=" OR c.EstadoPed LIKE '".$params['searchPhrase']."%' ";
+			$where .=" OR a.id LIKE '".$params['searchPhrase']."%' ";
+			$where .=" OR a.fechaped LIKE '".$params['searchPhrase']."%' )";
+		 if( !empty($params['sort']) ) {
 			$where .=" ORDER By ".key($params['sort']) .' '.current($params['sort'])." ";
+
+			$sql = "select a.id as idPedido, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, DATE_FORMAT(a.fechaped, '%Y/%m/%d') as fechanew, a.fechapag, datediff(a.fechapag, CURDATE()) dias, c.EstadoPed from tblpedido a,  tblestadopag b, tblestadoped c, tblcliente d";
+
+			$sqlTot = $sql;
+			$sqlRec = $sql;
+		 }
+		 if(isset($where) && $where != '') {
+
+			 $sqlTot= "select a.id as idPedido, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, DATE_FORMAT(a.fechaped, '%Y/%m/%d') as fechanew, a.fechapag, datediff(a.fechapag, CURDATE()) dias, c.EstadoPed from tblpedido a,  tblestadopag b, tblestadoped c, tblcliente d $where group by a.id";
+			 $sqlRec= "select a.id as idPedido, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, DATE_FORMAT(a.fechaped, '%Y/%m/%d') as fechanew, a.fechapag, datediff(a.fechapag, CURDATE()) dias, c.EstadoPed from tblpedido a,  tblestadopag b, tblestadoped c, tblcliente d  $where group by a.id";
+		 }
+		 if ($rp!=-1)
+		 $sqlRec .= " LIMIT ". $start_from .",".$rp;
+
+	 }
+		else {
+
+			$sql = "select a.id as idPedido, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, DATE_FORMAT(a.fechaped, '%Y/%m/%d') as fechanew, a.fechapag, datediff(a.fechapag, CURDATE()) dias, c.EstadoPed from tblpedido a,  tblestadopag b, tblestadoped c, tblcliente d  where  c.id = a.idestadoped and d.id = a.idcliente and a.idestadopag = '1' group by a.id";
+
+			$sqlTot .= $sql;
+			$sqlRec .= $sql;
+			//concatenate search sql if value exist
+			if ($rp!=-1)
+			$sqlRec .= " LIMIT ". $start_from .",".$rp;
 		}
-	   // getting total number records without any search
-		$sql = "select a.id as idPedido, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, DATE_FORMAT(a.fechaped, '%Y/%m/%d') as fechanew, a.fechapag, datediff(a.fechapag, CURDATE()) dias, c.EstadoPed from tblpedido a,  tblestadopag b, tblestadoped c, tblcliente d  where  c.id = a.idestadoped and d.id = a.idcliente and a.idestadopag = '1'";
-
-		$sqlTot .= $sql;
-		$sqlRec .= $sql;
-
-
-		//concatenate search sql if value exist
-		if(isset($where) && $where != '') {
-
-			$sqlTot .= $where;
-			$sqlRec .= $where;
-		}
-		if ($rp!=-1)
-		$sqlRec .= " LIMIT ". $start_from .",".$rp;
+		 // getting total number records without any search
+		 //concatenate search sql if value exist
 
 
 		$qtot = mysqli_query($this->conn, $sqlTot) or die("error to fetch tot employees data");
@@ -104,7 +113,7 @@
 	function updateClients($params) {
 		$data = array();
 		//print_R($_POST);die;
-		$sql = "Update `tblpedido` set idestadopag = '" . $params["edit_name"] . "', fechapag = '" . $params["edit_fecha"] . "' WHERE id='".$_POST["edit_id"]."'";
+		$sql = "Update `tblpedido` set idestadopag = '2' WHERE id='".$_POST["edit_id"]."'";
 
 		echo $result = mysqli_query($this->conn, $sql) or die("error to update employee data");
 	}

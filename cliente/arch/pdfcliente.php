@@ -18,44 +18,58 @@ $idpedido =  mysqli_real_escape_string($mysqli, $_SESSION['idpedido']);
         $mpdf=new mPDF();
         //$style=file_get_contents('../css/tabla.css');
         //$mpdf->WriteHTML($style, 1);
-        $mpdf->SetHTMLFooter($pie);
+        $mpdf->SetHTMLFooter('<div style="text-align: right">Distribuidora Alimentos Ochoa F.P. Contacto: (0243)2379363 / (0424)1392972 |Página: {PAGENO}</div>');
+
 
         $mpdf->WriteHTML('<div  style="text-align: center;"><img style="text-align: right;" src="../images/headermini.png"/></div>');
 
-        $contenido='<div class="container" style="text-align: Justify;  background: #e8edff; width: 1px;
-         border-bottom: 10px solid #fff; color: black; height: 100px; ">
-        <div style="margin: 10px;"></p>Nº de Pedido: '.$idpedido .'</p></div><br>
-        <div style="margin: 10px;"></p>Cliente: '.$_SESSION['nombreusu'].' '.$_SESSION['apeusu'].'</p></div></div>
-      ';
+        $sql = "SELECT c.nomprod as nomprod, b.cantidadProd as cant, b.ValorTotal as valor, b.idPedido as idpedido, a.fechaped as fechaped FROM tblpedido a, tbldetallepedido b, tblproducto c where b.idProducto=c.id and a.id=(select MAX(id) from tblpedido where idcliente='$idcliente') and b.idPedido = a.id and a.idcliente='$idcliente'";
+        $resultado = $mysqli -> query($sql);
+        if($row = $resultado -> fetch_assoc()){
+          $fechaped=$row['fechaped'];
+        }
+        $contenido='<div class="container" style="text-align: Justify;
+         border-bottom: 10px solid #fff; color: black;">
+        <div border: 1px solid; style="margin: 15px; font-family: Courier New; font-weight: bold;">
+        <tr>
+        <th style="font-size: 20px; border: 1px solid ">Fecha del pedido:'.$fechaped.'</th>
+        </tr>
+        <p >Nº de Pedido:'. $idpedido .'</p>
+        </div>';
 
 
         $mpdf->WriteHTML($contenido,5);
-        $sql = "SELECT c.nomprod as nomprod, b.cantidadProd as cant, b.ValorTotal as valor, b.idPedido as idpedido, a.fechaped FROM tblpedido a, tbldetallepedido b, tblproducto c where b.idProducto=c.id and a.id=(select MAX(id) from tblpedido where idcliente='$idcliente') and b.idPedido = a.id and a.idcliente='$idcliente'";
-        $resultado = $mysqli -> query($sql);
 
 
-        $mpdf->WriteHTML('<div class="container" style="text-align:center;"><table  style="margin: 0 auto;" class="table-hover table-responsive table-striped">
-            <tr>
 
-                <th style="padding: 8px;background: #b9c9fe; border-top: 4px solid #aabcfe; border-bottom: 1px solid #fff; color: #039; ">Producto</th>
-                <th style="padding: 8px;background: #b9c9fe; border-top: 4px solid #aabcfe; border-bottom: 1px solid #fff; color: #039; ">Cantidad</th>
-                <th style="padding: 8px;background: #b9c9fe; border-top: 4px solid #aabcfe; border-bottom: 1px solid #fff; color: #039; ">PrecioTotal</th>
-                <th style="padding: 8px;background: #b9c9fe; border-top: 4px solid #aabcfe; border-bottom: 1px solid #fff; color: #039; ">IdPedido</th>
-            </tr>',3);
+        $mpdf->WriteHTML('  <div  style="width:300px; height:50px; font-family: Courier New; font-weight: bold; margin: 10px; background-color:#e6d3a8; ">
+          <div style="margin-left: 30px; margin-top: 5px;">Cliente:'.$_SESSION['nombreusu'].' '.$_SESSION['apeusu'].'</div>
+          <div style="margin-left: 30px;">Empresa:'.$_SESSION['empusu'].'</div>
+          <div style="margin-left: 30px;">Dirección:'.$_SESSION['empdir'].'</div>
+          </div>
+          </div>
+
+        <div class="container" style="text-align: left"><table width="100%">
+              <tr>
+
+                  <th style="width: 33%; padding: 8px; background: 	#c15a3a; font-family: Georgia; border-bottom: 1px solid #fff; color: #FFFFFF; ">Producto</th>
+                  <th style="padding: 8px;background: 	#c15a3a; font-family: Georgia;  border-bottom: 1px solid #fff; color: #FFFFFF; ">Cantidad</th>
+                  <th style="padding: 8px;background: 	#c15a3a; font-family: Georgia;  border-bottom: 1px solid #fff; color: #FFFFFF; ">Monto</th>
+
+              </tr>',3);
         while ($fila = $resultado -> fetch_assoc()){
 
             $mpdf->WriteHTML('
-              <tr>
-                    <td style="text-align: center; padding: 8px;background: #e8edff;border-bottom: 1px solid #fff; color: #669; border-top: 1px solid transparent;">' .$fila['nomprod'] .'</td>
+            <tr>
+                <td width="70%" style=" font-family: Georgia; text-align: center; padding: 8px;border-bottom: 1px solid #fff; color: #000000; border-top: 1px solid transparent;">' .$fila['nomprod'] .'</td>
 
-                    <td style="text-align: center;  padding: 8px;background: #e8edff;border-bottom: 1px solid #fff; color: #669; border-top: 1px solid transparent;">' .$fila['cant'] .'</td>
+                <td style="text-align: center;  font-family: Georgia; padding: 8px;border-bottom: 1px solid #fff; color: #000000; border-top: 1px solid transparent;">' .$fila['cant'] .'</td>
 
-                    <td style="text-align: center;  padding: 8px;background: #e8edff;border-bottom: 1px solid #fff; color: #669; border-top: 1px solid transparent;">' .$fila['valor'] .'</td>
-
-                    <td style="text-align: center;  padding: 8px; background: #e8edff;border-bottom: 1px solid #fff; color: #669; border-top: 1px solid transparent;">' .$fila['idpedido'] .'</td>
+                <td style="text-align: center; font-family: Georgia;  padding: 8px;border-bottom: 1px solid #fff; color: #000000; border-top: 1px solid transparent;">' .$fila['valor'] .'</td>
 
 
-                </tr>
+
+            </tr>
                 ', 2);
         }
         $mpdf->WriteHTML('</table></div>',2);

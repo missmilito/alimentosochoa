@@ -118,6 +118,7 @@ include('includes/phpproductos.php');
                   </div>
 
                 </div>
+                <button type="button">Botón prueba.</button>
            </div>
         </div>
     </div>

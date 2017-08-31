@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.js">
     <link rel="stylesheet" href="vendor/jquery/jquery-3.2.1.min.js">
-    <link rel="stylesheet" href="theme/styles.css">
+    <link rel="stylesheet" href="theme/styles2.css">
 
 
 
@@ -44,26 +44,28 @@
                  <li class="dropdown">
                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios<span class="caret"></span></a>
                    <ul class="dropdown-menu" >
-                     <li><a href="#">Admin.</a></li>
-                     <li><a href="#">Clientes.</a></li>
+                     <li><a style="color: black" href="regadmin.php">Admin.</a></li>
+                     <li><a style="color: black" class="usuarios" href="regcliente.php">Clientes.</a></li>
                    </ul>
                  </li>
-                 <li><a href="#">Proveedores.</a></li>
-                 <li><a href="#">Categorias/SubCat.</a></li>
-                 <li><a href="#">Productos.</a></li>
-                 <li><a href="#">Pedido.</a></li>
+                 <li><a href="proveedores.php">Proveedores.</a></li>
+                 <li><a href="catsubcat.php">Categorias/SubCat.</a></li>
+                 <li><a href="productos.php">Productos.</a></li>
+                 <li><a href="nuevopedido.php">Pedido.</a></li>
 
                </ul>
              </li>
              <li class="dropdown">
                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
                <ul class="dropdown-menu2 dropdown" >
-                 <li><a href="#">Clientes.</a></li>
-                 <li><a href="#">Pedidos.</a></li>
-                 <li><a href="#">Pagos.</a></li>
+                 <li><a href="cclientes.php">Clientes.</a></li>
+                 <li><a href="estados.php">Pedidos.</a></li>
+                 <li><a href="pagos.php">Pagos.</a></li>
                </ul>
              </li>
-
+             <li class="dropdown">
+               <a href="estadisticas.php" class="dropdown-toggle" ><i class="glyphicon glyphicon-cog 2x"> HERRAMIENTAS</i></a>
+             </li>
           </ul>
       </div>
       <!-- /#sidebar-wrapper -->
@@ -112,7 +114,7 @@
         				<input type="hidden" value="add" name="action" id="action">
                           <div class="form-group col-md-6">
                             <label for="rif" class="control-label">ID/RIF:</label>
-                            <input type="text" class="form-control" id="idrif" name="idrif"/>
+                            <input type="number" class="form-control" id="idrif" name="idrif"  pattern="[0-9]{6,10}" required nowhitespace minlength="7" maxlength="8";/>
                           </div>
                           <div class="form-group col-md-6">
                             <label for="descprod" class="control-label">Nombre:</label>
@@ -137,17 +139,17 @@
                             </select>
                           </div>
                             <div class="col-md-6">
-                            <input type="text" class="form-control " id="telef" name="telef"/>
+                            <input type="number" class="form-control " id="telef" name="telef"  minlength="7" maxlength="7"; required nowhitespace/>
                           </div>
                             </div>
                           <div class="form-group col-md-8">
                           <label for="email" class="control-label">Email:</label>
-                            <input type="text" class="form-control" id="email" name="email"/>
+                            <input type="email" class="form-control" id="email" name="email" required/>
                           </div>
                     </div>
                     <div class="modal-footer col-md-12">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar.</button>
-                        <button type="button" id="btn_add" class="btn btn-primary">Guardar.</button>
+                        <button type="submit" id="btn_add" class="btn btn-primary">Guardar.</button>
                     </div>
         			</form>
                 </div>
@@ -272,6 +274,27 @@
   			$( "#btn_edit" ).click(function() {
   			  ajaxAction('edit');
   			});
+  });
+
+  $('#email').on('blur', function() {
+      if ($(this).val()=='') {
+          $('#email').addClass('has-error');
+      }else{
+          $('#email').removeClass('');
+
+      }
+      // Expresion regular para validar el correo
+          var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+          // Se utiliza la funcion test() nativa de JavaScript
+          if (regex.test($('#email').val().trim())) {
+                $(this).addClass('has-success');
+          } else {
+              alert('La direccón de correo no es valida');
+              $(this).addClass('has-error');
+
+          }
+     return false;
+
   });
 
 

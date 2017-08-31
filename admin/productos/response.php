@@ -41,8 +41,10 @@
 		echo json_encode($this->data);
 	}
 	function insertClients($params) {
-		$data = array();;
-		$sql = "INSERT INTO tblproducto (id, nomprod, descprod, preciounit, idsubcat, idproveedor, status) VALUES('', '" . $params["nombre"] . "', '" . $params["descprod"] . "', '" . $params["precio"] . "', '" . $params["subcat"] . "', '" . $params["proveedor"] . "', '1');  ";
+		$data = array();
+		$idprod=$params['codigo'];
+		$capacidad=$params['capacidad'];
+		$sql = "INSERT INTO tblproducto (codigo, nomprod, descprod, preciounit, capacidad, idsubcat, idproveedor, status) VALUES('$idprod', '" . $params["nombre"] . "', '" . $params["descprod"] . "', '" . $params["precio"] . "', '$capacidad', '" . $params["subcat"] . "', '" . $params["proveedor"]. "', '1');" ;
 		mysql_query ("SET NAMES 'utf8'");
 		echo $result = mysqli_query($this->conn, $sql) or die("error to insert client data");
 
@@ -59,7 +61,7 @@
 
 		if( $params['searchPhrase'] !="" ) {
 			$where.="WHERE ";
-			$where .=" a.idproveedor = b.id and a.idsubcat = c.id  and a.status=d.id and (a.nomprod LIKE '".$params['searchPhrase']."%' ";
+			$where .=" e.idproducto= a.codigo and a.idproveedor = b.id and a.idsubcat = c.id  and a.status=d.id and (a.nomprod LIKE '".$params['searchPhrase']."%' ";
 			$where .=" OR a.preciounit LIKE '".$params['searchPhrase']."%' ";
 			$where .=" OR c.nomsub LIKE '".$params['searchPhrase']."%' ";
 			$where .=" OR a.descprod LIKE '".$params['searchPhrase']."%' ";
@@ -69,15 +71,15 @@
 		 if( !empty($params['sort']) ) {
 			$where .=" ORDER By ".key($params['sort']) .' '.current($params['sort'])." ";
 
-			$sql = "select a.id, a.preciounit, a.descprod, a.nomprod, b.nomprov, c.nomsub, d.nomstatus from tblproducto a, tblproveedores b, tblsubcategoria c, tblstatus d ";
+			$sql = "select a.id, a.preciounit, a.descprod,  a.nomprod, b.nomprov, c.nomsub, d.nomstatus, e.stock as capacidad from tblproducto a, tblproveedores b, tblsubcategoria c, tblstatus d, logstock e ";
 
 			$sqlTot = $sql;
 			$sqlRec = $sql;
 		 }
 		 if(isset($where) && $where != '') {
 
-			 $sqlTot= "select a.id, a.preciounit, a.descprod, a.nomprod, b.nomprov, c.nomsub, d.nomstatus from tblproducto a, tblproveedores b, tblsubcategoria c, tblstatus d   $where";
-			 $sqlRec= "select a.id, a.preciounit, a.descprod, a.nomprod, b.nomprov, c.nomsub, d.nomstatus from tblproducto a, tblproveedores b, tblsubcategoria c, tblstatus d   $where";
+			 $sqlTot= "select a.codigo, a.id, a.preciounit, a.descprod,  a.nomprod, b.nomprov, c.nomsub, d.nomstatus, e.stock as capacidad from tblproducto a, tblproveedores b, tblsubcategoria c, tblstatus d, logstock e   $where";
+			 $sqlRec= "select a.codigo, a.id, a.preciounit, a.descprod,  a.nomprod, b.nomprov, c.nomsub, d.nomstatus, e.stock as capacidad from tblproducto a, tblproveedores b, tblsubcategoria c, tblstatus d, logstock e   $where";
 		 }
 		 if ($rp!=-1)
 		 $sqlRec .= " LIMIT ". $start_from .",".$rp;
@@ -85,7 +87,7 @@
 	 }
 		else {
 
-			$sql = "select a.id, a.preciounit, a.descprod, a.nomprod, b.nomprov, c.nomsub, d.nomstatus from tblproducto a, tblproveedores b, tblsubcategoria c, tblstatus d where a.idproveedor = b.id and a.idsubcat = c.id  and a.status=d.id";
+			$sql = "select a.id, a.codigo, a.preciounit, a.descprod, a.nomprod, b.nomprov, c.nomsub, d.nomstatus, e.stock as capacidad from tblproducto a, tblproveedores b, tblsubcategoria c, tblstatus d, logstock e where e.idproducto= a.codigo and a.idproveedor = b.id and a.idsubcat = c.id and a.status=d.id";
 
 			$sqlTot .= $sql;
 			$sqlRec .= $sql;
@@ -114,9 +116,21 @@
 		return $json_data;
 	}
 	function updateClients($params) {
-		$data = array();
+			$data = array();
+		$capacidad = $params["actualizarcap"];
+		$nuevacapacidad = $params["edit_capacidad"];
+		if (isset($capacidad)){
+			if($capacidad=='1'){
+				$sql = "Update tblproducto set codigo='".$params["edit_cod"]."', nomprod='".$params["edit_nombre"]."', capacidad='$nuevacapacidad', descprod='".$params["edit_desc"]."', preciounit='".$params["edit_precio"]."', status='".$params["edit_status"]."', idsubcat='".$params["edit_subcat"]."', idproveedor='".$params["edit_proveedor"]."' WHERE id='".$_POST['edit_id']."' ";
+
+			}
+		else{
+			$sql = "Update tblproducto set codigo='".$params["edit_cod"]."', nomprod='".$params["edit_nombre"]."', descprod='".$params["edit_desc"]."', preciounit='".$params["edit_precio"]."', status='".$params["edit_status"]."', idsubcat='".$params["edit_subcat"]."', idproveedor='".$params["edit_proveedor"]."' WHERE id='".$_POST['edit_id']."' ";
+
+		}
+}
 		//print_R($_POST);die;
-		$sql = "Update tblproducto set nomprod='".$params["edit_nombre"]."', descprod='".$params["edit_desc"]."', preciounit='".$params["edit_precio"]."', status='".$params["edit_status"]."', idsubcat='".$params["edit_subcat"]."', idproveedor='".$params["edit_proveedor"]."' WHERE id='".$_POST['edit_id']."' ";
+
 
 		echo $result = mysqli_query($this->conn, $sql) or die("error to update employee data");
 	}

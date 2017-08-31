@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<link rel="icon" href="../images/headermini.png" type="image/png" sizes="16x16">
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -85,9 +86,9 @@
 													<div class="col-md-2">
 														<label for="contenido">Fecha del Credito </label>
 														<select name="convenio" id="convenio" class="form-control">
+															<option value="2"> 2 </option>
+															<option value="5"> 5 </option>
 															<option value="10"> 10 </option>
-															<option value="15"> 15 </option>
-															<option value="20"> 20 </option>
 														</select>
 													</div>
 													<div class="col-md-4">
@@ -181,16 +182,16 @@
 								<script>
 								function agregar (id)
 									{
-										var precio_venta=$('#precio_venta_'+id).val();
-										var cantidad=$('#cantidad_'+id).val();
+										var precio_venta= $('#precio_venta_'+id).val();
+										var cantidad= $('#cantidad_'+id).val();
+										var stock= $('#stock_'+id).val();
 										//Inicia validacion
-										if (isNaN(cantidad))
+										if (parseInt(cantidad) > parseInt(stock))
 										{
-										alert('Esto no es un numero');
+											alert("La cantidad del producto es mayor a nuestro stock actual");
 										document.getElementById('cantidad_'+id).focus();
 										return false;
 										}
-
 										//Fin validacion
 									var parametros={"id":id,"precio_venta":precio_venta,"cantidad":cantidad};
 									$.ajax({
@@ -206,6 +207,7 @@
 									}
 										});
 									}
+
 
 										function eliminar (id)
 									{
@@ -227,7 +229,7 @@
 									$("#datos_pedido").submit(function(){
 										var comentarios = $("#comentarios").val();
 										var convenio = $("#convenio").val();
-										if (comentarios!="")
+										if (convenio!="")
 									 {
 										 var parametros={"comentarios":comentarios, "convenio":convenio};
 
@@ -235,11 +237,13 @@
  							        type: "POST",
  							        url: "ajax/enviarpedido.php",
  							        data: parametros,
-
+											success: function(datos){
+										alert("listo");
+										}
  										});
 										window.open("arch/pdfcliente.php");
 									 } else {
-										 alert("Escriba un comentario");
+										 alert("Seleccione días de crédito");
 										 return false;
 									 }
 

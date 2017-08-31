@@ -218,6 +218,7 @@ function pswderr(){
     $("#8char").css("color","#00A41E");
   }else{
 alert('Parece que su contraseña es menor a ocho dígitos');
+return false;
   }
 
   if(ucase.test($("#password1").val())){
@@ -226,6 +227,7 @@ alert('Parece que su contraseña es menor a ocho dígitos');
     $("#ucase").css("color","#00A41E");
   }else{
 alert('Su contraseña debe tener al menos una letra mayúscula.');
+return false;
   }
 
   if(lcase.test($("#password1").val())){
@@ -234,7 +236,7 @@ alert('Su contraseña debe tener al menos una letra mayúscula.');
     $("#lcase").css("color","#00A41E");
   }else{
     alert('Su contraseña debe tener al menos una letra minúscula.');
-
+return false;
   }
 
   if(num.test($("#password1").val())){
@@ -243,6 +245,7 @@ alert('Su contraseña debe tener al menos una letra mayúscula.');
     $("#num").css("color","#00A41E");
   }else{
 alert('Su contraseña debe tener al menos un número.');
+return false;
   }
 
   if($("#password1").val() == $("#password2").val()){
@@ -251,6 +254,7 @@ alert('Su contraseña debe tener al menos un número.');
     $("#pwmatch").css("color","#00A41E");
   }else{
 alert('Las contraseñas debe coincidir.');
+return false;
   }
 }
 </script>

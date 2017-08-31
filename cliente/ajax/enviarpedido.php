@@ -12,6 +12,14 @@
 	require_once ("../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
 	require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
 
+		function generarCodigo($longitud) {
+		 $key = 'F';
+		 $pattern = '123456890A';
+		 $max = strlen($pattern)-1;
+		 for($i=0;$i < $longitud;$i++) $key .= $pattern{mt_rand(0,$max)};
+		 return $key;
+		}
+		 $FACTURA =  generarCodigo(5);
 
 
 	date_default_timezone_set("America/Caracas");
@@ -21,14 +29,15 @@
 		while ($row=mysqli_fetch_array($sql))
 		{
 		$idestado=$row["id"];
-		$insert_pedido=mysqli_query($con, "INSERT INTO tblpedido (id, fechaped, fechapag, observped, idestadoped, idcliente, idestadopag) VALUES ('','$date', '$convenio', '$comentarios','$idestado', '$idcliente', '1')");
+		$insert_pedido=mysqli_query($con, "INSERT INTO tblpedido (id, fechaped, fechapag, observped, idestadoped, idcliente, idestadopag) VALUES ('$FACTURA','$date', '$convenio', '$comentarios','$idestado', '$idcliente', '1')");
 		}
-			$sql2=mysqli_query($con, "SELECT MAX(id) AS id FROM tblpedido where idcliente='$idcliente'");
+			$sql2=mysqli_query($con, "SELECT id FROM `tblpedido` where num=(SELECT MAX(num) AS num FROM tblpedido where idcliente='$idcliente')");
 			while ($row=mysqli_fetch_array($sql2))
 				{
 				$idpedido=$row["id"];
 				$_SESSION['idpedido']=$idpedido;
 				$sql5=mysqli_query($con, "INSERT into tbltimestat values ('', '$idpedido', NOW(), '', '')");
+				$sql6=mysqli_query($con, "INSERT into logpagos values ('', '$idcliente','$idpedido', '$convenio', '')");
 			}
 				$sql3=mysqli_query($con, "select * from tblproducto, tmp where tblproducto.id=tmp.id_producto and tmp.session_id='".$session_id."'");
 				while ($row=mysqli_fetch_array($sql3))
@@ -44,20 +53,11 @@
 					$precio_total=$precio_venta_r*$cantidad;
 
 					$sql4=mysqli_query($con, "INSERT into tbldetallepedido VALUES ('', '$idproducto', '$cantidad', '$precio_total', '$idpedido' )");
+					$sql7=mysqli_query($con, "DELETE from tmp");
+
+
+
 header('Location: ../arch/pdfcliente.php');
 				}
-
-
-
-
-
-
-
-
-//if (isset($_GET['id']))//codigo elimina un elemento del array
-//{
-	//$id=intval($_GET['id']);
-//$delete=mysqli_query($con, "DELETE FROM tmp WHERE id_tmp='".$id."'");
-//}
 
 ?>

@@ -17,9 +17,13 @@
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.js">
     <link rel="stylesheet" href="vendor/jquery/jquery-3.2.1.min.js">
-    <link rel="stylesheet" href="theme/styles.css">
+    <link rel="stylesheet" href="theme/styles2.css">
 
-
+    <style media="screen">
+      ul.nav #menu:hover,  #menu:focus, #menu:active { color: black !important; };
+      .usuarios {color: black !important};
+    }
+    </style>
 
   </head>
   <body>
@@ -44,26 +48,28 @@
                  <li class="dropdown">
                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios<span class="caret"></span></a>
                    <ul class="dropdown-menu" >
-                     <li><a href="#">Admin.</a></li>
-                     <li><a href="#">Clientes.</a></li>
+                     <li><a style="color: black" href="regadmin.php">Admin.</a></li>
+                     <li><a style="color: black" class="usuarios" href="regcliente.php">Clientes.</a></li>
                    </ul>
                  </li>
-                 <li><a href="#">Proveedores.</a></li>
-                 <li><a href="#">Categorias/SubCat.</a></li>
-                 <li><a href="#">Productos.</a></li>
-                 <li><a href="#">Pedido.</a></li>
+                 <li><a href="proveedores.php">Proveedores.</a></li>
+                 <li><a href="catsubcat.php">Categorias/SubCat.</a></li>
+                 <li><a href="productos.php">Productos.</a></li>
+                 <li><a href="nuevopedido.php">Pedido.</a></li>
 
                </ul>
              </li>
              <li class="dropdown">
                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
                <ul class="dropdown-menu2 dropdown" >
-                 <li><a href="#">Clientes.</a></li>
-                 <li><a href="#">Pedidos.</a></li>
-                 <li><a href="#">Pagos.</a></li>
+                 <li><a href="cclientes.php">Clientes.</a></li>
+                 <li><a href="estados.php">Pedidos.</a></li>
+                 <li><a href="pagos.php">Pagos.</a></li>
                </ul>
              </li>
-
+             <li class="dropdown">
+               <a href="estadisticas.php" class="dropdown-toggle" ><i class="glyphicon glyphicon-cog 2x"> HERRAMIENTAS</i></a>
+             </li>
           </ul>
       </div>
       <!-- /#sidebar-wrapper -->
@@ -85,10 +91,12 @@
         		<table id="employee_grid" class="table table-condensed table-hover table-striped" width="60%" cellspacing="0" data-toggle="bootgrid">
         			<thead>
         				<tr>
-                            <th data-column-id="id" data-identifier="true">Nº</th>
-                            <th data-column-id="nomprod">Producto</th>
+                            <th data-column-id="id">Nº</th>
+                            <th data-column-id="codigo">Código</th>
+                            <th data-column-id="nomprod" >Producto</th>
                             <th data-column-id="descprod">Descripción</th>
                             <th data-column-id="preciounit">Precio</th>
+                            <th data-column-id="capacidad">Capacidad (Diaria)</th>
                             <th data-column-id="nomsub">subcategoria</th>
                             <th data-column-id="nomprov">Proveedor</th>
                             <th data-column-id="nomstatus">Status</th>
@@ -106,26 +114,33 @@
         <div id="add_model" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header ">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 class="modal-title">Agregar producto</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body col-md-12" >
                         <form method="post" id="frm_add">
         				<input type="hidden" value="add" name="action" id="action">
-                          <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
+                          <label for="nomproducto" class="control-label">Código:</label>
+                          <input type="text" class="form-control" placeholder="código del producto" id="codigo" name="codigo"/>
+                        </div>
+                          <div class="form-group col-md-4">
                             <label for="nomproducto" class="control-label">Nombre:</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre"/>
+                            <input type="text" class="form-control" placeholder="Nombre del producto" id="nombre" name="nombre"/>
                           </div>
                           <div class="form-group col-md-4">
                            <label for="precio" class="control-label">Precio:</label>
-                           <input type="text" class="form-control" id="precio" name="precio"/>
+                           <input type="number" class="form-control" Placeholder="Sólo números sin , ni ." id="precio" name="precio">
                          </div>
-                          <div class="form-group col-md-12">
-                            <label for="descprod" class="control-label">Descripción:</label>
-                            <input type="text" class="form-control" id="descprod" name="descprod"/>
-                          </div>
-
+                         <div class="form-group col-md-8">
+                           <label for="descprod" class="control-label">Descripción:</label>
+                           <input type="text" class="form-control" placeholder="Descripción del producto" id="descprod" name="descprod"/>
+                         </div>
+                         <div class="form-group col-md-4">
+                           <label for="descprod" class="control-label">Capacidad:</label>
+                           <input type="number" class="form-control" placeholder="cantidad diaria" id="capacidad" name="capacidad"/>
+                         </div>
                           <div class="form-group col-md-6">
                             <label for="subcategoria" class="control-label">SubCategoria:</label>
                             <select id="subcat" name="subcat" class="form-control">
@@ -145,6 +160,7 @@
                                 ?>
                             </select>
                           </div>
+
                           <div class="form-group col-md-6">
                             <label for="proveedor" class="control-label">Proveedor:</label>
                             <select id="proveedor" name="proveedor" class="form-control">
@@ -166,9 +182,9 @@
                           </div>
 
                     </div>
-                    <div class="modal-footer col-md-12">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" id="btn_add" class="btn btn-primary">Save</button>
+                    <div class="modal-footer">
+
+                        <button type="button" id="btn_add" class="btn btn-primary">Guardar.</button>
                     </div>
         			</form>
                 </div>
@@ -176,28 +192,32 @@
         </div>
         <div id="edit_model" class="modal fade">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content col-sm-12">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Edit Employee</h4>
+                        <h4 class="modal-title">Editar Producto</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body col-sm-12">
                         <form method="post" id="frm_edit">
         				<input type="hidden" value="edit" name="action" id="action">
-        				<input type="hidden"  name="edit_id" id="edit_id">
-                <div class="form-group">
+                <input type="text" class="hidden" id="edit_id" name="edit_id"/>
+                <div class="form-group col-sm-2">
+                  <label for="nomproducto" class="control-label">Código:</label>
+                  <input type="text" class="form-control" id="edit_cod" name="edit_cod"/>
+                </div>
+                <div class="form-group col-sm-6">
                   <label for="nomproducto" class="control-label">Nombre:</label>
                   <input type="text" class="form-control" id="edit_nombre" name="edit_nombre"/>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-sm-4">
+                 <label for="precio" class="control-label">Precio:</label>
+                 <input type="text" class="form-control" id="edit_precio" name="edit_precio"/>
+               </div>
+                <div class="form-group col-sm-8">
                   <label for="descprod" class="control-label">Descripción:</label>
                   <input type="text" class="form-control" id="edit_desc" name="edit_desc"/>
                 </div>
-                 <div class="form-group">
-                  <label for="precio" class="control-label">Precio:</label>
-                  <input type="text" class="form-control" id="edit_precio" name="edit_precio"/>
-                </div>
-                <div class="form-group">
+                <div class="form-group col-sm-4">
                   <label for="subcategoria" class="control-label">SubCategoria:</label>
                   <select id="edit_subcat" name="edit_subcat" class="form-control">
                       <?php
@@ -215,7 +235,7 @@
                       ?>
                   </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-sm-6">
                   <label for="proveedor" class="control-label">Proveedor:</label>
                   <select id="edit_proveedor" name="edit_proveedor" class="form-control">
                       <?php
@@ -233,7 +253,7 @@
                       ?>
                   </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-sm-6">
                   <label for="Status" class="control-label">Estados:</label>
                   <select id="edit_status" name="edit_status" class="form-control">
                       <?php
@@ -252,11 +272,26 @@
                   </select>
                 </div>
 
-
+                <div class="form-group col-sm-6">
+                 <label for="precio" class="control-label">Capacidad:</label>
+                 <input type="text" class="form-control" id="edit_capacidad" name="edit_capacidad"/>
+               </div>
+               <div class="form-group col-sm-4">
+                 <div class="form-group row">
+						<label class="control-label col-sm-12 " for="frm-test-elm-120-1">Actualizar stock:</label>
+            <div class="">
+              <span class="button-checkbox">
+                  <button type="button" id="thebutton" class="btn col-sm-12" data-color="primary"><span class="ui-button-text">Mañana</span></button>
+                  <input type="checkbox" class="hidden"/>
+                  <input type="text" class="hidden" name="actualizarcap" id="actualizarcap" value=""/>
+             </span>
+           </div>
+					      </div>
+               </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" id="btn_edit" class="btn btn-primary">Save</button>
+                    <div class="modal-footer col-sm-12">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar.</button>
+                        <button type="button" id="btn_edit" class="btn btn-primary">Editar.</button>
                     </div>
         			</form>
                 </div>
@@ -270,101 +305,13 @@
 
 
   <script type="text/javascript">
-  $( document ).ready(function() {
-  	var grid = $("#employee_grid").bootgrid({
-  		ajax: true,
-  		rowSelect: true,
-  		post: function ()
-  		{
-  			/* To accumulate custom parameter with the request object */
-  			return {
-  				id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
-  			};
-  		},
-
-  		url: "productos/response.php",
-  		formatters: {
-  		        "commands": function(column, row)
-  		        {
-  		            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.id + "\"><span class=\"glyphicon glyphicon-edit\"></span></button> ";
-  		        }
-  		    }
-     }).on("loaded.rs.jquery.bootgrid", function()
-  {
-      /* Executes after data is loaded and rendered */
-      grid.find(".command-edit").on("click", function(e)
-      {
-          //alert("You pressed edit on row: " + $(this).data("row-id"));
-  			var ele =$(this).parent();
-  			var g_id = $(this).parent().siblings(':first').html();
-              var g_name = $(this).parent().siblings(':nth-of-type(2)').html();
-  console.log(g_id);
-                      console.log(g_name);
-
-  		//console.log(grid.data());//
-  		$('#edit_model').modal('show');
-  					if($(this).data("row-id") >0) {
-
-                                  // collect the data
-                                  $('#edit_id').val(ele.siblings(':first').html()); // in case we're changing the key
-                                  $('#edit_nombre').val(ele.siblings(':nth-of-type(2)').html());
-                                  $('#edit_desc').val(ele.siblings(':nth-of-type(3)').html());
-                                  $('#edit_precio').val(ele.siblings(':nth-of-type(4)').html());
-                                  $('#edit_status').val(ele.siblings(':nth-of-type(7)').html());
-
-
-
-  					} else {
-  					 alert('Now row selected! First select row, then click edit button');
-  					}
-      }).end().find(".command-delete").on("click", function(e)
-      {
-
-  		var conf = confirm('Delete ' + $(this).data("row-id") + ' items?');
-  					alert(conf);
-                      if(conf){
-                                  $.post('productos/response.php', { id: $(this).data("row-id"), action:'delete'}
-                                      , function(){
-                                          // when ajax returns (callback),
-  										$("#employee_grid").bootgrid('reload');
-                                  });
-  								//$(this).parent('tr').remove();
-  								//$("#employee_grid").bootgrid('remove', $(this).data("row-id"))
-                      }
-      });
-  });
-
-  function ajaxAction(action) {
-  				data = $("#frm_"+action).serializeArray();
-  				$.ajax({
-  				  type: "POST",
-  				  url: "productos/response.php",
-  				  data: data,
-  				  dataType: "json",
-  				  success: function(response)
-  				  {
-  					$('#'+action+'_model').modal('hide');
-  					$("#employee_grid").bootgrid('reload');
-  				  }
-  				});
-  			}
-
-  			$( "#command-add" ).click(function() {
-  			  $('#add_model').modal('show');
-  			});
-  			$( "#btn_add" ).click(function() {
-  			  ajaxAction('add');
-  			});
-  			$( "#btn_edit" ).click(function() {
-  			  ajaxAction('edit');
-  			});
-  });
-
-
      $("#menu-toggle").click(function(e) {
          e.preventDefault();
          $("#wrapper").toggleClass("toggled");
      });
-
   </script>
+  <!--tabla-->
+  <script type="text/javascript" src="productos/tablaproductos.js"></script>
+  <!--checkbox-->
+  <script type="text/javascript" src="productos/checkbox.js"></script>
 </html>

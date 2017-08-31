@@ -1,0 +1,10 @@
+INVENTARIO.
+TRIGGER LUEGO DE AGREGAR A PANEL.
+EVENTO DESPUES DE AGREGAR PRODUCTOS DEL INVENTARIO.
+
+select tmp.id_tmp, tblproducto.nomprod, tmp.cantidad_tmp, sum(cantidad_tmp) as cantidad from tblproducto, tmp where tblproducto.id=tmp.id_producto and tmp.session_id='v6p5a37mcbfq1j15uaqn4al5b7' GROUP by tmp.id_producto
+
+"select tmp.id_tmp, tblproducto.nomprod, tmp.cantidad_tmp, sum(cantidad_tmp) as cantidad from tblproducto, tmp where tblproducto.id=tmp.id_producto and tmp.session_id='".$session_id."' GROUP by tmp.id_producto"
+
+
+delete from tmp

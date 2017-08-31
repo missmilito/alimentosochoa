@@ -60,24 +60,22 @@ $sql2 = $sqlRec2 = $sqlTot2 = $where = '';
 			$where .=" WHERE ";
 			$where .=" ( a.nomcliente LIKE '".$params['searchPhrase']."%' ";
 			$where .=" OR a.apellidocli LIKE '".$params['searchPhrase']."%' ";
-
+			$where .=" OR a.id LIKE '".$params['searchPhrase']."%' ";
 			$where .=" OR a.emailcli LIKE '".$params['searchPhrase']."%' )";
 	   }
 	   if( !empty($params['sort']) ) {
 			$where .=" ORDER By ".key($params['sort']) .' '.current($params['sort'])." ";
 		}
 	   // getting total number records without any search
-		$sql = "SELECT a.id, a.nomcliente, a.apellidocli, a.telefcli, a.emailcli, c.nomstatus FROM tblcliente a, tblusuario b, tblstatus c where a.id=b.id and b.idstatus=c.id";
-$sql2 = "SELECT nomcliente from tblcliente";
+		$sql = "SELECT a.num, a.id, a.nomcliente, a.apellidocli, a.telefcli, a.emailcli, c.nomstatus FROM tblcliente a, tblusuario b, tblstatus c where a.id=b.id and b.idstatus=c.id";
+
 		$sqlTot .= $sql;
 		$sqlRec .= $sql;
-		$sqlTot2 .= $sql2;
-		$sqlRec2 .= $sql2;
+
 
 		//concatenate search sql if value exist
 		if(isset($where) && $where != '') {
 
-			$sqlTot2 .= $where;
 			$sqlRec2 .= $where;
 		}
 		if ($rp!=-1)

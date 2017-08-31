@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.js">
     <link rel="stylesheet" href="vendor/jquery/jquery-3.2.1.min.js">
-    <link rel="stylesheet" href="theme/styles.css">
+    <link rel="stylesheet" href="theme/styles2.css">
     <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -142,8 +142,8 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" id="btn_edit2" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar.</button>
+                        <button type="button" id="btn_edit2" class="btn btn-primary">Aceptar.</button>
                     </div>
               </form>
                 </div>
@@ -159,80 +159,6 @@
 
 
   <script type="text/javascript">
-  $( document ).ready(function() {
-  	var grid = $("#pendientes_grid").bootgrid({
-  		ajax: true,
-  		rowSelect: true,
-  		post: function ()
-  		{
-  			/* To accumulate custom parameter with the request object */
-  			return {
-  				id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
-  			};
-  		},
-
-  		url: "estados/response.php",
-  		formatters: {
-  		        "commands": function(column, row)
-  		        {
-  		            return "<button type=\"button\" data-toggle=\"tooltip\" title=\"Cambiar estado.\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.idPedido + "\"><span class=\"glyphicon glyphicon-edit\"></span></button> ";
-  		        }
-  		    }
-     }).on("loaded.rs.jquery.bootgrid", function()
-  {
-      /* Executes after data is loaded and rendered */
-      grid.find(".command-edit").on("click", function(e)
-      {
-          //alert("You pressed edit on row: " + $(this).data("row-id"));
-  			var ele =$(this).parent();
-  			var g_id = $(this).parent().siblings(':first').html();
-              var g_name = $(this).parent().siblings(':nth-of-type(2)').html();
-  console.log(g_id);
-                      console.log(g_name);
-
-  		//console.log(grid.data());//
-  		$('#pendientes_model').modal('show');
-  					if($(this).data("row-id") >0) {
-
-                                  // collect the data
-                                  $('#pendientes_id').val(ele.siblings(':first').html()); // in case we're changing the key
-
-
-  					} else {
-  					 alert('Now row selected! First select row, then click edit button');
-  					}
-      });
-      });
-
-
-  function ajaxAction(action) {
-  				data = $("#frm_pendientes").serializeArray();
-  				$.ajax({
-  				  type: "POST",
-  				  url: "estados/response.php",
-  				  data: data,
-  				  dataType: "json",
-  				  success: function(response)
-  				  {
-  					$('#pendientes_model').modal('hide');
-  					$("#pendientes_grid").bootgrid('reload');
-            $('#message').removeAttr("hidden");
-
-  				  }
-  				});
-  			}
-
-  			$( "#command-add" ).click(function() {
-  			  $('#add_model').modal('show');
-  			});
-  			$( "#btn_add" ).click(function() {
-  			  ajaxAction('add');
-  			});
-  			$( "#btn_edit" ).click(function() {
-  			  ajaxAction('edit');
-  			});
-  });
-
 
      $("#menu-toggle").click(function(e) {
          e.preventDefault();
@@ -332,7 +258,40 @@
       url: "estados/response3.php",
 
      });
+
+     $( document ).ready(function() {
+       function ajaxAction(action) {
+               data = $("#frm_procesados").serializeArray();
+               $.ajax({
+                 type: "POST",
+                 url: "vendedor/response2.php",
+                 data: data,
+                 dataType: "json",
+                 success: function(response)
+                 {
+                 $('#pendientes_model').modal('hide');
+                 $("#pendientes_grid").bootgrid('reload');
+                 $('#message').removeAttr("hidden");
+
+                 }
+               });
+             }
+
+             $( "#command-add" ).click(function() {
+               $('#add_model').modal('show');
+             });
+             $( "#btn_add" ).click(function() {
+               ajaxAction('add');
+             });
+             $( "#btn_edit" ).click(function() {
+               ajaxAction('edit');
+             });
+     });
+
+
    });
+
+
 </script>
 
 <script>

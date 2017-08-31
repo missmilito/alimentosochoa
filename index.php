@@ -6,10 +6,10 @@ session_start();
 header("Content-Type: text/html;charset=utf-8");
 if(!empty($_SESSION['idnivel'])){
 if($_SESSION['idnivel']==2 && $_SESSION["autentificado"]= "SI"){
-   header("location: cliente/perfilusuario.php");
+   header("location: cliente/herramientas.php");
 }
 if ($_SESSION['idnivel']==1 && $_SESSION["autentificado"]= "SI"){
-  header("location: admin/perfilusuario.php");
+  header("location: admin/estados.php");
 }
 }
 
@@ -17,9 +17,9 @@ if(!empty($_POST))
 {
   $idusuario = mysqli_real_escape_string($con, $_POST['idusuario']);
   $password = mysqli_real_escape_string($con, $_POST['password']);
-  $passcifrado = sha1($password);
+  //$passcifrado = sha1($password);
   $error= '';
-  $sql ="SELECT id, idnivel, idstatus, password from tblusuario where id = '$idusuario' AND password ='$passcifrado'" ;
+  $sql ="SELECT id, idnivel, idstatus, password from tblusuario where id = '$idusuario' AND password ='$password'" ;
   $result =$con -> query($sql);
   $counter=mysqli_num_rows($result);
   $datos = $result->fetch_row();
@@ -45,7 +45,7 @@ if ($counter==1){
          $_SESSION['empdir'] = $datosUsu[4];
          $_SESSION['telefusu'] = $datosUsu[5];
 
-         header("location: cliente/perfilusuario.php");
+         header("location: cliente/herramientas.php");
      }
    }
    else if ($idnivel==2 && $idstatus==2){
@@ -63,7 +63,7 @@ if($idnivel==1 && $idstatus==1) {
        $_SESSION['id'] = $datosadmin[0];
        $_SESSION['puesto'] = $datosadmin[1];
 
-       header("location: admin/cclientes.php");
+       header("location: admin/estados.php");
    }
  }
  else if ($idnivel==1 && $idstatus==2){

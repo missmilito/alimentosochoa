@@ -1,7 +1,7 @@
 <?php
 require_once ("config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
 require_once ("config/conexion.php");//Contiene funcion que conecta a la base de datos
-
+$reg_id = utf8_decode($_POST['edit_id']);
 session_start();
 if(!empty($_POST))
 {
@@ -46,7 +46,7 @@ else{
  <script src="dist/jquery-1.11.1.min.js"></script>
  <script src="dist/bootstrap.min.js"></script>
      <link rel="stylesheet" href="vendor/jquery/jquery-3.2.1.min.js">
-     <link rel="stylesheet" href="theme/styles.css">
+     <link rel="stylesheet" href="theme/styles2.css">
 		 <style media="screen">
 		   ul.nav #menu:hover,  #menu:focus, #menu:active { color: black !important; };
 		   usuario:default{color: white !important};
@@ -55,47 +55,52 @@ else{
    </head>
  <body>
    <div><?php include('theme/theme.php') ?></div>
-   <div id="wrapper">
-       <!-- Sidebar -->
-       <div id="sidebar-wrapper">
+	 <div id="wrapper">
 
-           <ul class="sidebar-nav">
+     <!-- Sidebar -->
+     <div id="sidebar-wrapper">
 
-               <li class="sidebar-brand" >
-                   <a style="text-align: center">
-                       MODULOS
-                   </a>
-               </li>
+         <ul class="sidebar-nav">
 
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-pencil 2x"> REGISTRO</i><span class="caret"></span></a>
-                <ul class="dropdown-menu2 dropdown" >
+             <li class="sidebar-brand" >
+                 <a style="text-align: center">
+                     MODULOS
+                 </a>
+             </li>
 
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios<span class="caret"></span></a>
-                    <ul class="dropdown-menu" >
-                      <li><a href="#">Admin.</a></li>
-                      <li><a href="#">Clientes.</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="#">Proveedores.</a></li>
-                  <li><a href="#">Categorias/SubCat.</a></li>
-                  <li><a href="#">Productos.</a></li>
-                  <li><a href="#">Pedido.</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-pencil 2x"> REGISTRO</i><span class="caret"></span></a>
+              <ul class="dropdown-menu2 dropdown" >
 
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
-                <ul class="dropdown-menu2 dropdown" >
-                  <li><a href="#">Clientes.</a></li>
-                  <li><a href="#">Pedidos.</a></li>
-                  <li><a href="#">Pagos.</a></li>
-                </ul>
-              </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Usuarios<span class="caret"></span></a>
+                  <ul class="dropdown-menu" >
+										<li><a style="color: black" href="regadmin.php">Admin.</a></li>
+ 									 <li><a style="color: black" class="usuarios" href="regcliente.php">Clientes.</a></li>
+                  </ul>
+                </li>
+                <li><a href="proveedores.php">Proveedores.</a></li>
+                <li><a href="catsubcat.php">Categorias/SubCat.</a></li>
+                <li><a href="productos.php">Productos.</a></li>
+                <li><a href="nuevopedido.php">Pedido.</a></li>
 
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-ok 2x"> CONSULTAR</i><span class="caret"></span></a>
+              <ul class="dropdown-menu2 dropdown" >
+                <li><a href="cclientes.php">Clientes.</a></li>
+                <li><a href="estados.php">Pedidos.</a></li>
+                <li><a href="pagos.php">Pagos.</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="herramientas.php" class="dropdown-toggle" ><i class="glyphicon glyphicon-cog 2x"> HERRAMIENTAS</i></a>
+            </li>
            </ul>
-       </div>
+         </ul>
+     </div>
+     <!-- /#sidebar-wrapper -->
        <!-- /#sidebar-wrapper -->
        <div id="page-content-wrapper " style="">
                 <div class="container-fluid" style="margin-top:50px;" >
