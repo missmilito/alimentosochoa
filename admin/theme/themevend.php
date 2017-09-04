@@ -13,7 +13,6 @@
                 <span class="icon-bar"></span>
             </button>
 
-  <a target="_blank" href="#menu-toggle" style="color:white" class="btn navbar-brand"  id="menu-toggle"><span class="glyphicon glyphicon-list-alt "></span></a>
         </div>
 
 

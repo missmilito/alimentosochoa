@@ -40,8 +40,6 @@ $idpedido =  mysqli_real_escape_string($mysqli, $_SESSION['idpedido']);
 
         $mpdf->WriteHTML($contenido,5);
 
-
-
         $mpdf->WriteHTML('  <div  style="width:300px; height:50px; font-family: Courier New; font-weight: bold; margin: 10px; background-color:#e6d3a8; ">
           <div style="margin-left: 30px; margin-top: 5px;">Cliente:'.$_SESSION['nombreusu'].' '.$_SESSION['apeusu'].'</div>
           <div style="margin-left: 30px;">Empresa:'.$_SESSION['empusu'].'</div>
@@ -51,12 +49,13 @@ $idpedido =  mysqli_real_escape_string($mysqli, $_SESSION['idpedido']);
 
         <div class="container" style="text-align: left"><table width="100%">
               <tr>
-
                   <th style="width: 33%; padding: 8px; background: 	#c15a3a; font-family: Georgia; border-bottom: 1px solid #fff; color: #FFFFFF; ">Producto</th>
                   <th style="padding: 8px;background: 	#c15a3a; font-family: Georgia;  border-bottom: 1px solid #fff; color: #FFFFFF; ">Cantidad</th>
                   <th style="padding: 8px;background: 	#c15a3a; font-family: Georgia;  border-bottom: 1px solid #fff; color: #FFFFFF; ">Monto</th>
 
               </tr>',3);
+              $sql = "SELECT c.nomprod as nomprod, b.cantidadProd as cant, b.ValorTotal as valor, b.idPedido as idpedido, a.fechaped as fechaped FROM tblpedido a, tbldetallepedido b, tblproducto c where b.idProducto=c.id and a.id=(select MAX(id) from tblpedido where idcliente='$idcliente') and b.idPedido = a.id and a.idcliente='$idcliente'";
+              $resultado = $mysqli -> query($sql);
         while ($fila = $resultado -> fetch_assoc()){
 
             $mpdf->WriteHTML('
@@ -74,8 +73,14 @@ $idpedido =  mysqli_real_escape_string($mysqli, $_SESSION['idpedido']);
         }
         $mpdf->WriteHTML('</table></div>',2);
 //$mpdf->WriteHTML('L','','','','',50,50,50,50,150,10);
-
-
+$sql = "SELECT sum(b.ValorTotal) as total FROM tblpedido a, tbldetallepedido b where a.id=(select MAX(id) from tblpedido where idcliente='$idcliente') and b.idPedido = a.id and a.idcliente='$idcliente'";
+$resultado = $mysqli -> query($sql);
+if($fila = $resultado -> fetch_assoc()){
+  $total = $fila['total'];
+  $valort=number_format($total,2);//Precio total formateado
+ $valort2=str_replace(",","",$valort);//Reemplazo las comas
+}
+         $mpdf->WriteHTML('<div style="text-align: right; padding: 8px;background: 	#c15a3a; font-family: Georgia;  border-bottom: 1px solid #fff; color: #FFFFFF; ">Total a pagar: '.$valort2.'</div>',2);
 
         $mpdf->Output('archivo.pdf','I');
         exit;

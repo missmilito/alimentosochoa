@@ -128,7 +128,10 @@ function Auditar() {
   				id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
   			};
   		},
+      labels: {
 
+              loading: "No existen procesos registrados actualmente"
+          },
   		url: "auditoria/response.php",
   		formatters: {
 

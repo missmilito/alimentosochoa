@@ -89,17 +89,18 @@
 
                          </div>
                          <span id="span_idcliente" style="display: none;">Campo no puede estar vacio</span>
-                             </div>
 
-                                 <div class="col-md-4 form-group">
+
+                                 <div class="col-sm-4 form-group">
                                      <label>Contraseña</label>
                                      <input readonly="readonly" name="password" placeholder="Ingrese la contraseña del usuario" class="form-control" required>
 
                                  </div>
-                                <div class="col-md-4" style="margin-top: 8px;">
+                                <div class="col-sm-2 form-group" style="margin-top: 8px;">
                                   <br>
                                    <input type="button" onClick="FX_passGenerator('form1','password')" value="Generar contraseña">
                                 </div>
+                              </div>
                               </div>
                          </div>
 

@@ -28,7 +28,7 @@ session_start();
 
 
         $mpdf->WriteHTML($contenido,5);
-        $sql = "SELECT `id`, `iduser`, `seccion`, `idseccion`, `operacion`, `fecha` FROM tbl_auditoria group by fecha";
+        $sql = "select id, iduser,seccion, idseccion, operacion, fecha FROM tbl_auditoria group by fecha";
         $resultado = $mysqli -> query($sql);
 
 

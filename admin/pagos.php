@@ -87,7 +87,9 @@
           <div id="content">
               <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                   <li class="active"><a href="#red" data-toggle="tab">Pendientes.</a></li>
+                      <li><a href="#blue" data-toggle="tab">Vencidos.</a></li>
                   <li><a href="#orange" data-toggle="tab">Pagados.</a></li>
+
               </ul>
               <div id="my-tab-content" class="tab-content">
                   <div class="tab-pane active" id="red">
@@ -101,15 +103,16 @@
                         <table id="employee_grid" class="table table-condensed table-hover table-striped" width="60%" cellspacing="0" data-toggle="bootgrid">
                           <thead>
                             <tr>
-                                        <th data-column-id="idPedido" data-identifier="true">Nº</th>
+                                        <th data-column-id="num" data-identifier="true" data-visible="false">Nº</th>
+                                        <th data-column-id="idPedido">Código.</th>
                                         <th data-column-id="cliente">Cliente</th>
                                         <th data-column-id="fechanew">Fecha Pedido</th>
                                         <th data-column-id="fechapag">Fecha Pago</th>
-                                        <th data-column-id="dias">Tiempo</th>
+                                        <th data-column-id="dias">Días restantes</th>
                                         <th data-column-id="EstadoPed">Estado del pedido</th>
                                         <th>
 
-                              <th data-column-id="commands" data-formatter="commands" data-sortable="false">Commands</th>
+                              <th data-column-id="commands" data-formatter="commands" data-sortable="false">Marcar pago.</th>
 
                               <?php $date= 'fechapag';?>
                             </tr>
@@ -119,8 +122,38 @@
                         </div>
                           </div>
                         </div>
-                        <!-- cierre de primer contenido-->
+
                   </div>
+                    <!-- cierre de primer contenido-->
+                    <div class="tab-pane" id="blue">
+                      <!--contenido 2-->
+                      <div class="container">
+                            <div class="">
+                              <h1>Vencidos.</h1>
+                              <div class="col-lg-12">
+                            <div class="table-responsive col-sm-12">
+                          <table id="vencidos_grid" class="table table-condensed table-hover table-striped" width="60%" cellspacing="0" data-toggle="bootgrid">
+                            <thead>
+                              <tr>
+                                          <th data-column-id="num" data-identifier="true" data-visible="false">Nº</th>
+                                          <th data-column-id="idPedido">Código.</th>
+                                          <th data-column-id="cliente">Cliente</th>
+                                          <th data-column-id="fechanew">Fecha de pedido.</th>
+                                          <th data-column-id="fechapag">Fecha de crédito.</th>
+                                          <th data-column-id="dias">Días de vencido.</th>
+                                          <th data-column-id="EstadoPed">Estado del pedido</th>
+                                          <th data-column-id="commands" data-formatter="commands" data-sortable="false">Marcar pago.</th>
+
+                              </tr>
+                            </thead>
+                          </table>
+                        </div>
+                          </div>
+                            </div>
+                          </div>
+
+                    </div>
+<!--cierre de vencidos-->
                   <div class="tab-pane" id="orange">
                     <!--contenido 2-->
                     <div class="container">
@@ -143,11 +176,13 @@
                         </div>
                           </div>
                         </div>
-                        <!-- cierre de segundo contenido-->
+
                   </div>
+              <!-- cierre de segundo contenido-->
 
               </div>
           </div>
+</div>
 </div>
 
 
@@ -254,12 +289,15 @@
   				id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
   			};
   		},
+      labels: {
 
+              loading: "No existen pedidos pendientes por pago actualmente."
+          },
   		url: "pedidos/response.php",
   		formatters: {
   		        "commands": function(column, row)
   		        {
-  		            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.idPedido + "\"><span class=\"glyphicon glyphicon-edit\"></span></button> ";
+  		            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.num + "\"><span class=\"glyphicon glyphicon-edit\"></span></button> ";
   		        }
   		    }
      }).on("loaded.rs.jquery.bootgrid", function()
@@ -423,6 +461,10 @@
           id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
         };
       },
+      labels: {
+
+              loading: "No existen pedidos pagados actualmente."
+          },
       url: "pedidos/response2.php",
 
      });
@@ -456,6 +498,171 @@
    });
 
 
+  </script>
+  <script type="text/javascript">
+  $( document ).ready(function() {
+    var grid = $("#vencidos_grid").bootgrid({
+      ajax: true,
+      rowSelect: true,
+      post: function ()
+      {
+        /* To accumulate custom parameter with the request object */
+        return {
+          id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+        };
+      },
+      labels: {
+
+              loading: "No existen pedidos vencidos actualmente."
+          },
+
+      url: "pedidos/response3.php",
+      formatters: {
+              "commands": function(column, row)
+              {
+                  return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.num + "\"><span class=\"glyphicon glyphicon-edit\"></span></button> ";
+              }
+          }
+     }).on("loaded.rs.jquery.bootgrid", function()
+  {
+      /* Executes after data is loaded and rendered */
+      grid.find(".command-edit").on("click", function(e)
+      {
+          //alert("You pressed edit on row: " + $(this).data("row-id"));
+        var ele =$(this).parent();
+        var g_id = $(this).parent().siblings(':first').html();
+              var g_name = $(this).parent().siblings(':nth-of-type(2)').html();
+  console.log(g_id);
+                      console.log(g_name);
+
+      //console.log(grid.data());//
+      $('#edit_model').modal('show');
+            if($(this).data("row-id") >0) {
+
+                                  // collect the data
+                                  $('#edit_id').val(ele.siblings(':first').html());
+                                  $('#edit_id2').val(ele.siblings(':first').html()); // in case we're changing the key
+                                  $('#edit_name').val(ele.siblings(':nth-of-type(6)').html());
+                                  $('#edit_fecha').val(ele.siblings(':nth-of-type(4)').html());
+                                  $('#dateped').val(ele.siblings(':nth-of-type(3)').html());
+                                  var fechapp = document.getElementById("dateped");
+
+
+
+
+                                  $(function () {
+
+                                  var bindDatePicker = function() {
+
+                                  $(".date").datetimepicker({
+                                     format:'YYYY-MM-DD',
+                                     language: 'es',
+                                     minDate: fechapp.value,
+                                       changeMonth: true,
+                                       changeYear: true,
+                                   icons: {
+                                     time: "fa fa-clock-o",
+                                     date: "fa fa-calendar",
+                                     up: "fa fa-arrow-up",
+                                     down: "fa fa-arrow-down"
+                                   }
+                                  }).find('input:first').on("blur",function () {
+                                   // check if the date is correct. We can accept dd-mm-yyyy and yyyy-mm-dd.
+                                   // update the format if it's yyyy-mm-dd
+                                   var date = parseDate($(this).val());
+
+                                   if (! isValidDate(date)) {
+                                     //create date based on momentjs (we have that)
+                                     date = moment().format('YYYY-MM-DD');
+                                   }
+
+                                   $(this).val(date);
+                                  });
+                                  }
+
+                                  var isValidDate = function(value, format) {
+                                  format = format || false;
+                                  // lets parse the date to the best of our knowledge
+                                  if (format) {
+                                   value = parseDate(value);
+                                  }
+
+                                  var timestamp = Date.parse(value);
+
+                                  return isNaN(timestamp) == false;
+                                  }
+
+                                  var parseDate = function(value) {
+                                  var m = value.match(/^(\d{1,2})(\/|-)?(\d{1,2})(\/|-)?(\d{4})$/);
+                                  if (m)
+                                   value = m[5] + '-' + ("00" + m[3]).slice(-2) + '-' + ("00" + m[1]).slice(-2);
+
+                                  return value;
+                                  }
+
+                                  bindDatePicker();
+
+
+                                  });
+
+
+
+
+
+
+
+
+            } else {
+             alert('Now row selected! First select row, then click edit button');
+            }
+      }).end().find(".command-delete").on("click", function(e)
+      {
+
+      var conf = confirm('Delete ' + $(this).data("row-id") + ' items?');
+            alert(conf);
+                      if(conf){
+                                  $.post('pedidos/response.php', { id: $(this).data("row-id"), action:'delete'}
+                                      , function(){
+                                          // when ajax returns (callback),
+                      $("#employee_grid").bootgrid('reload');
+                                  });
+                  //$(this).parent('tr').remove();
+                  //$("#employee_grid").bootgrid('remove', $(this).data("row-id"))
+                      }
+      });
+  });
+
+  function ajaxAction(action) {
+          data = $("#frm_"+action).serializeArray();
+          $.ajax({
+            type: "POST",
+            url: "pedidos/response.php",
+            data: data,
+            dataType: "json",
+            success: function(response)
+            {
+            $('#'+action+'_model').modal('hide');
+            $("#vencidos_grid").bootgrid('reload');
+            alert('Pedido cambiado a sección de "Pagados"');
+            }
+          });
+        }
+
+
+        $( "#command-add" ).click(function() {
+          $('#add_model').modal('show');
+        });
+        $( "#btn_add" ).click(function() {
+          ajaxAction('add');
+        });
+        $( "#btn_edit" ).click(function() {
+          ajaxAction('edit');
+        });
+
+
+
+
+  });
   </script>
   <script type="text/javascript">
   $( document ).ready(function() {

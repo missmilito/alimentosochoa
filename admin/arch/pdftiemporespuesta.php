@@ -28,7 +28,7 @@ session_start();
 
 
         $mpdf->WriteHTML($contenido,5);
-        $sql = "SELECT datepedido, dateresp, promedio as newprom, idpedido FROM tbltimestat  where promedio BETWEEN '00:01:00' and '23:59:59' group by idpedido";
+        $sql = "SELECT datepedido, dateresp, promedio as newprom, idpedido FROM tbltimestat  where promedio > '00:00:00' group by idpedido";
         $resultado = $mysqli -> query($sql);
 
 

@@ -158,15 +158,12 @@
     font-size: 87px;
 }
 
-
 ul.nav #menu:hover,  #menu:focus, #menu:active {
-  background-color: #2298BC;
+  background-color: #638eb6;
   color:#FFFFFF !important; }
 
 usuario:default{color: white !important}
+ul.nav #menu:hover,  #menu:focus, #menu:active { color: white !important; };
 
-.navbar
-{
-background-color: #395DA1;
-color: #FFFFFF;
-}
+.modal-body {font-family: Georgia; font-size: 15px}
+.modal-header {background-color: #538cc6; color: #FFFFFF; font-weight: bold; border-radius: 3px;}

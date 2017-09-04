@@ -41,7 +41,7 @@
 
 		if( $params['searchPhrase'] !="" ) {
 			$where.="WHERE ";
-			$where .="a.idcli= b.id and (b.nomcliente LIKE '".$params['searchPhrase']."%' ";
+			$where .="a.idcli= b.id and a.fechapagado > 0000-00-00 and (b.nomcliente LIKE '".$params['searchPhrase']."%' ";
 			$where .=" OR a.fechacredito LIKE '".$params['searchPhrase']."%' ";
 			$where .=" OR a.fechapagado LIKE '".$params['searchPhrase']."%' ";
 			$where .=" OR a.idcli LIKE '".$params['searchPhrase']."%' )";
@@ -64,7 +64,7 @@
 	 }
 		else {
 
-			$sql = "select b.nomcliente, a.idp, a.idcli, a.fechacredito, a.fechapagado, datediff(a.fechacredito, a.fechapagado) dias from logpagos a, tblcliente b where a.idcli= b.id";
+			$sql = "select b.nomcliente, a.idp, a.idcli, a.fechacredito, a.fechapagado, datediff(a.fechacredito, a.fechapagado) dias from logpagos a, tblcliente b where a.idcli= b.id and a.fechapagado > 0000-00-00";
 
 			$sqlTot .= $sql;
 			$sqlRec .= $sql;

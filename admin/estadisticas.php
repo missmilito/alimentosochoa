@@ -10,10 +10,12 @@ mysql_select_db('bd_distribuidora') or die('No se pudo seleccionar la base de da
 
 //preparamos la consulta
 if(isset($_POST['fecha3'])){
-  $SQLDatos = "  SELECT time_format(promedio, '%H, %i, %s') as newprom, idpedido FROM tbltimestat where promedio BETWEEN '00:01:00' and '23:59:59' and datepedido BETWEEN '2017-08-10 00:00:00' and '2017-08-10 23:59:59'";
+  $fecha5=$fecha3.' 00:00:00';
+  $fecha6=$fecha4.' 23:59:59';
+  $SQLDatos = "  SELECT time_format(promedio, '%H, %i, %s') as newprom, idpedido FROM tbltimestat where promedio > '00:00:00' and datepedido BETWEEN '$fecha5' and '$fecha6'";
 }
 else {
-  $SQLDatos = "SELECT time_format(promedio, '%H, %i, %s') as newprom, idpedido FROM tbltimestat  where promedio BETWEEN '00:01:00' and '23:59:59' and YEARWEEK(dateresp) = YEARWEEK(CURDATE())";
+  $SQLDatos = "SELECT time_format(promedio, '%H, %i, %s') as newprom, idpedido FROM tbltimestat  where promedio > '00:00:00' and YEARWEEK(dateresp) = YEARWEEK(CURDATE())";
 
 }
 //ejecutamos la consulta
@@ -89,11 +91,15 @@ for ($i=1; $i<($numFilas+1); $i++)
 
   <script type="text/javascript" src="charts/jsapi.js"></script>
       <script type="text/javascript" src="charts/loader.js"></script>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css">
-      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>
-      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+      <!--datetimepicker-->
+      <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/css/bootstrap-datetimepicker.min.css">-->
+        <link rel="stylesheet" href="vendor/calendario/bootstrap-datetimepicker.min.css">
+      <!--<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">-->
+      <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+      <!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js"></script>-->
+      <script type="text/javascript" src="vendor/calendario/moment-with-locales.min.js"></script>
+      <!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.1.3/js/bootstrap-datetimepicker.min.js"></script>-->
+      <script type="text/javascript" src="vendor/calendario/bootstrap-datetimepicker.min.js"></script>
 </head>
 
 
@@ -157,7 +163,6 @@ for ($i=1; $i<($numFilas+1); $i++)
                <h3 class="panel-title">
                   <span class="glyphicon glyphicon-bookmark"></span> 10 + pedidos.</h3>
             </div>
-
 
 
                     <div class="panel-body">
@@ -250,49 +255,54 @@ for ($i=1; $i<($numFilas+1); $i++)
             </div>
         </div>
         </div>
-  </div>
 
-<div class="container col-md-6">
-  <div class="col-md-6" style="width: 500px;">
-<div class="panel panel-primary" style="width: 400px;  border-color: #3E3ED6">
-               <div class="panel-heading" style="background-color: #3E3ED6; border-color: #3E3ED6">
-                   <h3 class="panel-title">
-                    <span class="glyphicon glyphicon-bookmark"></span> Backup de información.</h3>
-               </div>
-          <div class="panel-body">
-            <div class="row" style="text-align=center">
+</div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
 
-              </div>
-              <div class="well col-sm-8" style="text-align: center">
-                <label>Generar como archivo SQL.</label>
-              <button type="button" class="btn btn-primary" onClick="Backup()" data-dismiss="modal">Generar.</button>
+                  <div class="col-md-6">
+                <div class="panel panel-primary" style="width: 500px;  border-color: #4e43c1">
+                               <div class="panel-heading" style="background-color: #4e43c1; border-color: #4e43c1">
+                                   <h3 class="panel-title">
+                                    <span class="glyphicon glyphicon-bookmark"></span> Backup de información.</h3>
+                               </div>
+                          <div class="panel-body">
+                            <div class="row" style="text-align=center">
 
-            </div>
+                              </div>
+                              <div class="well col-sm-12" style="text-align: center">
+                                <label class="col-sm-12">Generar como archivo SQL.</label>
+                              <button type="button" style="background-color: #008080; color: #FFFFFF" class="btn" onClick="Backup()" data-dismiss="modal">Generar.</button>
 
-          </div>
-      </div>
-      </div>
+                            </div>
 
-      <div class="col-md-6" style="width: 500px;">
-    <div class="panel panel-primary" style="width: 400px;">
-                   <div class="panel-heading">
-                       <h3 class="panel-title">
-                        <span class="glyphicon glyphicon-bookmark"></span>Auditoria de procesos.</h3>
-                   </div>
-              <div class="panel-body">
-                <div class="row" style="text-align=center">
+                          </div>
+                      </div>
+                      </div>
+<div></div>
+                      <div class=" col-md-6" >
+                    <div class="panel panel-primary" style="width: 500px;">
+                                   <div class="panel-heading" style="background-color: #4e43c1; border-color: #4e43c1">
+                                       <h3 class="panel-title">
+                                        <span class="glyphicon glyphicon-bookmark"></span>Auditoria de procesos.</h3>
+                                   </div>
+                              <div class="panel-body">
+                                <div class="row" style="text-align=center">
 
-                  </div>
-                  <div class="well col-sm-8 " style="text-align: center">
-                    <label>Generar Auditoria.</label>
-                  <button type="button" class="btn btn-warning"  onClick="Auditar()" data-dismiss="modal">Generar.</button>
+                                  </div>
+                                  <div class="well col-sm-12" style="text-align: center">
+                                    <label class="col-sm-12">Realizar Auditoria.</label>
+                                  <button type="button" style="background-color: #008080; color: #FFFFFF" class="btn"  onClick="Auditar()" data-dismiss="modal">Generar.</button>
 
-                </div>
+                                </div>
 
-              </div>
-          </div>
-          </div>
+                              </div>
+                          </div>
+                          </div>
+
         </div>
+
+
+
 </div>
 </div>
 </div>

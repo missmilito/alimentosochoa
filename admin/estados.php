@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
   <head>
     <link rel="icon" href="../images/headermini.png" type="image/png" sizes="16x16">
@@ -15,17 +15,34 @@
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.js">
     <link rel="stylesheet" href="vendor/jquery/jquery-3.2.1.min.js">
-    <link rel="stylesheet" href="theme/styles2.css">
+    <link rel="stylesheet" href="theme/styles.css">
     <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <style media="screen">
-      ul.nav #menu:hover,  #menu:focus, #menu:active { color: black !important; };
-      usuario:default{color: white !important};
-    }
+    <style >
+
     </style>
   </head>
   <body>
     <div><?php include('theme/theme.php') ?></div>
+    <?php
+    require_once ("config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
+    require_once ("config/conexion.php");//Contiene funcion que conecta a la base de datos
+    $idempleado= $_SESSION['id'];
+
+    if(isset($_POST['pendientes_id'])){$idpedido= utf8_decode($_POST['pendientes_id']);
+
+    //include connection file
+
+    $insert_value=mysqli_query($con, "insert into tbl_auditoria (`id`, `iduser`, `seccion`, `idseccion`, `operacion`, `fecha`) VALUES ('', '$idempleado', 'Estado de pedidos', '$idpedido', 'Procesado', NOW())");
+    }
+    if(isset($_POST['procesados_id'])){$idpedido2= utf8_decode($_POST['procesados_id']);
+
+
+    //include connection file
+
+    $insert_value2=mysqli_query($con, "insert into tbl_auditoria (`id`, `iduser`, `seccion`, `idseccion`, `operacion`, `fecha`) VALUES ('', '$idempleado', 'Estado de pedidos', '$idpedido2', 'Entregado', NOW())");
+    }
+     ?>
     <div id="wrapper">
 
       <!-- Sidebar -->
@@ -168,7 +185,7 @@
           </div>
 </div>
 
-               <div class="container"  style="margin-top:50px" >
+               <div class="container" >
                    <div class="row">
                      <div class="col-lg-8">
 
@@ -191,7 +208,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                         <button type="button" id="btn_edit" class="btn btn-primary">Aceptar</button>
                     </div>
         			</form>
@@ -219,14 +236,45 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" id="btn_edit2" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" id="btn_edit2" class="btn btn-primary">Enviar</button>
                     </div>
               </form>
                 </div>
             </div>
         </div>
     <!--fin de procesados modal-->
+    <!--modal de REPORTES-->
+    <div id="reportes_model" class="modal fade">
+        <div class="modal-dialog" >
+            <div class="modal-content">
+                <div class="modal-header" >
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" ><span class="glyphicon glyphicon-list-alt"></span> Generar reporte.</h4>
+
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="frm_reporte" action="arch/reportepedidos.php" >
+            <input type="hidden" name="id_reporte" id="id_reporte">
+                      <div class="form-group">
+                        <label  for="">Generar reporte del pedido:</label>
+                        <input  style="border: 0px;" readonly name="id_reporte2" id="id_reporte2">
+                      </div>
+                      <div class="form-group">
+                        <label  for="">Perteneciente a:</label>
+                        <input  style="border: 0px;" readonly name="id_cliente" id="id_cliente">
+                      </div>
+
+                </div>
+                <div class="modal-footer ">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" id="btn_reporte" class="btn btn-primary">Aceptar</button>
+                </div>
+          </form>
+            </div>
+        </div>
+    </div>
+    <!--fin del modal reportes-->
       </div>
       </div>
       </div>
@@ -256,7 +304,8 @@
   		formatters: {
   		        "commands": function(column, row)
   		        {
-  		            return "<button type=\"button\" data-toggle=\"tooltip\" title=\"Cambiar estado.\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.num + "\"><span class=\"glyphicon glyphicon-edit\"></span></button> ";
+  		            return "<button type=\"button\" data-toggle=\"tooltip\" title=\"Cambiar estado.\" class=\"btn btn-sm btn-default command-edit\" data-row-id=\"" + row.num + "\"><span class=\"glyphicon glyphicon-edit\"></span></button> " +
+                "<button type=\"button\" data-toggle=\"tooltip\"  title=\"Generar reporte.\" class=\"btn btn-sm btn-default command-reporte\" data-row-id=\"" + row.num + "\"><span class=\"glyphicon glyphicon-list-alt\"></span></button>";
   		        }
   		    }
      }).on("loaded.rs.jquery.bootgrid", function()
@@ -282,7 +331,25 @@
   					} else {
   					 alert('Now row selected! First select row, then click edit button');
   					}
-      });
+      }).end().find(".command-reporte").on("click", function(e)
+    {
+      var ele =$(this).parent();
+      var g_id = $(this).parent().siblings(':first').html();
+            var g_name = $(this).parent().siblings(':nth-of-type(2)').html();
+      console.log(g_id);
+                    console.log(g_name);
+
+      //console.log(grid.data());//
+      $('#reportes_model').modal('show');
+          if($(this).data("row-id") >0) {
+                                // collect the data
+                                $('#id_reporte').val(ele.siblings(':first').html()); // in case we're changing the key
+                                $('#id_reporte2').val(ele.siblings(':first').html()); // in case we're changing the key
+                                $('#id_cliente').val(ele.siblings(':nth-of-type(2)').html()); // in case we're changing the key
+
+
+          }
+    });
       });
 
 
@@ -368,8 +435,10 @@
   		formatters: {
   		        "commands": function(column, row)
   		        {
-  		            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.num + "\"><span class=\"glyphicon glyphicon-edit\"></span></button> ";
-  		        }
+  		            return "<button type=\"button\" class=\"btn btn-sm btn-default command-edit\" data-row-id=\"" + row.num + "\"><span class=\"glyphicon glyphicon-edit\"></span></button> "+
+                "<button type=\"button\" class=\"btn btn-sm btn-default command-reporte\" data-row-id=\"" + row.num + "\"><span class=\"glyphicon glyphicon-list-alt\"></span></button>";
+
+              }
   		    }
      }).on("loaded.rs.jquery.bootgrid", function()
   {
@@ -388,13 +457,31 @@
   					if($(this).data("row-id") >0) {
 
                                   // collect the data
-                                  $('#procesados_id').val(ele.siblings(':nth-of-type(2)').html()); // in case we're changing the key
+                                  $('#procesados_id').val(ele.siblings(':first').html()); // in case we're changing the key
 
 
   					} else {
   					 alert('Now row selected! First select row, then click edit button');
   					}
-      });
+      }).end().find(".command-reporte").on("click", function(e)
+    {
+      var ele =$(this).parent();
+      var g_id = $(this).parent().siblings(':first').html();
+            var g_name = $(this).parent().siblings(':nth-of-type(2)').html();
+      console.log(g_id);
+                    console.log(g_name);
+
+      //console.log(grid.data());//
+      $('#reportes_model').modal('show');
+          if($(this).data("row-id") >0) {
+                                // collect the data
+                                $('#id_reporte').val(ele.siblings(':first').html()); // in case we're changing the key
+                                $('#id_reporte2').val(ele.siblings(':first').html()); // in case we're changing the key
+                                $('#id_cliente').val(ele.siblings(':nth-of-type(2)').html()); // in case we're changing the key
+
+
+          }
+    });
       });
 
 
@@ -442,6 +529,10 @@
           id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
         };
       },
+      labels: {
+
+              loading: "No existen pedidos entregados actualmente"
+          },
       url: "estados/response3.php",
 
      });
@@ -451,6 +542,38 @@
 <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+<script type="text/javascript">
+$(document).on('ready',function(){
+    $("#btn_edit").click(function(){
+        var url = "estados.php";
+        $.ajax({
+           type: "POST",
+           url: url,
+           data: $("#frm_pendientes").serialize(),
+           success: function(data)
+           {
+             alert('procesado');
+           }
+       });
+    });
+});
+</script>
+<script type="text/javascript">
+$(document).on('ready',function(){
+    $("#btn_edit2").click(function(){
+        var url = "estados.php";
+        $.ajax({
+           type: "POST",
+           url: url,
+           data: $("#frm_procesados").serialize(),
+           success: function(data)
+           {
+             alert('procesado');
+           }
+       });
+    });
 });
 </script>
 </html>

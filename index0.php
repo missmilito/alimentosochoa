@@ -17,9 +17,9 @@ if(!empty($_POST))
 {
   $idusuario = mysqli_real_escape_string($con, $_POST['idusuario']);
   $password = mysqli_real_escape_string($con, $_POST['password']);
-  $passcifrado = sha1($password);
+  //$passcifrado = sha1($password);
   $error= '';
-  $sql ="SELECT id, idnivel, idstatus, password from tblusuario where id = '$idusuario' AND password ='$passcifrado'" ;
+  $sql ="SELECT id, idnivel, idstatus, password from tblusuario where id = '$idusuario' AND password ='$password'" ;
   $result =$con -> query($sql);
   $counter=mysqli_num_rows($result);
   $datos = $result->fetch_row();
@@ -226,9 +226,10 @@ text-align: center;
 }
 
 .errorshow{
-  margin-top: 5px;
+  margin-top:40px;
+  margin-left: 30px;
   font-family: Oswald-Regular;
-  font-size: 15px;
+  font-size: 20px;
   color: #F71515;
   text-align: center;
 }
@@ -241,6 +242,7 @@ text-align: center;
 <hr>
 </div>
 <div id="formWrapper">
+
 <div id="form">
   <form id="login-form" action="<?php $_SERVER['PHP_SELF']; ?>" method="POST">
 
@@ -257,24 +259,12 @@ text-align: center;
 		<div class="form-item">
 		<input type="submit" class="login pull-right" value="Iniciar sesión">
 		<div class="clear-fix"></div>
-    <?php if(isset($error)) { ?>
-    <div class="errorshow">
-      <?php echo isset($error) ?  utf8_encode(utf8_decode($error)): '' ; ?>
-    </div>
-  <?php } ?>
-  <?php   if(isset($error1)) {?>
-    <div class="errorshow">
-      <?php echo isset($error1) ?  utf8_encode(utf8_decode($error1)): '' ; ?>
-    </div>
-      <?php } ?>
 		</div>
   </form>
 </div>
-
-
 </div>
-
-
+<div class="errorshow"><?php echo isset($error) ?  utf8_encode(utf8_decode($error)): '' ; ?></div>
+<div class="errorshow"><?php echo isset($error1) ?  utf8_encode(utf8_decode($error1)): '' ; ?></div>
 </body>
 
 

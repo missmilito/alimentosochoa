@@ -95,7 +95,8 @@ font-weight: bold;
         		<table id="employee_grid" class="table table-condensed table-hover table-striped" width="60%" cellspacing="0" data-toggle="bootgrid">
         			<thead>
         				<tr>
-                  <th data-column-id="idPedido" data-identifier="true">Nº</th>
+                  <th data-column-id="num" data-identifier="true" data-visible="false">Nº</th>
+                      <th data-column-id="idPedido">Código.</th>
                       <th data-column-id="fechaped">Fecha de Pedido</th>
                       <th data-column-id="fechapag">Fecha del crédito</th>
                       <th data-column-id="nomestado">Estado del pago</th>
@@ -123,8 +124,9 @@ font-weight: bold;
             <input type="hidden" value="edit" name="action" id="action">
             <h3 style="text-align: center">Generar reporte del pedido:</h3>
                       <div class="form-group" style="font-size: 15px; font-weight: bold;">
-                        <label for="nomcliente" class="control-label">Nº:</label>
-                        <input style="border: 0px; border-color:white"name="idreporte" id="idreporte" readonly>
+                        <label for="idreporte" class="control-label">Código:</label>
+                        <input style="border: 0px; border-color:white"name="idreporte2" id="idreporte2" readonly>
+                          <input type="hidden" name="idreporte" id="idreporte">
                       </div>
                 </div>
                 <div class="modal-footer">
@@ -162,7 +164,7 @@ font-weight: bold;
   		formatters: {
   		        "commands": function(column, row)
   		        {
-  		            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.idPedido + "\"><span class=\"glyphicon glyphicon-edit\"></span></button> ";
+  		            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.num + "\"><span class=\"glyphicon glyphicon-edit\"></span></button> ";
   		        }
   		    }
      }).on("loaded.rs.jquery.bootgrid", function()
@@ -183,6 +185,7 @@ font-weight: bold;
 
                                   // collect the data
                                   $('#idreporte').val(ele.siblings(':first').html()); // in case we're changing the key
+                                  $('#idreporte2').val(ele.siblings(':first').html()); // in case we're changing the key
 
 
   					} else {

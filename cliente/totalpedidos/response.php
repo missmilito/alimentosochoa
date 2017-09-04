@@ -55,7 +55,7 @@
 			$where .=" ORDER By ".key($params['sort']) .' '.current($params['sort'])." ";
 		}
 	   // getting total number records without any search
-		$sql = "select a.id as idPedido, a.fechaped, b.nomestado, a.fechapag, c.EstadoPed from tblpedido a, tblestadopag b, tblestadoped c, tblcliente d where c.id = a.idestadoped and a.idcliente='".$idusuario."' and d.id = a.idcliente and a.idestadopag = b.id";
+		$sql = "select a.num as num, a.id as idPedido, a.fechaped, b.nomestado, a.fechapag, c.EstadoPed from tblpedido a, tblestadopag b, tblestadoped c, tblcliente d where c.id = a.idestadoped and a.idcliente='".$idusuario."' and d.id = a.idcliente and a.idestadopag = b.id";
 
 		$sqlTot .= $sql;
 		$sqlRec .= $sql;

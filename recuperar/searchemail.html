@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="denker">
+    <link rel="icon" href="../images/headermini.png" type="image/png" sizes="16x16">
 
     <title> Resetear contraseña </title>
 
@@ -14,45 +15,150 @@
     <link href="css/style.css" rel="stylesheet">
 
 <style media="screen">
-body {
-    background-color: black;
-    background: url(../images/fabric.png) repeat ;
-     background-repeat: repeat-y cover;
-}
+@font-face { font-family: RobotoCondensed-Regular;
+			 src: url('../fonts/RobotoCondensed-Regular.ttf');
+     }
 
-.containertotal{
+     @font-face { font-family: Oswald-Regular;
+     			 src: url('../fonts/Oswald-Regular.ttf');
+          }
+          body{
+          	 background: url(../images/fondo.png) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            font-family:'HelveticaNeue','Arial', sans-serif;
 
-}
+          }
+          .panel{
+            position: absolute;
+            width:360px;
+            height:340px;
+            height:auto;
+            background-color: #fff;
+            margin:auto;
+            border-radius: 5px;
+            padding:20px;
+            left:50%;
+            top:50%;
+            margin-left:-180px;
+
+          }
+          #email {
+            color:#8a8a8a;
+          	display: block;
+          	width: 90%;
+          	height: 44px;
+          	padding: 10px 10%;
+          	border:1px solid #ccc;
+          	-moz-border-radius: 27px;
+          	-webkit-border-radius: 27px;
+          	border-radius: 27px;
+          	-moz-background-clip: padding;
+          	-webkit-background-clip: padding-box;
+          	background-clip: padding-box;
+          	background-color: #fff;
+          	font-family:'HelveticaNeue','Arial', sans-serif;
+          	font-size: 105%;
+          	letter-spacing: .8px;
+          }
+
+          div.form-item{position: relative; display: block; margin-top: 10px; margin-bottom: 20px;}
+           input{transition: all .2s ease;}
+           input.form-style{
+            color:#8a8a8a;
+            display: block;
+            width: 90%;
+            height: 44px;
+            padding: 10px 10%;
+            border:1px solid #ccc;
+            -moz-border-radius: 27px;
+            -webkit-border-radius: 27px;
+            border-radius: 27px;
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+            background-color: #fff;
+            font-family:'HelveticaNeue','Arial', sans-serif;
+            font-size: 105%;
+            letter-spacing: .8px;
+          }
+          div.form-item .form-style:focus{outline: none; border:1px solid #58bff6; color:#58bff6; }
+          div.form-item p.formLabel {
+            position: absolute;
+            left:26px;
+            top:10px;
+            transition:all .4s ease;
+            color:#bbb;}
+          .formTop{top:-22px !important; left:26px; background-color: #fff; padding:0 5px; font-size: 14px; color:#58bff6 !important;}
+          .formStatus{color:#8a8a8a !important;}
+          input[type="submit"].login{
+            float:right;
+            width: 112px;
+            height: 37px;
+            -moz-border-radius: 19px;
+            -webkit-border-radius: 19px;
+            border-radius: 19px;
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+            background-color: #55b1df;
+            border:1px solid #55b1df;
+            border:none;
+            color: #fff;
+            font-weight: bold;
+          }
+          input[type="submit"].login:hover{background-color: #fff; border:1px solid #55b1df; color:#55b1df; cursor:pointer;}
+          input[type="submit"].login:focus{outline: none;}
+
+          .mensaje1 {
+            font-size: 15px;
+            font-family: RobotoCondensed-Regular;
+            text-align: justify;
+          }
+          .recuperar {
+            font-size: 20px;
+            font-family: RobotoCondensed-Regular;
+            font-weight: bold;
+            text-align: center;
+          }
+          .formboton {
+            text-align: center;
+            font-family: RobotoCondensed-Regular;
+              letter-spacing: .8px;
+              font-size: 20px;
+              font-weight: bold;
+          }
+
 </style>
   </head>
 
   <body>
     <div class="header col-md-12 col-sm-12" style="text-align: center">
-
-    <img src="../images/headermini.png" alt="headermini.png" width="320px" height="180px">
+    <img src="../images/headermini2.png" alt="headermini2.png" >
     <hr>
     </div>
 
-    <div class="container containertotal" role="main">
-      <div class="col-md-4"></div>
-      <div class="col-md-4">
+    <div class="form" id="form" role="main">
+
         <form id="frmRestablecer" action="validaremail.php" method="post">
           <div class="panel panel-default">
-            <div class="panel-heading"> Restaurar contraseña </div>
             <div class="panel-body">
-              <p></p>
+              <p class="recuperar">RECUPERACIÓN DE CONTRASEÑA.</p>
               <div class="form-group">
-                <label for="email2"> Escribe el email asociado a tu cuenta para recuperar tu contraseña </label>
+                <div class="form-item">
+                <p class="mensaje1">Ingresa el email asociado a tu cuenta de usuario.</p>
                 <input type="email" id="email" class="form-control" name="email" required>
               </div>
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary">Enviar email.</button>
+              </div>
+              <div class="formboton">
+                <button type="submit" class="btn btn-primary">ENVIAR EMAIL.</button>
               </div>
             </div>
-          </div>
+
         </form>
         <div id="mensaje">
-
         </div>
       </div>
       <div class="col-md-4"></div>
@@ -64,7 +170,7 @@ body {
     <script>
       $(document).ready(function(){
         $("#frmRestablecer").submit(function(){
-          
+
           $.ajax({
             url:'validaremail.php',
             type:'post',

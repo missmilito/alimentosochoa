@@ -1,9 +1,9 @@
 <?php include('security.php') ?>
-<div class="navbar navbar-default navbar-fixed-top"  role="navigation">
+<div  class="navbar navbar-default navbar-fixed-top"  role="navigation">
   <!--boton toggle menu -->
     <!--comienzo del navbar-->
 
-    <div class="container">
+    <div class="container" >
         <div class="navbar-header">
 
 

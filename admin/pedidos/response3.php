@@ -59,22 +59,22 @@
 
 		if( $params['searchPhrase'] !="" ) {
 			$where.="WHERE ";
-			$where .=" c.id = a.idestadoped and d.id = a.idcliente and a.idestadopag = '1' and datediff(a.fechapag, CURDATE()) >0 and (d.nomcliente LIKE '".$params['searchPhrase']."%' ";
+			$where .=" c.id = a.idestadoped and d.id = a.idcliente and a.idestadopag = '1' and datediff(a.fechapag, CURDATE()) <0 and (d.nomcliente LIKE '".$params['searchPhrase']."%' ";
 			$where .=" OR c.EstadoPed LIKE '".$params['searchPhrase']."%' ";
 			$where .=" OR a.id LIKE '".$params['searchPhrase']."%' ";
 			$where .=" OR a.fechaped LIKE '".$params['searchPhrase']."%' )";
 		 if( !empty($params['sort']) ) {
 			$where .=" ORDER By ".key($params['sort']) .' '.current($params['sort'])." ";
 
-			$sql = "select a.id as idPedido, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, DATE_FORMAT(a.fechaped, '%Y/%m/%d') as fechanew, a.fechapag, datediff(a.fechapag, CURDATE()) dias, c.EstadoPed from tblpedido a,  tblestadopag b, tblestadoped c, tblcliente d";
+			$sql = "select a.num, a.id as idPedido, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, DATE_FORMAT(a.fechaped, '%Y/%m/%d') as fechanew, a.fechapag, datediff(a.fechapag, CURDATE()) dias1, datediff(CURDATE(), a.fechapag) dias, c.EstadoPed from tblpedido a, tblestadopag b, tblestadoped c, tblcliente d";
 
 			$sqlTot = $sql;
 			$sqlRec = $sql;
 		 }
 		 if(isset($where) && $where != '') {
 
-			 $sqlTot= "select a.id as idPedido, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, DATE_FORMAT(a.fechaped, '%Y/%m/%d') as fechanew, a.fechapag, datediff(a.fechapag, CURDATE()) dias, c.EstadoPed from tblpedido a,  tblestadopag b, tblestadoped c, tblcliente d $where group by a.id";
-			 $sqlRec= "select a.id as idPedido, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, DATE_FORMAT(a.fechaped, '%Y/%m/%d') as fechanew, a.fechapag, datediff(a.fechapag, CURDATE()) dias, c.EstadoPed from tblpedido a,  tblestadopag b, tblestadoped c, tblcliente d  $where group by a.id";
+			 $sqlTot= "select a.num, a.id as idPedido, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, DATE_FORMAT(a.fechaped, '%Y/%m/%d') as fechanew, a.fechapag, datediff(a.fechapag, CURDATE()) dias1, datediff(CURDATE(), a.fechapag) dias, c.EstadoPed from tblpedido a, tblestadopag b, tblestadoped c, tblcliente d $where group by a.id";
+			 $sqlRec= "select a.num, a.id as idPedido, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, DATE_FORMAT(a.fechaped, '%Y/%m/%d') as fechanew, a.fechapag, datediff(a.fechapag, CURDATE()) dias1, datediff(CURDATE(), a.fechapag) dias, c.EstadoPed from tblpedido a, tblestadopag b, tblestadoped c, tblcliente d  $where group by a.id";
 		 }
 		 if ($rp!=-1)
 		 $sqlRec .= " LIMIT ". $start_from .",".$rp;
@@ -82,7 +82,7 @@
 	 }
 		else {
 
-			$sql = "select a.id as idPedido, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, DATE_FORMAT(a.fechaped, '%Y/%m/%d') as fechanew, a.fechapag, datediff(a.fechapag, CURDATE()) dias, c.EstadoPed from tblpedido a, tblestadopag b, tblestadoped c, tblcliente d where c.id = a.idestadoped and d.id = a.idcliente and a.idestadopag = '1' and datediff(a.fechapag, CURDATE()) >0 group by a.id";
+			$sql = "select a.num, a.id as idPedido, CONCAT(d.nomcliente, ' ', d.apellidocli) as cliente, DATE_FORMAT(a.fechaped, '%Y/%m/%d') as fechanew, a.fechapag, datediff(a.fechapag, CURDATE()) dias1, datediff(CURDATE(), a.fechapag) dias, c.EstadoPed from tblpedido a, tblestadopag b, tblestadoped c, tblcliente d where c.id = a.idestadoped and d.id = a.idcliente and a.idestadopag = '1' and datediff(a.fechapag, CURDATE()) <0 group by a.id";
 
 			$sqlTot .= $sql;
 			$sqlRec .= $sql;
